@@ -1,0 +1,169 @@
+# Overview
+TileTech is a professional tile installation service based in Israel requiring a modern, single-page website to showcase their services and attract local homeowners. The website will serve as the company's digital storefront, highlighting their expertise in home tiling, kitchen and bathroom remodels, and custom mosaic work. The site will be developed in Hebrew with RTL (right-to-left) support, optimized for mobile devices, and designed to generate leads through an integrated contact/quote form.
+
+# Core Features
+1. **Responsive Hebrew RTL Layout**
+   - Full RTL support for Hebrew content
+   - Mobile-first design approach ensuring perfect display on all devices
+   - Warm, earthy color palette reflecting craftsman aesthetic
+
+2. **Hero Section**
+   - Eye-catching image carousel showcasing premium completed projects
+   - Prominent value proposition in Hebrew highlighting expertise and quality
+   - Clear call-to-action button leading to quote request form
+
+3. **Services Showcase**
+   - Visual presentation of core services (home tiling, kitchen/bathroom remodels, mosaic work)
+   - Before/after image comparisons of notable projects
+   - Service-specific details highlighting expertise and quality
+
+4. **Project Gallery**
+   - Filterable gallery of completed projects organized by type
+   - High-quality optimized images showcasing craftsmanship
+   - Brief descriptions of project challenges and solutions
+
+5. **Testimonials Section**
+   - Customer reviews with location information for local SEO
+   - Rating system showcasing customer satisfaction
+   - Authentic testimonials highlighting reliability and quality
+
+6. **Contact/Quote Form**
+   - Multi-step form for quote requests
+   - Required fields for project type, scope, timeline, and budget
+   - Form validation with Hebrew error messages
+   - WhatsApp integration option for direct communication
+
+7. **Local SEO Optimization**
+   - Hebrew meta tags and descriptions
+   - Structured data for local business
+   - Location-specific keywords and content
+
+# User Experience
+**Primary Persona: Local Homeowner**
+- Ages 30-65, middle to upper-middle class
+- Looking for quality tile installation for renovation
+- Values craftsmanship, reliability, and professional service
+- May have limited technical expertise
+- Uses mobile devices more frequently than desktop
+
+**Key User Flows:**
+1. Discover → Browse Services → View Gallery → Request Quote
+2. Search for local tile service → View Testimonials → Contact directly
+3. View completed projects → Filter by type → Request similar work
+
+**UI/UX Considerations:**
+- Warm, trustworthy color palette using earthy tones
+- Large, easily readable Hebrew typography
+- Intuitive navigation with minimal scrolling
+- Touch-friendly elements for mobile users
+- Fast loading times for impatient users
+- Prominently displayed contact options
+
+# Technical Architecture
+**Frontend:**
+- Next.js (React) for server-side rendering and SEO benefits
+- Tailwind CSS with RTL configuration for styling
+- Responsive image handling with Next.js Image component
+- Headless UI components for accessibility
+- Client-side form validation with React Hook Form and Zod
+
+**Backend:**
+- Next.js API routes for form handling
+- Email notification system for quote requests
+- Simple JSON storage for testimonials and project data
+
+**Data Models:**
+- Projects: id, title, description, category, images, features
+- Testimonials: id, name, location, rating, comment, date
+- Services: id, title, description, features, image
+- ContactRequests: id, name, email, phone, projectType, description, budget, date
+
+**Infrastructure:**
+- Hosting on Vercel for Next.js optimization
+- Image optimization and CDN delivery
+- Environment variables for sensitive configuration
+
+# Development Roadmap
+**Phase 1: MVP**
+- Setup Next.js project with RTL configuration
+- Implement basic page structure and navigation
+- Create responsive hero section with placeholder images
+- Build services section with core service offerings
+- Develop simple contact form with validation
+- Implement basic SEO optimization
+- Deploy MVP to production
+
+**Phase 2: Enhanced Features**
+- Expand project gallery with filtering capability
+- Add testimonials section with customer reviews
+- Implement WhatsApp integration
+- Add image optimization and lazy loading
+- Enhance form with multi-step process
+- Implement advanced SEO features
+- Add analytics tracking
+
+**Phase 3: Future Enhancements**
+- Client portal for project tracking
+- Online payment system for deposits
+- Interactive design tool for custom mosaics
+- Appointment scheduling system
+- Blog section with tile care tips and trends
+- Integration with social media platforms
+
+# Logical Dependency Chain
+1. **Foundation:**
+   - Next.js project setup with RTL support
+   - Basic layout structure and navigation
+   - Core styling system and theme
+
+2. **Content Structure:**
+   - Hero section implementation
+   - Services section with core offerings
+   - Basic contact form
+
+3. **Visual Appeal:**
+   - Project gallery implementation
+   - Image optimization and carousel
+   - Responsive layouts for all devices
+
+4. **User Engagement:**
+   - Enhanced multi-step contact form
+   - Testimonials section
+   - WhatsApp integration
+
+5. **Optimization:**
+   - SEO implementation
+   - Performance optimization
+   - Analytics integration
+
+# Risks and Mitigations
+**Technical Challenges:**
+- **RTL Layout Issues:** Use specialized RTL plugins and thoroughly test across browsers
+- **Image Performance:** Implement Next.js Image component with aggressive optimization
+- **Form Handling:** Use robust validation libraries and implement error handling
+- **Hebrew Font Rendering:** Test with multiple Hebrew fonts and fallbacks
+
+**Resource Constraints:**
+- **Limited Design Assets:** Create a system for generating consistent UI without extensive custom design
+- **Content Creation:** Provide templates for client to easily supply Hebrew content
+- **Testing Resources:** Implement automated testing where possible
+
+**User Adoption:**
+- **Technical Comfort Level:** Create intuitive interface requiring minimal technical knowledge
+- **Form Completion Rate:** Design multi-step form to reduce abandonment
+- **Mobile Performance:** Ensure excellent mobile experience through extensive testing
+
+# Appendix
+**Recommended Hebrew Fonts:**
+- Frank Ruhl Libre (Google Fonts)
+- Heebo (Google Fonts)
+- Assistant (Google Fonts)
+
+**Color Palette:**
+- Primary: Warm terracotta (#C66)
+- Secondary: Earthy brown (#964B00)
+- Accents: Sage green (#9CAF88)
+- Neutrals: Warm grey (#E5E5E0)
+
+**Competitor Analysis:**
+Local tile installation businesses lack modern, responsive websites with clear service offerings and easy contact methods. TileTech can differentiate through professional presentation and streamlined user experience.

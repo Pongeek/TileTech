@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <pattern id="oldTilePattern" patternUnits="userSpaceOnUse" width="50" height="50">
+      <rect width="50" height="50" fill="#dcdcdc" stroke="#ccc" stroke-width="1" />
+      <rect width="48" height="48" x="1" y="1" fill="#e0e0e0" stroke="#ccc" stroke-width="0.5" />
+    </pattern>
+    <linearGradient id="dirtyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b8b8b8" stop-opacity="0.1" />
+      <stop offset="50%" stop-color="#a0a0a0" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#b8b8b8" stop-opacity="0.1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#oldTilePattern)" />
+  <rect width="800" height="600" fill="url(#dirtyGradient)" />
+  <rect width="800" height="80" y="520" fill="#333" opacity="0.7" />
+  <text x="400" y="570" font-family="Arial" font-size="30" text-anchor="middle" fill="#fff">לפני - Before</text>
+</svg> 

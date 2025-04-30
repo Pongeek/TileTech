@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "name": "יוסי כהן",
+    "profileImage": "/images/testimonials/profile-1.jpg",
+    "location": "תל אביב, ישראל",
+    "rating": 5,
+    "text": "עבודה מקצועית ואיכותית. התהליך היה חלק מאוד, והתוצאה הסופית עלתה על כל הציפיות שלנו! הריצוף בסלון שלנו מושלם. אני ממליץ בחום לכל מי שמחפש אנשי מקצוע אמינים.",
+    "date": "2023-12-15",
+    "featured": true,
+    "projectType": "residential"
+  },
+  {
+    "id": 2,
+    "name": "רונית לוי",
+    "profileImage": "/images/testimonials/profile-2.jpg",
+    "location": "חיפה, ישראל",
+    "rating": 4.5,
+    "text": "שיפוץ חדר האמבטיה שלנו יצא מדהים! העבודה הייתה מקצועית והעובדים היו אדיבים ודייקנים. אמנם היו כמה עיכובים קטנים בלוח הזמנים, אבל התוצאה הסופית בהחלט הייתה שווה את ההמתנה.",
+    "date": "2023-11-28",
+    "featured": false,
+    "projectType": "bathroom"
+  },
+  {
+    "id": 3,
+    "name": "משה אברהמי",
+    "profileImage": "/images/testimonials/profile-3.jpg",
+    "location": "ירושלים, ישראל",
+    "rating": 5,
+    "text": "הזמנתי עבודת פסיפס מורכבת למטבח החדש שלנו והתוצאה פשוט מרהיבה! האריחים מותאמים בצורה מושלמת והעיצוב בדיוק כפי שדמיינתי. ללא ספק אחת ההחלטות הטובות ביותר שעשיתי בתהליך השיפוץ.",
+    "date": "2023-10-20",
+    "featured": true,
+    "projectType": "kitchen"
+  },
+  {
+    "id": 4,
+    "name": "דנה שרון",
+    "profileImage": "/images/testimonials/profile-4.jpg",
+    "location": "רעננה, ישראל",
+    "rating": 4,
+    "text": "שכרנו את השירותים לריצוף מחדש של הבית שלנו. העבודה בוצעה ברמה טובה מאוד והעובדים היו מקצועיים. יש מספר פרטים קטנים שהייתי מעדיפה שיעשו אחרת, אבל באופן כללי אני מרוצה מהתוצאה.",
+    "date": "2023-09-05",
+    "featured": false,
+    "projectType": "residential"
+  },
+  {
+    "id": 5,
+    "name": "עמית גולן",
+    "profileImage": "/images/testimonials/profile-5.jpg",
+    "location": "ראשון לציון, ישראל",
+    "rating": 5,
+    "text": "שיפצנו את המשרדים שלנו והתוצאה מעולה! הריצוף החדש שדרג את המראה של החלל בצורה דרמטית. העבודה הייתה מהירה וההפרעה לפעילות העסקית הייתה מינימלית. מומלץ בחום!",
+    "date": "2023-08-12",
+    "featured": true,
+    "projectType": "commercial"
+  },
+  {
+    "id": 6,
+    "name": "מיכל ברקוביץ'",
+    "profileImage": "/images/testimonials/profile-6.jpg",
+    "location": "באר שבע, ישראל",
+    "rating": 3.5,
+    "text": "העבודה הייתה בסדר, אבל היו כמה בעיות בתקשורת שגרמו לעיכובים. הריצוף עצמו יצא טוב, אבל הייתי מצפה לשירות טוב יותר, במיוחד לאור המחיר. עם זאת, הם תיקנו את הבעיות שהתעוררו.",
+    "date": "2023-07-30",
+    "featured": false,
+    "projectType": "bathroom"
+  },
+  {
+    "id": 7,
+    "name": "אלון מזרחי",
+    "profileImage": "/images/testimonials/profile-7.jpg",
+    "location": "הרצליה, ישראל",
+    "rating": 5,
+    "text": "הזמנתי עבודת פסיפס לקיר בבית הקפה שלי והתוצאה מדהימה! הדיוק בעבודה והיצירתיות בביצוע היו מעל ומעבר למה שציפיתי. הלקוחות שלי לא מפסיקים להתפעל מהעיצוב החדש.",
+    "date": "2023-06-22",
+    "featured": true,
+    "projectType": "commercial"
+  },
+  {
+    "id": 8,
+    "name": "נועה גרינברג",
+    "profileImage": "/images/testimonials/profile-8.jpg",
+    "location": "כפר סבא, ישראל",
+    "rating": 4.5,
+    "text": "השיפוץ במטבח שלנו יצא מצוין. האריחים שנבחרו משתלבים בצורה מושלמת עם העיצוב הכללי של הבית. העבודה נעשתה בזמן והמחיר היה הוגן. מומלץ!",
+    "date": "2023-05-18",
+    "featured": false,
+    "projectType": "kitchen"
+  },
+  {
+    "id": 9,
+    "name": "איתי לויט",
+    "profileImage": "/images/testimonials/profile-9.jpg",
+    "location": "מודיעין, ישראל",
+    "rating": 5,
+    "text": "התקנתי אריחים מעוצבים בחדר המגורים ובחדר השינה וזה פשוט יצא מושלם! העבודה הייתה מדויקת, נקייה ובמחיר הוגן. אמליץ עליכם לכל חבריי!",
+    "date": "2023-04-10",
+    "featured": true,
+    "projectType": "residential"
+  },
+  {
+    "id": 10,
+    "name": "גלית שמעוני",
+    "profileImage": "/images/testimonials/profile-10.jpg",
+    "location": "נתניה, ישראל",
+    "rating": 4,
+    "text": "שיפצתי את חדר האמבטיה באמצעותם והתוצאה יפה מאוד. היו קצת עיכובים באספקת האריחים, אבל הם עדכנו אותי לאורך כל הדרך ועשו מאמץ להשלים את העבודה בזמן.",
+    "date": "2023-03-25",
+    "featured": false,
+    "projectType": "bathroom"
+  }
+] 

@@ -1,0 +1,52 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f0f0f0" />
+  
+  <!-- Tile Pattern - Bathroom Hexagon Tiles -->
+  <defs>
+    <pattern id="tilePattern" x="0" y="0" width="60" height="104" patternUnits="userSpaceOnUse">
+      <!-- Row 1 -->
+      <polygon points="0,26 15,0 45,0 60,26 45,52 15,52" fill="#e6e6e6" stroke="#d9d9d9" stroke-width="1" />
+      <polygon points="60,26 75,0 105,0 120,26 105,52 75,52" fill="#d9d9d9" stroke="#d9d9d9" stroke-width="1" />
+      
+      <!-- Row 2 -->
+      <polygon points="30,78 45,52 75,52 90,78 75,104 45,104" fill="#d9d9d9" stroke="#d9d9d9" stroke-width="1" />
+      <polygon points="-30,78 -15,52 15,52 30,78 15,104 -15,104" fill="#e6e6e6" stroke="#d9d9d9" stroke-width="1" />
+      <polygon points="90,78 105,52 135,52 150,78 135,104 105,104" fill="#e6e6e6" stroke="#d9d9d9" stroke-width="1" />
+    </pattern>
+  </defs>
+  
+  <!-- Apply Tile Pattern -->
+  <rect width="800" height="600" fill="url(#tilePattern)" />
+  
+  <!-- Overlay with slight gradient -->
+  <rect width="800" height="600" fill="url(#overlay)" opacity="0.3" />
+  
+  <!-- Bathroom Icon -->
+  <!-- Bathtub -->
+  <rect x="300" y="180" width="200" height="100" rx="20" ry="20" fill="#e6e6e6" stroke="#cccccc" stroke-width="2" />
+  <rect x="300" y="220" width="200" height="10" fill="#d9d9d9" stroke="#cccccc" stroke-width="1" />
+  <!-- Faucet -->
+  <rect x="330" y="160" width="10" height="20" fill="#a0a0a0" />
+  <circle cx="335" cy="155" r="5" fill="#a0a0a0" />
+  <!-- Feet -->
+  <rect x="310" y="280" width="15" height="10" rx="5" ry="5" fill="#a0a0a0" />
+  <rect x="475" y="280" width="15" height="10" rx="5" ry="5" fill="#a0a0a0" />
+  <!-- Shower Head -->
+  <rect x="460" y="150" width="5" height="30" fill="#a0a0a0" />
+  <circle cx="462.5" cy="145" r="10" fill="#a0a0a0" />
+  <path d="M452.5,145 Q462.5,135 472.5,145" fill="none" stroke="#a0a0a0" stroke-width="2" />
+  
+  <!-- Text Label -->
+  <text x="400" y="350" font-family="Arial, sans-serif" font-size="36" text-anchor="middle" fill="#555555">
+    חדרי אמבטיה
+  </text>
+  
+  <!-- Gradient Overlay -->
+  <defs>
+    <linearGradient id="overlay" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#796145;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#c19a6b;stop-opacity:0.1" />
+    </linearGradient>
+  </defs>
+</svg> 

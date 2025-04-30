@@ -1,0 +1,104 @@
+[
+  {
+    "id": 1,
+    "title": {
+      "he": "ריצוף בתים",
+      "en": "Home Tiling"
+    },
+    "description": {
+      "he": "התקנת אריחים איכותיים ובעלי עמידות גבוהה לריצוף הבית שלכם. צוות המומחים שלנו מתמחה באריחי קרמיקה, פורצלן, אבן טבעית ועוד, תוך שימת דגש על איכות ודיוק בעבודה.",
+      "en": "Installation of high-quality and durable tiles for your home flooring. Our expert team specializes in ceramic, porcelain, natural stone, and more, with emphasis on quality and precision workmanship."
+    },
+    "features": {
+      "he": [
+        "ריצוף מקצועי לכל חדרי הבית",
+        "מגוון רחב של סוגי אריחים וגימורים",
+        "פתרונות מותאמים אישית לכל חלל",
+        "התקנה מדויקת ומקצועית",
+        "אחריות על העבודה המבוצעת"
+      ],
+      "en": [
+        "Professional tiling for all home areas",
+        "Wide variety of tile types and finishes",
+        "Customized solutions for every space",
+        "Precise and professional installation",
+        "Workmanship warranty"
+      ]
+    },
+    "specialties": ["precise-cuts", "large-format", "pattern-layouts"],
+    "images": {
+      "main": "/images/services/home-tiling.svg",
+      "before": "/images/services/home-tiling-before.jpg",
+      "after": "/images/services/home-tiling-after.svg"
+    },
+    "icon": "home"
+  },
+  {
+    "id": 2,
+    "title": {
+      "he": "שיפוץ מטבחים וחדרי אמבטיה",
+      "en": "Kitchen & Bathroom Remodeling"
+    },
+    "description": {
+      "he": "שירותי שיפוץ ועיצוב מקיפים למטבחים וחדרי אמבטיה, כולל התקנת אריחים מותאמים אישית. אנו מלווים את הלקוח משלב התכנון ועד לביצוע המושלם, תוך שימוש בחומרים איכותיים ועמידים למים.",
+      "en": "Comprehensive renovation and design services for kitchens and bathrooms, including custom tile installation. We guide clients from the planning stage to perfect execution, using high-quality and water-resistant materials."
+    },
+    "features": {
+      "he": [
+        "תכנון וייעוץ מקצועי",
+        "אריחי קיר ורצפה עמידים למים",
+        "התקנת חיפויי קיר דקורטיביים",
+        "פתרונות לחללים קטנים וגדולים",
+        "שילוב אלמנטים עיצוביים מיוחדים"
+      ],
+      "en": [
+        "Professional planning and consultation",
+        "Water-resistant wall and floor tiles",
+        "Decorative wall covering installation",
+        "Solutions for small and large spaces",
+        "Integration of unique design elements"
+      ]
+    },
+    "specialties": ["waterproof", "backsplashes", "shower-installations"],
+    "images": {
+      "main": "/images/services/kitchen-bath.jpg",
+      "before": "/images/services/kitchen-bath-before.jpg",
+      "after": "/images/services/kitchen-bath-after.jpg"
+    },
+    "icon": "bath"
+  },
+  {
+    "id": 3,
+    "title": {
+      "he": "עבודות פסיפס מותאמות אישית",
+      "en": "Custom Mosaic Work"
+    },
+    "description": {
+      "he": "יצירת עבודות פסיפס ייחודיות ומותאמות אישית לפי צרכי הלקוח. הצוות האומנותי שלנו מתמחה בעיצוב וביצוע פסיפסים מורכבים באיכות גבוהה, המשלבים טכניקות מסורתיות עם חידושים מודרניים.",
+      "en": "Creation of unique and custom mosaic works tailored to client needs. Our artistic team specializes in designing and executing complex, high-quality mosaics, combining traditional techniques with modern innovations."
+    },
+    "features": {
+      "he": [
+        "עיצוב פסיפס מותאם אישית",
+        "שימוש באריחים זכוכית, קרמיקה ואבן",
+        "אפשרות לשילוב מוטיבים ייחודיים",
+        "פסיפסים לקירות, רצפות ומשטחים",
+        "מראה יוקרתי ובלתי שגרתי"
+      ],
+      "en": [
+        "Custom mosaic design",
+        "Use of glass, ceramic, and stone tiles",
+        "Option to incorporate unique motifs",
+        "Mosaics for walls, floors, and surfaces",
+        "Luxurious and extraordinary appearance"
+      ]
+    },
+    "specialties": ["artistic", "detailed-work", "color-matching"],
+    "images": {
+      "main": "/images/services/mosaic.svg",
+      "before": "/images/services/mosaic-before.jpg",
+      "after": "/images/services/mosaic-after.svg"
+    },
+    "icon": "puzzle"
+  }
+] 

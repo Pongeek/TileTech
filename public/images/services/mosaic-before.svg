@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <pattern id="plainWallPattern" patternUnits="userSpaceOnUse" width="100" height="100">
+      <rect width="100" height="100" fill="#f0f0f0" />
+      <rect width="98" height="98" x="1" y="1" fill="#e8e8e8" stroke="#ddd" stroke-width="0.5" />
+    </pattern>
+    <linearGradient id="wallShadow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#000" stop-opacity="0.05" />
+      <stop offset="50%" stop-color="#000" stop-opacity="0" />
+      <stop offset="100%" stop-color="#000" stop-opacity="0.05" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#plainWallPattern)" />
+  <rect width="800" height="600" fill="url(#wallShadow)" />
+  <rect width="800" height="80" y="520" fill="#333" opacity="0.7" />
+  <text x="400" y="570" font-family="Arial" font-size="30" text-anchor="middle" fill="#fff">לפני - Before</text>
+</svg> 

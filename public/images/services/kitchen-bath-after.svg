@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <pattern id="modernTilePattern" patternUnits="userSpaceOnUse" width="80" height="40">
+      <rect width="80" height="40" fill="#e8e8e8" />
+      <rect width="78" height="38" x="1" y="1" fill="#f5f5f5" stroke="#e0e0e0" stroke-width="0.5" rx="1" />
+    </pattern>
+    <linearGradient id="cleanGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#964B00" stop-opacity="0.05" />
+      <stop offset="100%" stop-color="#964B00" stop-opacity="0.15" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#modernTilePattern)" />
+  <rect width="800" height="600" fill="url(#cleanGradient)" />
+  <rect width="800" height="80" y="520" fill="#964B00" opacity="0.8" />
+  <text x="400" y="570" font-family="Arial" font-size="30" text-anchor="middle" fill="#fff">אחרי - After</text>
+</svg> 

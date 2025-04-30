@@ -1,0 +1,56 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f0f0f0" />
+  
+  <!-- Tile Pattern - Commercial Large Format Tiles -->
+  <defs>
+    <pattern id="tilePattern" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="100" height="100" fill="#e0e0e0" stroke="#d0d0d0" stroke-width="2" />
+      <rect x="100" y="0" width="100" height="100" fill="#e6e6e6" stroke="#d0d0d0" stroke-width="2" />
+      <rect x="0" y="100" width="100" height="100" fill="#e6e6e6" stroke="#d0d0d0" stroke-width="2" />
+      <rect x="100" y="100" width="100" height="100" fill="#e0e0e0" stroke="#d0d0d0" stroke-width="2" />
+      
+      <!-- Decorative Inlays -->
+      <rect x="45" y="45" width="10" height="10" fill="#b8a184" />
+      <rect x="145" y="45" width="10" height="10" fill="#b8a184" />
+      <rect x="45" y="145" width="10" height="10" fill="#b8a184" />
+      <rect x="145" y="145" width="10" height="10" fill="#b8a184" />
+    </pattern>
+  </defs>
+  
+  <!-- Apply Tile Pattern -->
+  <rect width="800" height="600" fill="url(#tilePattern)" />
+  
+  <!-- Overlay with slight gradient -->
+  <rect width="800" height="600" fill="url(#overlay)" opacity="0.3" />
+  
+  <!-- Commercial Building Icon -->
+  <rect x="300" y="150" width="200" height="150" fill="#796145" />
+  <!-- Windows -->
+  <rect x="320" y="170" width="30" height="30" fill="#e6e6e6" stroke="#d0d0d0" stroke-width="1" />
+  <rect x="370" y="170" width="30" height="30" fill="#e6e6e6" stroke="#d0d0d0" stroke-width="1" />
+  <rect x="420" y="170" width="30" height="30" fill="#e6e6e6" stroke="#d0d0d0" stroke-width="1" />
+  <rect x="450" y="170" width="30" height="30" fill="#e6e6e6" stroke="#d0d0d0" stroke-width="1" />
+  
+  <rect x="320" y="210" width="30" height="30" fill="#e6e6e6" stroke="#d0d0d0" stroke-width="1" />
+  <rect x="370" y="210" width="30" height="30" fill="#e6e6e6" stroke="#d0d0d0" stroke-width="1" />
+  <rect x="420" y="210" width="30" height="30" fill="#e6e6e6" stroke="#d0d0d0" stroke-width="1" />
+  <rect x="450" y="210" width="30" height="30" fill="#e6e6e6" stroke="#d0d0d0" stroke-width="1" />
+  
+  <!-- Door -->
+  <rect x="370" y="250" width="60" height="50" fill="#9c8164" />
+  <rect x="395" y="275" width="10" height="5" fill="#d0d0d0" />
+  
+  <!-- Text Label -->
+  <text x="400" y="350" font-family="Arial, sans-serif" font-size="36" text-anchor="middle" fill="#555555">
+    פרויקטים מסחריים
+  </text>
+  
+  <!-- Gradient Overlay -->
+  <defs>
+    <linearGradient id="overlay" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#796145;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#c19a6b;stop-opacity:0.1" />
+    </linearGradient>
+  </defs>
+</svg> 

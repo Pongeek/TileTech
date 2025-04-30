@@ -1,0 +1,205 @@
+[
+  {
+    "id": 1,
+    "title": {
+      "he": "פרויקט ריצוף דירה בתל אביב",
+      "en": "Apartment Tiling Project in Tel Aviv"
+    },
+    "description": {
+      "he": "שדרוג ריצוף דירת 4 חדרים בתל אביב. הפרויקט כלל החלפה מלאה של הריצוף בסלון, מטבח, חדרי שינה ושירותים. השתמשנו באריחי פורצלן איכותיים בגוון אפור בהיר.",
+      "en": "Tiling upgrade for a 4-room apartment in Tel Aviv. The project included complete replacement of flooring in the living room, kitchen, bedrooms, and bathrooms. We used high-quality porcelain tiles in a light gray shade."
+    },
+    "category": "residential",
+    "tags": ["apartment", "porcelain", "modern"],
+    "imageUrl": "/images/projects/residential-1.jpg",
+    "thumbnailUrl": "/images/projects/residential-1-thumb.jpg",
+    "galleryImages": [
+      "/images/projects/residential-1-detail1.jpg",
+      "/images/projects/residential-1-detail2.jpg",
+      "/images/projects/residential-1-detail3.jpg"
+    ],
+    "dimensions": {
+      "width": 4,
+      "height": 3
+    },
+    "completionDate": "2023-08-15",
+    "location": "תל אביב"
+  },
+  {
+    "id": 2,
+    "title": {
+      "he": "שיפוץ מטבח במודיעין",
+      "en": "Kitchen Renovation in Modi'in"
+    },
+    "description": {
+      "he": "פרויקט שיפוץ מטבח הכולל ריצוף חדש והתקנת אריחים דקורטיביים בקיר המטבח. בחרנו באריחים בגוון שמנת ששתלבו בצורה מושלמת עם ארונות המטבח החדשים.",
+      "en": "Kitchen renovation project including new flooring and decorative wall tiles. We selected cream-colored tiles that perfectly complemented the new kitchen cabinets."
+    },
+    "category": "kitchen",
+    "tags": ["kitchen", "decorative", "backsplash"],
+    "imageUrl": "/images/projects/kitchen-1.jpg",
+    "thumbnailUrl": "/images/projects/kitchen-1-thumb.jpg",
+    "galleryImages": [
+      "/images/projects/kitchen-1-detail1.jpg",
+      "/images/projects/kitchen-1-detail2.jpg"
+    ],
+    "dimensions": {
+      "width": 3,
+      "height": 4
+    },
+    "completionDate": "2023-05-20",
+    "location": "מודיעין"
+  },
+  {
+    "id": 3,
+    "title": {
+      "he": "חדר אמבטיה יוקרתי ברמת גן",
+      "en": "Luxury Bathroom in Ramat Gan"
+    },
+    "description": {
+      "he": "עיצוב וביצוע חדר אמבטיה יוקרתי הכולל אריחי שיש איטלקי, פסיפס זכוכית מעוצב וכיור אבן. התוצאה היא חדר אמבטיה מרשים שמשלב אלגנטיות ופונקציונליות.",
+      "en": "Design and installation of a luxury bathroom featuring Italian marble tiles, designer glass mosaic, and a stone sink. The result is an impressive bathroom that combines elegance and functionality."
+    },
+    "category": "bathroom",
+    "tags": ["luxury", "marble", "mosaic"],
+    "imageUrl": "/images/projects/bathroom-1.jpg",
+    "thumbnailUrl": "/images/projects/bathroom-1-thumb.jpg",
+    "galleryImages": [
+      "/images/projects/bathroom-1-detail1.jpg",
+      "/images/projects/bathroom-1-detail2.jpg",
+      "/images/projects/bathroom-1-detail3.jpg"
+    ],
+    "dimensions": {
+      "width": 3,
+      "height": 3
+    },
+    "completionDate": "2023-11-05",
+    "location": "רמת גן"
+  },
+  {
+    "id": 4,
+    "title": {
+      "he": "פסיפס אומנותי לבית קפה בירושלים",
+      "en": "Artistic Mosaic for a Jerusalem Café"
+    },
+    "description": {
+      "he": "יצירת פסיפס אומנותי מרהיב לקיר מרכזי בבית קפה חדש בירושלים. הפסיפס משלב צבעים וטקסטורות שונות היוצרים תמונה ייחודית המשקפת את רוח העיר.",
+      "en": "Creation of a stunning artistic mosaic for the central wall of a new café in Jerusalem. The mosaic combines various colors and textures to create a unique image that reflects the spirit of the city."
+    },
+    "category": "commercial",
+    "tags": ["mosaic", "artistic", "café"],
+    "imageUrl": "/images/projects/commercial-1.jpg",
+    "thumbnailUrl": "/images/projects/commercial-1-thumb.jpg",
+    "galleryImages": [
+      "/images/projects/commercial-1-detail1.jpg",
+      "/images/projects/commercial-1-detail2.jpg"
+    ],
+    "dimensions": {
+      "width": 5,
+      "height": 3
+    },
+    "completionDate": "2023-09-10",
+    "location": "ירושלים"
+  },
+  {
+    "id": 5,
+    "title": {
+      "he": "ריצוף בית פרטי בשרון",
+      "en": "Private House Flooring in Sharon"
+    },
+    "description": {
+      "he": "ריצוף בית פרטי חדש בשרון. הפרויקט כלל התקנת אריחי גרניט פורצלן בגודל 80x80 ס\"מ בכל הבית, ואריחים דקורטיביים במטבח ובחדרי הרחצה.",
+      "en": "Flooring for a new private house in the Sharon area. The project included installation of 80x80 cm porcelain granite tiles throughout the house, and decorative tiles in the kitchen and bathrooms."
+    },
+    "category": "residential",
+    "tags": ["house", "porcelain", "large-format"],
+    "imageUrl": "/images/projects/residential-2.jpg",
+    "thumbnailUrl": "/images/projects/residential-2-thumb.jpg",
+    "galleryImages": [
+      "/images/projects/residential-2-detail1.jpg",
+      "/images/projects/residential-2-detail2.jpg",
+      "/images/projects/residential-2-detail3.jpg"
+    ],
+    "dimensions": {
+      "width": 4,
+      "height": 3
+    },
+    "completionDate": "2023-07-25",
+    "location": "שרון"
+  },
+  {
+    "id": 6,
+    "title": {
+      "he": "משרדים מודרניים בהרצליה פיתוח",
+      "en": "Modern Offices in Herzliya Pituach"
+    },
+    "description": {
+      "he": "פרויקט ריצוף משרדים בהרצליה פיתוח. שילבנו אריחים בגוון אפור כהה בשטחים הציבוריים ואריחי עץ מדומה בחדרי הישיבות ליצירת אווירה חמה ומקצועית.",
+      "en": "Office flooring project in Herzliya Pituach. We combined dark gray tiles in public areas and wood-look tiles in meeting rooms to create a warm and professional atmosphere."
+    },
+    "category": "commercial",
+    "tags": ["office", "wood-look", "modern"],
+    "imageUrl": "/images/projects/commercial-2.jpg",
+    "thumbnailUrl": "/images/projects/commercial-2-thumb.jpg",
+    "galleryImages": [
+      "/images/projects/commercial-2-detail1.jpg",
+      "/images/projects/commercial-2-detail2.jpg"
+    ],
+    "dimensions": {
+      "width": 4,
+      "height": 2
+    },
+    "completionDate": "2023-03-15",
+    "location": "הרצליה פיתוח"
+  },
+  {
+    "id": 7,
+    "title": {
+      "he": "חיפוי קיר דקורטיבי לדירה בחיפה",
+      "en": "Decorative Wall Cladding for an Apartment in Haifa"
+    },
+    "description": {
+      "he": "התקנת חיפוי קיר דקורטיבי בסלון דירה בחיפה. השתמשנו באריחי בטון מעוצבים בצבע אפור וטקסטורה ייחודית שהוסיפו ממד נוסף לחלל.",
+      "en": "Installation of decorative wall cladding in the living room of an apartment in Haifa. We used designer concrete tiles in gray with a unique texture that added another dimension to the space."
+    },
+    "category": "residential",
+    "tags": ["wall", "decorative", "concrete"],
+    "imageUrl": "/images/projects/residential-3.jpg",
+    "thumbnailUrl": "/images/projects/residential-3-thumb.jpg",
+    "galleryImages": [
+      "/images/projects/residential-3-detail1.jpg",
+      "/images/projects/residential-3-detail2.jpg"
+    ],
+    "dimensions": {
+      "width": 3,
+      "height": 4
+    },
+    "completionDate": "2023-04-10",
+    "location": "חיפה"
+  },
+  {
+    "id": 8,
+    "title": {
+      "he": "שיפוץ אמבטיה בסגנון כפרי",
+      "en": "Rustic Style Bathroom Renovation"
+    },
+    "description": {
+      "he": "שיפוץ חדר אמבטיה בסגנון כפרי. השתמשנו באריחים בסגנון וינטאג' עם דוגמאות מרוקאיות מסורתיות וצבעים חמים.",
+      "en": "Renovation of a bathroom in a rustic style. We used vintage-style tiles with traditional Moroccan patterns and warm colors."
+    },
+    "category": "bathroom",
+    "tags": ["rustic", "vintage", "moroccan"],
+    "imageUrl": "/images/projects/bathroom-2.jpg",
+    "thumbnailUrl": "/images/projects/bathroom-2-thumb.jpg",
+    "galleryImages": [
+      "/images/projects/bathroom-2-detail1.jpg",
+      "/images/projects/bathroom-2-detail2.jpg"
+    ],
+    "dimensions": {
+      "width": 3,
+      "height": 3
+    },
+    "completionDate": "2023-10-22",
+    "location": "ראשון לציון"
+  }
+] 

@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "generatedAt": "2025-04-30T00:02:43.633Z",
+    "tasksAnalyzed": 10,
+    "thresholdScore": 5,
+    "projectName": "Your Project Name",
+    "usedResearch": false
+  },
+  "complexityAnalysis": [
+    {
+      "taskId": 1,
+      "taskTitle": "Set up Next.js project with RTL and Tailwind CSS configuration",
+      "complexityScore": 6,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Break down the Next.js project setup with RTL and Tailwind CSS into specific implementation steps, including project initialization, RTL configuration, Tailwind setup with custom colors, Hebrew font integration, and basic layout component creation.",
+      "reasoning": "This task involves multiple technical configurations (Next.js setup, RTL support, Tailwind CSS with custom theme, Hebrew fonts) and creating a foundational layout component. While each individual piece is straightforward, coordinating all these elements with proper RTL support increases complexity."
+    },
+    {
+      "taskId": 2,
+      "taskTitle": "Implement responsive navigation and page structure",
+      "complexityScore": 7,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Detail the specific steps to implement a responsive navigation system with mobile and desktop views, smooth scrolling functionality, section component creation, responsive grid layouts, proper spacing across device sizes, and back-to-top button implementation.",
+      "reasoning": "This task requires creating a responsive navigation system with different behaviors across breakpoints, implementing smooth scrolling, and establishing the foundation for multiple page sections. The responsive design requirements and interaction behaviors add complexity."
+    },
+    {
+      "taskId": 3,
+      "taskTitle": "Build hero section with image carousel",
+      "complexityScore": 7,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Break down the hero section implementation into steps covering carousel library selection and integration, Next.js Image optimization configuration, Hebrew text placeholder styling, CTA button creation, and responsive design testing across devices.",
+      "reasoning": "Implementing a carousel with Next.js requires third-party library integration, optimized image handling, and ensuring proper RTL support. The autoplay, pagination, and navigation controls add interactive complexity, while maintaining proper responsive behavior across devices increases the implementation challenge."
+    },
+    {
+      "taskId": 4,
+      "taskTitle": "Develop services showcase section",
+      "complexityScore": 8,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Detail the steps to create the services section, including before/after image comparison slider component, service card design and implementation, data structure creation for service information, Hebrew text support, and visual indicators for specialties.",
+      "reasoning": "This task involves creating a custom before/after image comparison component with slider functionality, which is technically complex. Combined with the need to develop service cards, implement a data structure, and ensure Hebrew text support, this task has significant UI/UX and technical requirements."
+    },
+    {
+      "taskId": 5,
+      "taskTitle": "Create filterable project gallery",
+      "complexityScore": 8,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Break down the filterable gallery implementation into steps covering data structure design, masonry grid layout, image optimization with Next.js, modal view creation, filter functionality, Hebrew text support, and responsive testing.",
+      "reasoning": "This task requires implementing multiple complex UI components: a masonry layout gallery, filtering system, and modal view for enlarged images. The combination of these features along with Next.js image optimization and proper RTL support makes this a technically challenging task."
+    },
+    {
+      "taskId": 6,
+      "taskTitle": "Implement testimonials section",
+      "complexityScore": 6,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Detail the steps to implement the testimonials section, including carousel/grid component creation, testimonial card design, star rating system, data structure for testimonials, RTL support for Hebrew text, location formatting, and animation effects.",
+      "reasoning": "While less complex than some other tasks, this still requires creating a testimonial display system (carousel or grid), implementing a star rating component, and ensuring proper RTL support. The animations and styling requirements add moderate complexity."
+    },
+    {
+      "taskId": 7,
+      "taskTitle": "Develop multi-step contact/quote form",
+      "complexityScore": 9,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Break down the multi-step form implementation into specific steps covering React Hook Form setup with Zod validation, step component creation for personal information/project details/budget information, progress indicator, form submission handler with Next.js API routes, email notification system, data storage, and styling with validation states.",
+      "reasoning": "This is one of the most complex tasks, involving form state management across multiple steps, validation with Hebrew error messages, API route implementation for form submission, email notification integration, and proper styling with various states. The multi-step nature and validation requirements significantly increase complexity."
+    },
+    {
+      "taskId": 8,
+      "taskTitle": "Add WhatsApp integration and contact options",
+      "complexityScore": 5,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "Detail the steps to implement WhatsApp integration and contact options, including click-to-chat functionality, floating contact button creation, phone call integration for mobile, contact information section with business hours, map embed implementation, and mobile-friendly testing.",
+      "reasoning": "This task is moderately complex, involving integration with external services (WhatsApp, possibly maps) and creating a floating UI element. However, the individual components are relatively straightforward compared to other tasks in the project."
+    },
+    {
+      "taskId": 9,
+      "taskTitle": "Implement SEO optimization and structured data",
+      "complexityScore": 7,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down the SEO optimization process into steps covering Hebrew meta tag creation, structured data implementation with JSON-LD, social sharing meta tags, heading structure optimization, image alt text addition, canonical URL setup, sitemap generation, and schema markup for business information.",
+      "reasoning": "This task requires technical knowledge of SEO best practices, structured data formats, and meta tag implementation. The Hebrew language requirements and need to coordinate with all other completed sections add complexity. Proper schema markup implementation requires attention to detail."
+    },
+    {
+      "taskId": 10,
+      "taskTitle": "Optimize performance and deploy to Vercel",
+      "complexityScore": 8,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Detail the steps for performance optimization and deployment, including Next.js Image optimization, lazy loading implementation, font loading optimization, code splitting configuration, caching setup, environment variable configuration, analytics integration, performance auditing, and continuous deployment setup.",
+      "reasoning": "This task involves multiple technical optimizations across different aspects of the application (images, code, fonts, caching) and setting up the production deployment pipeline. Performance optimization requires technical expertise and testing across various metrics, while deployment configuration needs careful environment setup."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <pattern id="mosaicWallPattern" patternUnits="userSpaceOnUse" width="20" height="20">
+      <rect width="20" height="20" fill="#f0f0f0" stroke="#e8e8e8" stroke-width="1" />
+      <rect width="18" height="18" x="1" y="1" fill="#f8f8f8" stroke="#e8e8e8" stroke-width="0.5" />
+    </pattern>
+    <pattern id="mosaicDesign" patternUnits="userSpaceOnUse" width="200" height="200">
+      <rect width="200" height="200" fill="url(#mosaicWallPattern)" />
+      
+      <!-- Mosaic pattern -->
+      <circle cx="100" cy="100" r="80" fill="none" stroke="#9CAF88" stroke-width="10" />
+      <circle cx="100" cy="100" r="60" fill="none" stroke="#cc6666" stroke-width="10" />
+      <circle cx="100" cy="100" r="40" fill="none" stroke="#964B00" stroke-width="10" />
+      <circle cx="100" cy="100" r="20" fill="#9CAF88" />
+      
+      <!-- Mosaic details -->
+      <rect width="10" height="10" x="45" y="45" fill="#cc6666" />
+      <rect width="10" height="10" x="145" y="45" fill="#cc6666" />
+      <rect width="10" height="10" x="45" y="145" fill="#cc6666" />
+      <rect width="10" height="10" x="145" y="145" fill="#cc6666" />
+    </pattern>
+  </defs>
+  <rect width="800" height="600" fill="url(#mosaicDesign)" />
+  <rect width="800" height="80" y="520" fill="#9CAF88" opacity="0.8" />
+  <text x="400" y="570" font-family="Arial" font-size="30" text-anchor="middle" fill="#fff">אחרי - After</text>
+</svg> 

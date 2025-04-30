@@ -1,0 +1,47 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f0f0f0" />
+  
+  <!-- Tile Pattern -->
+  <defs>
+    <pattern id="tilePattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+      <!-- Base Tile - Residential Wood-like Pattern -->
+      <rect x="0" y="0" width="100" height="25" fill="#d7c0a1" />
+      <rect x="0" y="25" width="100" height="25" fill="#c9b28f" />
+      <rect x="0" y="50" width="100" height="25" fill="#d7c0a1" />
+      <rect x="0" y="75" width="100" height="25" fill="#c9b28f" />
+      
+      <!-- Wood Grain Lines -->
+      <line x1="0" y1="25" x2="100" y2="25" stroke="#b8a184" stroke-width="1" />
+      <line x1="0" y1="50" x2="100" y2="50" stroke="#b8a184" stroke-width="1" />
+      <line x1="0" y1="75" x2="100" y2="75" stroke="#b8a184" stroke-width="1" />
+      <line x1="33" y1="0" x2="33" y2="25" stroke="#b8a184" stroke-width="0.5" opacity="0.7" />
+      <line x1="66" y1="25" x2="66" y2="50" stroke="#b8a184" stroke-width="0.5" opacity="0.7" />
+      <line x1="33" y1="50" x2="33" y2="75" stroke="#b8a184" stroke-width="0.5" opacity="0.7" />
+      <line x1="66" y1="75" x2="66" y2="100" stroke="#b8a184" stroke-width="0.5" opacity="0.7" />
+    </pattern>
+  </defs>
+  
+  <!-- Apply Tile Pattern -->
+  <rect width="800" height="600" fill="url(#tilePattern)" />
+  
+  <!-- Overlay with slight gradient -->
+  <rect width="800" height="600" fill="url(#overlay)" opacity="0.3" />
+  
+  <!-- House Icon -->
+  <path d="M400,150 L250,250 L250,400 L350,400 L350,300 L450,300 L450,400 L550,400 L550,250 Z" fill="#796145" />
+  <rect x="350" y="300" width="100" height="100" fill="#b8a184" />
+  
+  <!-- Text Label -->
+  <text x="400" y="450" font-family="Arial, sans-serif" font-size="36" text-anchor="middle" fill="#555555">
+    ריצוף ביתי
+  </text>
+  
+  <!-- Gradient Overlay -->
+  <defs>
+    <linearGradient id="overlay" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#796145;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#c19a6b;stop-opacity:0.1" />
+    </linearGradient>
+  </defs>
+</svg> 
