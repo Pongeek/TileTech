@@ -1,13 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Metadata } from 'next';
 import Link from 'next/link';
-
-export const metadata: Metadata = {
-  title: 'דף לא נמצא | TileTech',
-  description: 'מצטערים, הדף שחיפשת לא נמצא. חזור לדף הבית של TileTech לשירותי התקנת אריחים מקצועיים.',
-};
 
 export default function NotFound() {
   return (
