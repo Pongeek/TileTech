@@ -55,11 +55,21 @@ export const AnalyticsEvents = {
  * Add this to the root layout
  */
 export function AnalyticsProvider() {
-  return <Analytics />;
+  // Import Analytics dynamically in the component that uses it
+  return null;
 }
 
-export default {
+// Create a type for the default export
+interface AnalyticsExports {
+  trackEvent: typeof trackEvent;
+  AnalyticsEvents: typeof AnalyticsEvents;
+  AnalyticsProvider: typeof AnalyticsProvider;
+}
+
+const analyticsExports: AnalyticsExports = {
   trackEvent,
   AnalyticsEvents,
   AnalyticsProvider
-}; 
+};
+
+export default analyticsExports; 

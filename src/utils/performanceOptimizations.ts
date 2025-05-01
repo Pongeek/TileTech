@@ -6,6 +6,7 @@
  */
 
 import { useEffect, useState, useRef } from 'react';
+import type { RefObject } from 'react';
 
 /**
  * Custom hook to implement Intersection Observer for lazy loading components
@@ -20,7 +21,7 @@ export function useIntersectionObserver(
     rootMargin: '0px',
     threshold: 0.1
   }
-): [React.RefObject<HTMLDivElement>, boolean] {
+): [RefObject<HTMLDivElement>, boolean] {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -75,32 +76,6 @@ export function generatePlaceholder(width: number, height: number, text = 'טו�
     .replace(/%22/g, "'");
   
   return `data:image/svg+xml,${encodedSvg}`;
-}
-
-/**
- * Component to lazy load content using Intersection Observer
- * Use this to defer rendering of below-the-fold content
- */
-export function LazyLoad({ 
-  children, 
-  placeholder = <div className="h-48 w-full bg-gray-100 animate-pulse"></div>,
-  rootMargin = '100px',
-}: { 
-  children: React.ReactNode;
-  placeholder?: React.ReactNode;
-  rootMargin?: string;
-}) {
-  const [ref, isVisible] = useIntersectionObserver({
-    root: null,
-    rootMargin,
-    threshold: 0
-  });
-
-  return (
-    <div ref={ref}>
-      {isVisible ? children : placeholder}
-    </div>
-  );
 }
 
 /**
@@ -213,10 +188,11 @@ export function loadScript(
  *    - Reserve space for dynamic content
  */
 
-export default {
+const performanceExports = {
   useIntersectionObserver,
   generatePlaceholder,
-  LazyLoad,
   debounce,
   loadScript
-}; 
+};
+
+export default performanceExports; 
