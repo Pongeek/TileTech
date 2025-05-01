@@ -1,14 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 import StarRating from './StarRating';
 import { motion } from 'framer-motion';
 
 interface TestimonialCardProps {
   id: number;
   name: string;
-  profileImage: string;
+  profileImage: string; // We'll keep this in the interface for compatibility
   location: string;
   rating: number;
   text: string;
@@ -19,12 +18,11 @@ interface TestimonialCardProps {
 
 /**
  * Component for displaying an individual testimonial
- * Includes customer profile, rating, review text, and location
+ * Includes customer name, rating, review text, and location
  */
 const TestimonialCard: React.FC<TestimonialCardProps> = ({
   id,
   name,
-  profileImage,
   location,
   rating,
   text,
@@ -62,20 +60,16 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       }`}
     >
       <div className="flex flex-col h-full">
-        {/* Header with profile image, name, and rating */}
-        <div className="flex items-start mb-4">
-          <div className="relative w-12 h-12 mr-4 rounded-full overflow-hidden shrink-0">
-            <Image
-              src={profileImage}
-              alt={name}
-              fill
-              className="object-cover"
-            />
-          </div>
-          
+        {/* Header with name, location and rating */}
+        <div className="mb-4">
           <div className="flex flex-col">
-            <h3 className="font-bold text-lg">{name}</h3>
-            <div className="flex items-center text-sm text-gray-600 mb-1">
+            <div className="flex items-center mb-1">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-primary mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-1 14H5c-.55 0-1-.45-1-1V8l6.94 4.34c.65.41 1.47.41 2.12 0L20 8v9c0 .55-.45 1-1 1zm-7-7L4 6h16l-8 5z" />
+              </svg>
+              <h3 className="font-bold text-lg">{name}</h3>
+            </div>
+            <div className="flex items-center text-sm text-gray-600 mb-2">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 inline ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -96,22 +90,20 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
         )}
         
         {/* Review text */}
-        <div className="flex-grow mb-4">
-          <p className="text-gray-700 leading-relaxed">
-            {displayText}
-          </p>
-          
-          {/* Read more/less button for long texts */}
-          {isLongText && (
-            <button
-              onClick={() => setExpanded(!expanded)}
-              className="text-primary hover:text-primary/80 text-sm font-medium mt-1 transition-colors focus:outline-none"
-              aria-expanded={expanded}
-            >
-              {expanded ? 'הצג פחות' : 'קרא עוד'}
-            </button>
-          )}
-        </div>
+        <p className="text-gray-700 leading-relaxed">
+          {displayText}
+        </p>
+        
+        {/* Read more/less button for long texts */}
+        {isLongText && (
+          <button
+            onClick={() => setExpanded(!expanded)}
+            className="text-primary hover:text-primary/80 text-sm font-medium mt-1 transition-colors focus:outline-none"
+            aria-expanded={expanded}
+          >
+            {expanded ? 'הצג פחות' : 'קרא עוד'}
+          </button>
+        )}
         
         {/* Footer with date */}
         <div className="text-sm text-gray-500 mt-auto">

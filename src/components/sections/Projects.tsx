@@ -6,6 +6,8 @@ import Masonry from 'react-masonry-css';
 import ProjectCard from '@/components/ui/ProjectCard';
 import ProjectModal from '@/components/ui/ProjectModal';
 import { useProjects } from '@/hooks';
+import { LazyLoad } from '@/utils/performanceOptimizations';
+import { AnalyticsEvents } from '@/utils/analytics';
 
 interface Project {
   id: number;
@@ -71,6 +73,10 @@ const Projects: React.FC = () => {
   
   // Handle category filter change with animation
   const handleCategoryChange = (category: string) => {
+    // Close any open project when changing categories
+    setSelectedProject(null);
+    setSelectedProjectIndex(-1);
+    
     setSelectedCategory(category);
     
     // Add a small delay for animation effect
@@ -88,6 +94,13 @@ const Projects: React.FC = () => {
     setSelectedProject(project);
     const index = (projects || []).findIndex((p: Project) => p.id === project.id);
     setSelectedProjectIndex(index);
+    
+    // Track project view analytics event
+    AnalyticsEvents.projectView(
+      project.id,
+      project.title.he,
+      project.category
+    );
   };
   
   // Handle navigation between projects in modal

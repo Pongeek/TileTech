@@ -1,14 +1,37 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Hero from '@/components/sections/Hero';
-import Services from '@/components/sections/Services';
-import Testimonials from '@/components/sections/Testimonials';
-import Contact from '@/components/sections/Contact';
-import ScrollToTop from '@/components/ui/ScrollToTop';
 import dynamic from 'next/dynamic';
+
+// Simple loading components
+const ServicesSectionLoading = () => (
+  <div className="py-16">
+    <div className="container mx-auto px-4">
+      <div className="text-center mb-12">
+        <div className="h-10 w-64 bg-gray-200 rounded animate-pulse mx-auto mb-6"></div>
+        <div className="h-4 w-3/4 bg-gray-100 rounded animate-pulse mx-auto"></div>
+      </div>
+    </div>
+  </div>
+);
+
+const ContactSectionLoading = () => (
+  <div className="py-16">
+    <div className="container mx-auto px-4">
+      <div className="text-center mb-12">
+        <div className="h-10 w-48 bg-gray-200 rounded animate-pulse mx-auto"></div>
+      </div>
+    </div>
+  </div>
+);
+
+// Dynamically import components that are below the fold
+const Services = dynamic(() => import('@/components/sections/Services'), {
+  loading: () => <ServicesSectionLoading />
+});
 
 // Dynamically import the Projects component to avoid hydration errors
 const Projects = dynamic(() => import('@/components/sections/Projects'), {
@@ -27,6 +50,22 @@ const Projects = dynamic(() => import('@/components/sections/Projects'), {
   )
 });
 
+const Testimonials = dynamic(() => import('@/components/sections/Testimonials'), {
+  loading: () => <ServicesSectionLoading />
+});
+
+const Contact = dynamic(() => import('@/components/sections/Contact'), {
+  loading: () => <ContactSectionLoading />
+});
+
+const ScrollToTop = dynamic(() => import('@/components/ui/ScrollToTop'), {
+  ssr: false
+});
+
+const FloatingContactButton = dynamic(() => import('@/components/ui/FloatingContactButton'), {
+  ssr: false
+});
+
 export default function Home() {
   return (
     <>
@@ -36,9 +75,9 @@ export default function Home() {
           <Hero />
         </section>
         
-        <section id="services" className="section py-16">
+        <Suspense fallback={<ServicesSectionLoading />}>
           <Services />
-        </section>
+        </Suspense>
         
         <section id="projects" className="section py-16">
           <Projects />
@@ -54,6 +93,7 @@ export default function Home() {
       </main>
       <Footer />
       <ScrollToTop />
+      <FloatingContactButton />
     </>
   );
 } 

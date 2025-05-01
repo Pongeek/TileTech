@@ -51,6 +51,20 @@ const Services: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'cards' | 'details'>('cards');
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
+  const [shouldLoadImages, setShouldLoadImages] = useState(false);
+
+  // Enhanced lazy loading strategy
+  useEffect(() => {
+    // Only load images when the section is in view or about to be in view
+    if (isInView && !shouldLoadImages) {
+      // Add a small delay to prioritize rendering the section first
+      const timer = setTimeout(() => {
+        setShouldLoadImages(true);
+      }, 100);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [isInView, shouldLoadImages]);
 
   // Handle service selection
   const handleServiceSelect = (id: number) => {
@@ -101,9 +115,9 @@ const Services: React.FC = () => {
     );
   };
 
-  // Preload images
+  // Preload images - Only when shouldLoadImages is true
   useEffect(() => {
-    if (!services || loading) return;
+    if (!services || loading || !shouldLoadImages) return;
     
     // Preload all service images
     services.forEach((service) => {
@@ -120,7 +134,7 @@ const Services: React.FC = () => {
         img.src = src;
       });
     });
-  }, [services, loading]);
+  }, [services, loading, shouldLoadImages]);
 
   if (loading) {
     return (
@@ -151,6 +165,7 @@ const Services: React.FC = () => {
       id="services" 
       className="py-16 bg-white"
       ref={sectionRef}
+      dir="rtl"
     >
       <div className="container-custom">
         <motion.div 
@@ -191,7 +206,7 @@ const Services: React.FC = () => {
                     description={service.description.he}
                     features={service.features.he}
                     specialties={service.specialties}
-                    imageUrl={getImageUrl(service, 'main')}
+                    imageUrl={shouldLoadImages ? getImageUrl(service, 'main') : defaultPlaceholder}
                     icon={service.icon}
                     onClick={() => handleServiceSelect(service.id)}
                   />
@@ -210,21 +225,10 @@ const Services: React.FC = () => {
             >
               {selectedService && (
                 <>
-                  <div className="flex justify-between items-center mb-6">
-                    <motion.button 
-                      onClick={handleBackToServices}
-                      className="flex items-center text-primary hover:text-primary/80 transition-colors"
-                      whileHover={{ x: -5 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ml-1 transform rotate-180 rtl:rotate-0">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-                      </svg>
-                      <span>חזרה לרשימת השירותים</span>
-                    </motion.button>
-                    <div className="flex items-center">
+                  <div className="flex justify-between items-center mb-6" dir="rtl">
+                    <div className="flex items-center ml-4">
                       <motion.div 
-                        className="p-2 bg-primary/10 text-primary rounded-full ml-3"
+                        className="p-2 bg-primary/10 text-primary rounded-full ml-3 rtl:ml-0 rtl:mr-3"
                         initial={{ rotate: -15, opacity: 0 }}
                         animate={{ rotate: 0, opacity: 1 }}
                         transition={{ duration: 0.3, delay: 0.1 }}
@@ -249,20 +253,34 @@ const Services: React.FC = () => {
                       </motion.div>
                       <motion.h3 
                         className="text-2xl font-frank font-bold text-secondary"
-                        initial={{ opacity: 0, x: 20 }}
+                        initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.3 }}
                       >
                         {selectedService.title.he}
                       </motion.h3>
                     </div>
+
+                    <motion.button 
+                      onClick={handleBackToServices}
+                      className="flex items-center text-primary hover:text-primary/80 transition-colors"
+                      whileHover={{ x: -5 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ml-1 transform rtl:rotate-180">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                      </svg>
+                      <span>חזרה לרשימת השירותים</span>
+                    </motion.button>
                   </div>
                   
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8" dir="rtl">
                     <motion.div
-                      initial={{ opacity: 0, x: -30 }}
+                      initial={{ opacity: 0, x: 30 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.4, delay: 0.2 }}
+                      className="flex items-center justify-center lg:order-2"
+                      dir="rtl"
                     >
                       <BeforeAfterSlider 
                         beforeImage={getImageUrl(selectedService, 'before')}
@@ -273,66 +291,58 @@ const Services: React.FC = () => {
                     </motion.div>
                     
                     <motion.div
-                      initial={{ opacity: 0, x: 30 }}
+                      initial={{ opacity: 0, x: -30 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.4, delay: 0.2 }}
+                      className="flex flex-col lg:order-1"
+                      dir="rtl"
                     >
-                      <motion.h4 
-                        className="text-xl font-frank font-semibold text-secondary mb-3"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.3 }}
-                      >
-                        תיאור השירות
-                      </motion.h4>
-                      <motion.p 
-                        className="text-gray-700 mb-6"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.4 }}
-                      >
-                        {selectedService.description.he}
-                      </motion.p>
+                      <div className="mb-8" dir="rtl">
+                        <motion.h4 
+                          className="text-xl font-frank font-semibold text-secondary mb-2 text-right"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.3 }}
+                        >
+                          תיאור השירות
+                        </motion.h4>
+                        <div className="w-24 h-0.5 bg-primary mr-0 rounded-full mb-6"></div>
+                        <div className="prose prose-primary text-right" dangerouslySetInnerHTML={{ __html: selectedService.description.he }} />
+                      </div>
                       
-                      <motion.h4 
-                        className="text-xl font-frank font-semibold text-secondary mb-3"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                      >
-                        יתרונות
-                      </motion.h4>
-                      <motion.ul 
-                        className="space-y-2 mb-6"
-                        initial="hidden"
-                        animate="visible"
-                        variants={{
-                          hidden: {},
-                          visible: {
-                            transition: { 
-                              staggerChildren: 0.1,
-                              delayChildren: 0.6,
-                            }
-                          }
-                        }}
-                      >
+                      <motion.div className="text-right mb-4" dir="rtl">
+                        <motion.h4 
+                          className="text-xl font-frank font-semibold text-secondary mb-2 text-right"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.5 }}
+                        >
+                          יתרונות
+                        </motion.h4>
+                        <div className="w-16 h-0.5 bg-primary mr-0 rounded-full mb-6"></div>
+                      </motion.div>
+                      
+                      <div className="space-y-3 mb-6 max-w-lg feature-list-rtl">
                         {selectedService.features.he.map((feature, index) => (
-                          <motion.li 
+                          <div 
                             key={index} 
-                            className="flex items-start"
-                            variants={{
-                              hidden: { opacity: 0, x: 20 },
-                              visible: { opacity: 1, x: 0 }
-                            }}
+                            className="bg-gray-50 p-3 rounded-md shadow-sm"
+                            dir="rtl"
                           >
-                            <span className="text-primary ml-2 mt-1">✓</span>
-                            <span className="text-gray-600">{feature}</span>
-                          </motion.li>
+                            <table className="w-full feature-list-rtl" dir="rtl">
+                              <tbody>
+                                <tr>
+                                  <td style={{ width: '20px', paddingLeft: '8px', verticalAlign: 'top' }} className="text-primary text-lg">✓</td>
+                                  <td style={{ textAlign: 'right' }} className="text-gray-700">{feature}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         ))}
-                      </motion.ul>
+                      </div>
                       
                       <motion.div 
-                        className="mt-8"
+                        className="mt-8 text-center"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.8 }}

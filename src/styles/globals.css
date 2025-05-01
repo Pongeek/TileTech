@@ -5,6 +5,28 @@
 /* Import Hebrew Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700&family=Heebo:wght@300;400;500;700&family=Assistant:wght@300;400;500;700&display=swap');
 
+/* Custom font-display configuration for better performance */
+@font-face {
+  font-family: 'Frank Ruhl Libre';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Heebo';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Assistant';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+}
+
 /* RTL Specific Styles */
 html {
   direction: rtl;
@@ -159,4 +181,62 @@ body {
   .testimonial-swiper .swiper-button-next:after {
     font-size: 1.8rem !important;
   }
+} 
+
+/* RTL Support */
+html[dir="rtl"],
+body[dir="rtl"],
+[dir="rtl"] {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+[dir="rtl"] table,
+[dir="rtl"] tr,
+[dir="rtl"] td {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+[dir="rtl"] .rtl-force {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+[dir="rtl"] .rtl-force * {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+[dir="rtl"] ul,
+[dir="rtl"] ol {
+  padding-right: 1.25rem;
+  padding-left: 0;
+}
+
+[dir="rtl"] .rtl-reversed-list li {
+  display: flex;
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+/* Ensure RTL tables */
+table[dir="rtl"] {
+  direction: rtl !important;
+}
+
+table[dir="rtl"] td {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+/* Force RTL for feature lists */
+.feature-list-rtl {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+.feature-list-rtl * {
+  direction: rtl !important;
+  text-align: right !important;
 } 

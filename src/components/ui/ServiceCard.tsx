@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -27,6 +27,8 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   isSelected = false,
   onClick,
 }) => {
+  const [isImageLoading, setIsImageLoading] = useState(true);
+  
   // Map specialty codes to human-readable Hebrew labels
   const specialtyLabels: Record<string, string> = {
     'precise-cuts': 'חיתוכים מדויקים',
@@ -125,35 +127,48 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
             aria-label={title}
           />
         ) : (
-          // Image component with fallback
-          <Image 
-            src={imageUrl}
-            alt={title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-            onError={(e) => {
-              // Remove the target src to prevent continuous error loops
-              const target = e.target as HTMLImageElement;
-              target.onerror = null;
-              
-              // Add a colored background to the parent element
-              const parent = target.parentElement;
-              if (parent) {
-                parent.classList.add(getFallbackBgColor());
-                parent.classList.add('flex', 'items-center', 'justify-center');
+          // Image component with improved loading performance
+          <>
+            {isImageLoading && (
+              <div className={`absolute inset-0 ${getFallbackBgColor()} animate-pulse flex items-center justify-center z-0`}>
+                <div className="text-white text-lg font-medium">{title}</div>
+              </div>
+            )}
+            <Image 
+              src={imageUrl}
+              alt={title}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className={`object-cover transition-transform duration-500 group-hover:scale-105 ${
+                isImageLoading ? 'opacity-0' : 'opacity-100'
+              } transition-opacity`}
+              onLoadingComplete={() => setIsImageLoading(false)}
+              blurDataURL={`data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgNDAwIDMwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNDNjYiLz48L3N2Zz4=`}
+              placeholder="blur"
+              onError={(e) => {
+                // Remove the target src to prevent continuous error loops
+                const target = e.target as HTMLImageElement;
+                target.onerror = null;
+                setIsImageLoading(false);
                 
-                // Replace with icon and text
-                parent.innerHTML = `
-                  <div class="text-white p-6 text-center">
-                    <div class="text-4xl mb-2">${id === 1 ? '🏠' : id === 2 ? '🛁' : '🧩'}</div>
-                    <div class="text-lg font-medium">${title}</div>
-                  </div>
-                `;
-              }
-            }}
-            priority
-          />
+                // Add a colored background to the parent element
+                const parent = target.parentElement;
+                if (parent) {
+                  parent.classList.add(getFallbackBgColor());
+                  parent.classList.add('flex', 'items-center', 'justify-center');
+                  
+                  // Replace with icon and text
+                  parent.innerHTML = `
+                    <div class="text-white p-6 text-center">
+                      <div class="text-4xl mb-2">${id === 1 ? '🏠' : id === 2 ? '🛁' : '🧩'}</div>
+                      <div class="text-lg font-medium">${title}</div>
+                    </div>
+                  `;
+                }
+              }}
+              priority
+            />
+          </>
         )}
       </div>
 

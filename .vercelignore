@@ -1,0 +1,35 @@
+# Development files
+.git
+.github
+.vscode
+.editorconfig
+.eslintrc.json
+.prettierrc
+.prettierignore
+*.log
+*.lock
+
+# Task management files
+tasks/
+scripts/
+README-task-master.md
+
+# Testing
+__tests__
+coverage
+
+# Documentation
+docs
+*.md
+!README.md
+
+# Dependencies
+node_modules
+
+# Temp files
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.development
+.vercel 

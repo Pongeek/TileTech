@@ -40,7 +40,14 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
   const modalRef = useRef<HTMLDivElement>(null);
   const mainImageUrl = getProjectImage(project.imageUrl, project.category);
   const [activeImage, setActiveImage] = useState<string>(mainImageUrl);
+  const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState<number>(-1); // -1 means main image is selected
   const [isImageLoading, setIsImageLoading] = useState<boolean>(true);
+  
+  // Reset active image and selected thumbnail when project changes
+  useEffect(() => {
+    setActiveImage(mainImageUrl);
+    setSelectedThumbnailIndex(-1); // Reset to main image
+  }, [project.id, mainImageUrl]);
   
   // Reset loading state when active image changes
   useEffect(() => {
@@ -79,6 +86,12 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
       year: 'numeric',
       month: 'long',
     }).format(date);
+  };
+  
+  // Handle thumbnail selection
+  const handleThumbnailSelect = (index: number, imageUrl: string) => {
+    setSelectedThumbnailIndex(index);
+    setActiveImage(imageUrl);
   };
   
   return (
@@ -149,6 +162,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                 </div>
               )}
               <Image
+                key={`project-${project.id}-${activeImage}`}
                 src={activeImage}
                 alt={project.title.he}
                 fill
@@ -164,11 +178,13 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
               <div className="mt-4 grid grid-cols-5 gap-2">
                 <button 
                   className={`relative w-full aspect-square rounded-md overflow-hidden transition-all duration-300 ${
-                    activeImage === mainImageUrl 
-                      ? 'ring-2 ring-primary scale-105 shadow-md z-10' 
-                      : 'opacity-80 hover:opacity-100 hover:scale-105'
+                    selectedThumbnailIndex === -1 
+                      ? 'ring-2 ring-primary border-2 border-primary shadow-md z-10' 
+                      : 'border border-gray-200 opacity-70 hover:opacity-100'
                   }`}
-                  onClick={() => setActiveImage(mainImageUrl)}
+                  onClick={() => handleThumbnailSelect(-1, mainImageUrl)}
+                  aria-label="תמונה ראשית"
+                  aria-pressed={selectedThumbnailIndex === -1}
                 >
                   <Image
                     src={mainImageUrl}
@@ -176,6 +192,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                     fill
                     sizes="80px"
                     className="object-cover"
+                    loading="eager"
                   />
                 </button>
                 {project.galleryImages.slice(0, 4).map((img, index) => {
@@ -184,11 +201,13 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                     <button 
                       key={index}
                       className={`relative w-full aspect-square rounded-md overflow-hidden transition-all duration-300 ${
-                        activeImage === galleryImgUrl 
-                          ? 'ring-2 ring-primary scale-105 shadow-md z-10' 
-                          : 'opacity-80 hover:opacity-100 hover:scale-105'
+                        selectedThumbnailIndex === index 
+                          ? 'ring-2 ring-primary border-2 border-primary shadow-md z-10' 
+                          : 'border border-gray-200 opacity-70 hover:opacity-100'
                       }`}
-                      onClick={() => setActiveImage(galleryImgUrl)}
+                      onClick={() => handleThumbnailSelect(index, galleryImgUrl)}
+                      aria-label={`תמונה ${index + 1}`}
+                      aria-pressed={selectedThumbnailIndex === index}
                     >
                       <Image
                         src={galleryImgUrl}
@@ -196,6 +215,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                         fill
                         sizes="80px"
                         className="object-cover"
+                        loading="eager"
                       />
                     </button>
                   );

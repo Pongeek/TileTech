@@ -15,8 +15,8 @@ interface BeforeAfterSliderProps {
 const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
   beforeImage,
   afterImage,
-  beforeAlt = 'תמונת לפני',
-  afterAlt = 'תמונת אחרי',
+  beforeAlt = 'תמונת לפני - שטח לפני ההתקנה או השיפוץ',
+  afterAlt = 'תמונת אחרי - התוצאה הסופית לאחר התקנת האריחים המקצועית',
   beforeLabel = 'לפני',
   afterLabel = 'אחרי',
 }) => {
@@ -24,6 +24,8 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const [beforeError, setBeforeError] = useState(false);
   const [afterError, setAfterError] = useState(false);
+  const [beforeLoading, setBeforeLoading] = useState(true);
+  const [afterLoading, setAfterLoading] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -103,11 +105,21 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
     backgroundPosition: 'center'
   } : {};
 
+  // Enhanced descriptive alt texts with project context
+  const enhancedBeforeAlt = beforeAlt.includes('TileTech') ? beforeAlt : `${beforeAlt} | פרויקט של TileTech`;
+  const enhancedAfterAlt = afterAlt.includes('TileTech') ? afterAlt : `${afterAlt} | פרויקט של TileTech`;
+
+  // Generate placeholder color
+  const placeholderColor = "#C66"; // Primary brand color
+
+  // Create blur data URL - using a simple color placeholder instead of SVG with text to avoid encoding issues
+  const blurDataURL = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNzAwIDUwMCI+PHJlY3Qgd2lkdGg9IjcwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiNDNjYiIG9wYWNpdHk9IjAuMiIvPjwvc3ZnPg==`;
+
   return (
     <div 
       className="relative w-full overflow-hidden rounded-lg bg-neutral h-[300px] md:h-[400px] lg:h-[500px]"
       ref={containerRef}
-      aria-label="השוואת לפני ואחרי"
+      aria-label="השוואת לפני ואחרי - התקנת אריחים מקצועית"
       role="figure"
     >
       {/* After Image (Full width, back) */}
@@ -116,7 +128,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
           <div 
             className="w-full h-full" 
             style={afterStyle}
-            aria-label={afterAlt}
+            aria-label={enhancedAfterAlt}
           >
             {!afterImage && (
               <div className="flex items-center justify-center h-full">
@@ -126,13 +138,25 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
           </div>
         ) : (
           <div className="relative w-full h-full">
+            {afterLoading && (
+              <div className="absolute inset-0 flex items-center justify-center bg-gray-200 animate-pulse z-0">
+                <span className="text-lg font-medium text-gray-600">{afterLabel}</span>
+              </div>
+            )}
             <Image
               src={afterImage}
-              alt={afterAlt}
+              alt={enhancedAfterAlt}
+              title={afterLabel}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-              onError={() => setAfterError(true)}
+              className={`object-cover ${afterLoading ? 'opacity-0' : 'opacity-100'} transition-opacity`}
+              onLoadingComplete={() => setAfterLoading(false)}
+              placeholder="blur"
+              blurDataURL={blurDataURL}
+              onError={() => {
+                setAfterError(true);
+                setAfterLoading(false);
+              }}
               priority
             />
           </div>
@@ -153,7 +177,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
           <div 
             className="w-full h-full" 
             style={beforeStyle}
-            aria-label={beforeAlt}
+            aria-label={enhancedBeforeAlt}
           >
             {!beforeImage && (
               <div className="flex items-center justify-center h-full">
@@ -163,13 +187,25 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
           </div>
         ) : (
           <div className="relative w-full h-full">
+            {beforeLoading && (
+              <div className="absolute inset-0 flex items-center justify-center bg-gray-200 animate-pulse z-0">
+                <span className="text-lg font-medium text-gray-600">{beforeLabel}</span>
+              </div>
+            )}
             <Image
               src={beforeImage}
-              alt={beforeAlt}
+              alt={enhancedBeforeAlt}
+              title={beforeLabel}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-              onError={() => setBeforeError(true)}
+              className={`object-cover ${beforeLoading ? 'opacity-0' : 'opacity-100'} transition-opacity`}
+              onLoadingComplete={() => setBeforeLoading(false)}
+              placeholder="blur"
+              blurDataURL={blurDataURL}
+              onError={() => {
+                setBeforeError(true);
+                setBeforeLoading(false);
+              }}
               priority
             />
           </div>
