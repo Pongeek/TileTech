@@ -6,7 +6,7 @@ import Masonry from 'react-masonry-css';
 import ProjectCard from '@/components/ui/ProjectCard';
 import ProjectModal from '@/components/ui/ProjectModal';
 import { useProjects } from '@/hooks';
-import { LazyLoad } from '@/utils/performanceOptimizations';
+import LazyLoad from '@/components/ui/LazyLoad';
 import { AnalyticsEvents } from '@/utils/analytics';
 
 interface Project {
