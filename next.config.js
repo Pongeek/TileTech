@@ -66,13 +66,7 @@ const nextConfig = {
     ];
   },
   experimental: {
-    optimizeCss: {
-      critters: {
-        ssrMode: 'async',
-        reduceInlineStyles: false,
-        pruneSource: false,
-      }
-    },
+    optimizeCss: false,
     optimizePackageImports: ['framer-motion', 'swiper'],
   },
 };
