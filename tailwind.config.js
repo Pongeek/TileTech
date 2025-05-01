@@ -14,9 +14,9 @@ module.exports = {
         neutral: '#E5E5E0',
       },
       fontFamily: {
-        'frank': ['Frank Ruhl Libre', 'serif'],
-        'heebo': ['Heebo', 'sans-serif'],
-        'assistant': ['Assistant', 'sans-serif'],
+        'frank': ['var(--font-frank)', 'serif'],
+        'heebo': ['var(--font-heebo)', 'sans-serif'],
+        'assistant': ['var(--font-assistant)', 'sans-serif'],
       },
     },
   },

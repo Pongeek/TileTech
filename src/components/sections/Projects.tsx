@@ -4,9 +4,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Masonry from 'react-masonry-css';
 import ProjectCard from '@/components/ui/ProjectCard';
-import ProjectModal from '@/components/ui/ProjectModal';
+import ProjectModalLazy from '@/components/ui/ProjectModalLazy';
 import { useProjects } from '@/hooks';
-import LazyLoad from '@/components/ui/LazyLoad';
 import { AnalyticsEvents } from '@/utils/analytics';
 
 interface Project {
@@ -267,7 +266,7 @@ const Projects: React.FC = () => {
         {/* Project Modal */}
         <AnimatePresence>
           {selectedProject && (
-            <ProjectModal
+            <ProjectModalLazy
               project={selectedProject}
               onClose={handleCloseModal}
               onPrev={handlePrevProject}

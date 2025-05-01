@@ -1,10 +1,10 @@
 'use client';
 
-import React, { Suspense } from 'react';
+import React, { Suspense, lazy } from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Hero from '@/components/sections/Hero';
-import dynamic from 'next/dynamic';
+import { lazyLoad } from '@/utils/lazyLoad';
 
 // Simple loading components
 const ServicesSectionLoading = () => (
@@ -28,15 +28,14 @@ const ContactSectionLoading = () => (
   </div>
 );
 
-// Dynamically import components that are below the fold
-const Services = dynamic(() => import('@/components/sections/Services'), {
-  loading: () => <ServicesSectionLoading />
+// Lazy load below-the-fold components for better performance
+const Services = lazyLoad(() => import('@/components/sections/Services'), {
+  fallback: <ServicesSectionLoading />
 });
 
-// Dynamically import the Projects component to avoid hydration errors
-const Projects = dynamic(() => import('@/components/sections/Projects'), {
-  ssr: false,
-  loading: () => (
+// Use the optimized lazy-loaded version of Projects
+const Projects = lazyLoad(() => import('@/components/sections/ProjectsLazy'), {
+  fallback: (
     <div className="py-16 bg-neutral">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
@@ -50,20 +49,20 @@ const Projects = dynamic(() => import('@/components/sections/Projects'), {
   )
 });
 
-const Testimonials = dynamic(() => import('@/components/sections/Testimonials'), {
-  loading: () => <ServicesSectionLoading />
+const Testimonials = lazyLoad(() => import('@/components/sections/Testimonials'), {
+  fallback: <ServicesSectionLoading />
 });
 
-const Contact = dynamic(() => import('@/components/sections/Contact'), {
-  loading: () => <ContactSectionLoading />
+const Contact = lazyLoad(() => import('@/components/sections/Contact'), {
+  fallback: <ContactSectionLoading />
 });
 
-const ScrollToTop = dynamic(() => import('@/components/ui/ScrollToTop'), {
-  ssr: false
+const ScrollToTop = lazyLoad(() => import('@/components/ui/ScrollToTop'), {
+  fallback: null
 });
 
-const FloatingContactButton = dynamic(() => import('@/components/ui/FloatingContactButton'), {
-  ssr: false
+const FloatingContactButton = lazyLoad(() => import('@/components/ui/FloatingContactButton'), {
+  fallback: null
 });
 
 export default function Home() {
@@ -75,9 +74,9 @@ export default function Home() {
           <Hero />
         </section>
         
-        <Suspense fallback={<ServicesSectionLoading />}>
+        <section id="services" className="section py-16">
           <Services />
-        </Suspense>
+        </section>
         
         <section id="projects" className="section py-16">
           <Projects />

@@ -7,7 +7,6 @@ import { Navigation, Pagination, A11y, Autoplay, EffectFade } from 'swiper/modul
 import TestimonialCard from '@/components/ui/TestimonialCard';
 import { useTestimonials } from '@/hooks';
 import type { Swiper as SwiperType } from 'swiper';
-import LazyLoad from '@/components/ui/LazyLoad';
 
 // Import Swiper styles
 import 'swiper/css';

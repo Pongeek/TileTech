@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { Viewport } from 'next';
 import Script from 'next/script';
 import { AnalyticsProvider } from '@/utils/analytics';
+import { frankRuhlLibre, heebo, assistant } from './fonts';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -64,23 +65,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="he" dir="rtl">
+    <html 
+      lang="he" 
+      dir="rtl" 
+      className={`${frankRuhlLibre.variable} ${heebo.variable} ${assistant.variable}`}
+    >
       <head>
-        {/* Preload critical fonts for better performance */}
-        <link
-          rel="preload"
-          href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@700&display=swap"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
         <Script id="schema-local-business" type="application/ld+json">
           {`
             {

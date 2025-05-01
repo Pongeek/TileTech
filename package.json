@@ -10,10 +10,12 @@
     "lint": "next lint",
     "deploy": "node scripts/deploy.js",
     "build:no-lint": "next build --no-lint",
-    "build:deploy": "next build --no-lint"
+    "build:deploy": "next build --no-lint",
+    "analyze": "cross-env ANALYZE=true npm run build"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
+    "@next/font": "^14.2.15",
     "@vercel/analytics": "^1.5.0",
     "critters": "^0.0.25",
     "framer-motion": "^12.9.2",
@@ -28,10 +30,12 @@
     "zod": "^3.24.3"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.3.1",
     "@types/node": "^20.11.30",
     "@types/react": "^18.2.67",
     "@types/react-dom": "^18.2.22",
     "autoprefixer": "^10.4.19",
+    "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.1.4",
     "postcss": "^8.4.38",
