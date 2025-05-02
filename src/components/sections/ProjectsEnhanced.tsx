@@ -50,10 +50,13 @@ const ProjectsEnhanced: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [visibleProjects, setVisibleProjects] = useState(6);
   
+  // Ensure projects is not null by providing a default empty array
+  const projectsArray = projects || [];
+  
   // Filter projects by category
   const filteredProjects = selectedCategory === 'הכל'
-    ? projects
-    : projects.filter(project => project.category === selectedCategory);
+    ? projectsArray
+    : projectsArray.filter(project => project.category === selectedCategory);
   
   // Get displayed projects
   const displayedProjects = filteredProjects.slice(0, visibleProjects);
@@ -106,8 +109,12 @@ const ProjectsEnhanced: React.FC = () => {
             {displayedProjects.map((project) => (
               <StaggerItem key={project.id} className="mb-4">
                 <ProjectCard
-                  project={project}
+                  id={project.id}
+                  title={project.title}
+                  category={project.category}
+                  imageUrl={project.imageUrl}
                   onClick={() => handleProjectClick(project)}
+                  dimensions={project.dimensions}
                 />
               </StaggerItem>
             ))}
@@ -146,7 +153,6 @@ const ProjectsEnhanced: React.FC = () => {
         {selectedProject && (
           <ProjectModal
             project={selectedProject}
-            isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
           />
         )}
