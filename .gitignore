@@ -55,4 +55,9 @@ tasks.json
 tasks/
 
 # Cursor editor files
-.cursor/ 
+.cursor/
+
+# Added by Claude Task Master
+# Dependency directories
+node_modules/
+# OS specific

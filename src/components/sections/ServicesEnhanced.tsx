@@ -1,34 +1,20 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useServices } from '@/hooks/useServices';
+import { useServices, Service } from '@/hooks/useServices';
 import ServiceCard from '@/components/ui/ServiceCard';
 import BeforeAfterSlider from '@/components/ui/BeforeAfterSlider';
 import Button from '@/components/ui/Button';
 import ScrollAnimated, { StaggerItem } from '@/components/ui/ScrollAnimated';
 import { useFeedback, TOAST_TYPES } from '@/utils/feedback';
 
-// Define the Service interface
-interface Service {
-  id: number;
-  title: {
-    he: string;
-    en: string;
-  };
-  description: {
-    he: string;
-    en: string;
-  };
+// Extend the Service interface for local usage with additional properties
+interface ExtendedService extends Omit<Service, 'icon'> {
+  icon: React.ReactNode | string;
   extendedDescription?: {
     he: string;
     en: string;
   };
-  features: {
-    he: string[];
-    en: string[];
-  };
-  specialties: string[];
-  icon: React.ReactNode;
   beforeAfterImages?: boolean;
   benefits?: {
     he: string[];
@@ -39,7 +25,10 @@ interface Service {
 const ServicesEnhanced: React.FC = () => {
   const { services, getImageUrl } = useServices();
   const [selectedService, setSelectedService] = useState<number | null>(null);
-  const { showToast } = useFeedback();
+  const feedback = useFeedback();
+  
+  // Ensure services is not null
+  const servicesData = services || [];
   
   const handleServiceSelect = (id: number) => {
     setSelectedService(id);
@@ -50,11 +39,11 @@ const ServicesEnhanced: React.FC = () => {
       block: 'start'
     });
     
-    const serviceTitle = services.find((s: Service) => s.id === id)?.title.he || '';
-    showToast(`בחרתם לעיין בשירות ${serviceTitle}`, TOAST_TYPES.INFO);
+    const serviceTitle = servicesData.find((s) => s.id === id)?.title.he || '';
+    feedback.showToast(`בחרתם לעיין בשירות ${serviceTitle}`, TOAST_TYPES.INFO);
   };
   
-  const selectedServiceData = services.find((service: Service) => service.id === selectedService) as Service | undefined;
+  const selectedServiceData = servicesData.find((service) => service.id === selectedService) as ExtendedService | undefined;
   
   return (
     <section id="services" className="section bg-neutral-light py-16">
@@ -77,7 +66,7 @@ const ServicesEnhanced: React.FC = () => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
           threshold={0.05}
         >
-          {services.map((service: Service) => (
+          {servicesData.map((service) => (
             <StaggerItem key={service.id} className="h-full">
               <ServiceCard
                 id={service.id}
@@ -85,7 +74,7 @@ const ServicesEnhanced: React.FC = () => {
                 description={service.description.he}
                 features={service.features.he}
                 specialties={service.specialties}
-                imageUrl={getImageUrl(service, 'main')}
+                imageUrl={getImageUrl ? getImageUrl(service, 'main') : ''}
                 icon={service.icon}
                 onClick={() => handleServiceSelect(service.id)}
               />
@@ -107,7 +96,7 @@ const ServicesEnhanced: React.FC = () => {
                     <ScrollAnimated type="stagger" className="mb-8">
                       <h4 className="heading-4 mb-4">יתרונות השירות:</h4>
                       <ul className="space-y-3">
-                        {selectedServiceData.benefits?.he.map((benefit: string, index: number) => (
+                        {selectedServiceData.benefits?.he.map((benefit, index) => (
                           <StaggerItem key={index} className="flex items-start">
                             <span className="text-primary ml-3 mt-1">✓</span>
                             <span>{benefit}</span>
@@ -132,7 +121,7 @@ const ServicesEnhanced: React.FC = () => {
                   </div>
                   
                   <ScrollAnimated type="fadeUp" delay={0.3} className="overflow-hidden rounded-lg">
-                    {selectedServiceData.beforeAfterImages ? (
+                    {selectedServiceData.beforeAfterImages && getImageUrl ? (
                       <BeforeAfterSlider
                         beforeImage={getImageUrl(selectedServiceData, 'before')}
                         afterImage={getImageUrl(selectedServiceData, 'after')}
@@ -141,11 +130,13 @@ const ServicesEnhanced: React.FC = () => {
                       />
                     ) : (
                       <div className="aspect-video bg-neutral flex items-center justify-center rounded-lg overflow-hidden">
-                        <img 
-                          src={getImageUrl(selectedServiceData, 'main')} 
-                          alt={selectedServiceData.title.he}
-                          className="w-full h-full object-cover"
-                        />
+                        {getImageUrl && (
+                          <img 
+                            src={getImageUrl(selectedServiceData, 'main')} 
+                            alt={selectedServiceData.title.he}
+                            className="w-full h-full object-cover"
+                          />
+                        )}
                       </div>
                     )}
                   </ScrollAnimated>

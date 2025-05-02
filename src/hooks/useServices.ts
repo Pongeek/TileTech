@@ -33,6 +33,7 @@ interface UseServicesResult {
   error: Error | null;
   selectedService: Service | null;
   selectService: (id: number | null) => void;
+  getImageUrl: (service: any, type: 'main' | 'before' | 'after') => string;
 }
 
 export const useServices = (): UseServicesResult => {
@@ -63,12 +64,23 @@ export const useServices = (): UseServicesResult => {
     setSelectedService(found || null);
   };
 
+  // Function to get image URLs for services
+  const getImageUrl = (service: any, type: 'main' | 'before' | 'after'): string => {
+    if (!service || !service.images || !service.images[type]) {
+      // Return a fallback image if the specified type doesn't exist
+      return `/images/services/default.jpg`;
+    }
+    
+    return service.images[type];
+  };
+
   return {
     services,
     loading,
     error,
     selectedService,
-    selectService
+    selectService,
+    getImageUrl
   };
 };
 
