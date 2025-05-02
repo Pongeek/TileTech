@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, A11y, Autoplay, EffectFade } from 'swiper/modules';
-import TestimonialCard from '@/components/ui/TestimonialCard';
+import TestimonialCardLazy from '@/components/ui/TestimonialCardLazy';
 import { useTestimonials } from '@/hooks';
 import type { Swiper as SwiperType } from 'swiper';
 
@@ -207,7 +207,7 @@ const Testimonials: React.FC = () => {
                 {featuredTestimonials.map((testimonial) => (
                   <SwiperSlide key={`featured-${testimonial.id}`}>
                     <div className="h-full">
-                      <TestimonialCard {...testimonial} />
+                      <TestimonialCardLazy {...testimonial} />
                     </div>
                   </SwiperSlide>
                 ))}

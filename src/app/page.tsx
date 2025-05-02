@@ -1,60 +1,64 @@
 'use client';
 
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Hero from '@/components/sections/Hero';
 import { lazyLoad } from '@/utils/lazyLoad';
 
-// Simple loading components
-const ServicesSectionLoading = () => (
-  <div className="py-16">
-    <div className="container mx-auto px-4">
-      <div className="text-center mb-12">
-        <div className="h-10 w-64 bg-gray-200 rounded animate-pulse mx-auto mb-6"></div>
-        <div className="h-4 w-3/4 bg-gray-100 rounded animate-pulse mx-auto"></div>
-      </div>
-    </div>
-  </div>
-);
-
-const ContactSectionLoading = () => (
-  <div className="py-16">
-    <div className="container mx-auto px-4">
-      <div className="text-center mb-12">
-        <div className="h-10 w-48 bg-gray-200 rounded animate-pulse mx-auto"></div>
-      </div>
-    </div>
-  </div>
-);
-
-// Lazy load below-the-fold components for better performance
-const Services = lazyLoad(() => import('@/components/sections/Services'), {
-  fallback: <ServicesSectionLoading />
-});
-
-// Use the optimized lazy-loaded version of Projects
-const Projects = lazyLoad(() => import('@/components/sections/ProjectsLazy'), {
+// Use the optimized lazy-loaded section components
+const Services = lazyLoad(() => import('@/components/sections/ServicesLazy'), {
   fallback: (
-    <div className="py-16 bg-neutral">
+    <div className="py-16">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-frank font-bold text-secondary mb-4">הפרויקטים שלנו</h2>
-          <div className="h-64 flex justify-center items-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-          </div>
+          <div className="h-10 w-64 bg-gray-200 rounded animate-pulse mx-auto mb-6"></div>
+          <div className="h-4 w-3/4 bg-gray-100 rounded animate-pulse mx-auto"></div>
         </div>
       </div>
     </div>
   )
 });
 
-const Testimonials = lazyLoad(() => import('@/components/sections/Testimonials'), {
-  fallback: <ServicesSectionLoading />
+const Projects = lazyLoad(() => import('@/components/sections/ProjectsLazy'), {
+  fallback: (
+    <div className="py-16 bg-neutral">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <div className="h-10 w-64 bg-gray-200 rounded animate-pulse mx-auto mb-4"></div>
+          <div className="h-4 w-3/4 bg-gray-200 rounded animate-pulse mx-auto"></div>
+        </div>
+        <div className="h-64 flex justify-center items-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        </div>
+      </div>
+    </div>
+  )
 });
 
-const Contact = lazyLoad(() => import('@/components/sections/Contact'), {
-  fallback: <ContactSectionLoading />
+const Testimonials = lazyLoad(() => import('@/components/sections/TestimonialsLazy'), {
+  fallback: (
+    <div className="py-16 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <div className="h-10 w-56 bg-gray-200 rounded animate-pulse mx-auto mb-4"></div>
+          <div className="h-4 w-3/4 bg-gray-200 rounded animate-pulse mx-auto"></div>
+        </div>
+      </div>
+    </div>
+  )
+});
+
+const Contact = lazyLoad(() => import('@/components/sections/ContactLazy'), {
+  fallback: (
+    <div className="py-16">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <div className="h-10 w-48 bg-gray-200 rounded animate-pulse mx-auto"></div>
+        </div>
+      </div>
+    </div>
+  )
 });
 
 const ScrollToTop = lazyLoad(() => import('@/components/ui/ScrollToTop'), {

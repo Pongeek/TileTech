@@ -7,6 +7,8 @@ import { useServices, getLocalizedContent, Service } from '@/hooks/useServices';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { fallbackImages, getImageWithFallback, defaultPlaceholder } from '@/utils/imageUtils';
+import ServiceCardLazy from '@/components/ui/ServiceCardLazy';
+import BeforeAfterSliderLazy from '@/components/ui/BeforeAfterSliderLazy';
 
 // Animation variants
 const containerVariants = {
@@ -200,7 +202,7 @@ const Services: React.FC = () => {
                   whileHover={{ y: -5, transition: { duration: 0.2 } }}
                   custom={index}
                 >
-                  <ServiceCard
+                  <ServiceCardLazy
                     id={service.id}
                     title={service.title.he}
                     description={service.description.he}

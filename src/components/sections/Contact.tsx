@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import QuoteForm from '@/components/ui/QuoteForm';
+import QuoteFormLazy from '@/components/ui/QuoteFormLazy';
 
 const Contact: React.FC = () => {
   // WhatsApp message configuration
@@ -127,7 +127,7 @@ const Contact: React.FC = () => {
               </h2>
               
               {/* Multi-step Quote Form */}
-              <QuoteForm />
+              <QuoteFormLazy />
             </div>
           </div>
         </div>

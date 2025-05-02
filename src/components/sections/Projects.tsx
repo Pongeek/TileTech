@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Masonry from 'react-masonry-css';
-import ProjectCard from '@/components/ui/ProjectCard';
+import { lazyLoad } from '@/utils/lazyLoad';
 import ProjectModalLazy from '@/components/ui/ProjectModalLazy';
 import { useProjects } from '@/hooks';
 import { AnalyticsEvents } from '@/utils/analytics';
@@ -54,6 +54,19 @@ const itemVariants = {
     }
   }
 };
+
+// Create lazy-loaded ProjectCard component
+const ProjectCard = lazyLoad(() => import('@/components/ui/ProjectCard'), {
+  fallback: (
+    <div className="bg-white rounded-lg shadow-md overflow-hidden animate-pulse">
+      <div className="bg-gray-200 w-full h-52"></div>
+      <div className="p-4">
+        <div className="h-5 bg-gray-200 rounded w-3/4 mb-3"></div>
+        <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+      </div>
+    </div>
+  )
+});
 
 const Projects: React.FC = () => {
   const { projects, loading, error } = useProjects();
