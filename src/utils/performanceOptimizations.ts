@@ -193,6 +193,6 @@ const performanceExports = {
   generatePlaceholder,
   debounce,
   loadScript
-};
+}; 
 
 export default performanceExports; 

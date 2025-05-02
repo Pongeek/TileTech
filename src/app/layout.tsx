@@ -4,11 +4,13 @@ import { Viewport } from 'next';
 import Script from 'next/script';
 import { AnalyticsProvider } from '@/utils/analytics';
 import { frankRuhlLibre, heebo, assistant } from './fonts';
+import FeedbackProvider from '@/providers/FeedbackProvider';
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   themeColor: '#C66',
+  maximumScale: 5,
 };
 
 export const metadata: Metadata = {
@@ -68,7 +70,7 @@ export default function RootLayout({
     <html 
       lang="he" 
       dir="rtl" 
-      className={`${frankRuhlLibre.variable} ${heebo.variable} ${assistant.variable}`}
+      className={`${frankRuhlLibre.variable} ${heebo.variable} ${assistant.variable} js-focus-visible`}
     >
       <head>
         <Script id="schema-local-business" type="application/ld+json">
@@ -167,9 +169,22 @@ export default function RootLayout({
             }
           `}
         </Script>
+        
+        <Script id="focus-visible-polyfill" strategy="afterInteractive">
+          {`
+            !function(e,t){"object"==typeof exports&&"undefined"!=typeof module?t():"function"==typeof define&&define.amd?define(t):t()}(0,function(){"use strict";function e(e){var t=!0,n=!1,o=null,i={text:!0,search:!0,url:!0,tel:!0,email:!0,password:!0,number:!0,date:!0,month:!0,week:!0,time:!0,datetime:!0,"datetime-local":!0};function r(e){return!!(e&&e!==document&&"HTML"!==e.nodeName&&"BODY"!==e.nodeName&&"classList"in e&&"contains"in e.classList)}function a(e){e.classList.contains("focus-visible")||(e.classList.add("focus-visible"),e.setAttribute("data-focus-visible-added",""))}function d(e){t=!1}function u(){document.addEventListener("mousemove",c),document.addEventListener("mousedown",c),document.addEventListener("mouseup",c),document.addEventListener("pointermove",c),document.addEventListener("pointerdown",c),document.addEventListener("pointerup",c),document.addEventListener("touchmove",c),document.addEventListener("touchstart",c),document.addEventListener("touchend",c)}function c(e){e.target.nodeName&&"html"===e.target.nodeName.toLowerCase()||(t=!1,document.removeEventListener("mousemove",c),document.removeEventListener("mousedown",c),document.removeEventListener("mouseup",c),document.removeEventListener("pointermove",c),document.removeEventListener("pointerdown",c),document.removeEventListener("pointerup",c),document.removeEventListener("touchmove",c),document.removeEventListener("touchstart",c),document.removeEventListener("touchend",c))}document.addEventListener("keydown",function(n){n.metaKey||n.altKey||n.ctrlKey||(r(e.activeElement)&&a(e.activeElement),t=!0)},!0),document.addEventListener("mousedown",d,!0),document.addEventListener("pointerdown",d,!0),document.addEventListener("touchstart",d,!0),document.addEventListener("visibilitychange",function(e){"hidden"===document.visibilityState&&(n&&(t=!0),u())},!0),u(),e.addEventListener("focus",function(e){var n,o,d;r(e.target)&&(t||(n=e.target,o=n.type,"INPUT"===(d=n.tagName)&&i[o]&&!n.readOnly||"TEXTAREA"===d&&!n.readOnly||n.isContentEditable))&&a(e.target)},!0),e.addEventListener("blur",function(e){r(e.target)&&(e.target.classList.contains("focus-visible")||e.target.hasAttribute("data-focus-visible-added"))&&(n=!0,window.clearTimeout(o),o=window.setTimeout(function(){n=!1},100),e.target.classList.remove("focus-visible"),e.target.removeAttribute("data-focus-visible-added"))},!0),e.nodeType===Node.DOCUMENT_FRAGMENT_NODE&&e.host?e.host.setAttribute("data-js-focus-visible",""):e.nodeType===Node.DOCUMENT_NODE&&(document.documentElement.classList.add("js-focus-visible"),document.documentElement.setAttribute("data-js-focus-visible",""))}if("undefined"!=typeof window&&"undefined"!=typeof document){var t;window.applyFocusVisiblePolyfill=e;try{t=new CustomEvent("focus-visible-polyfill-ready")}catch(e){(t=document.createEvent("CustomEvent")).initCustomEvent("focus-visible-polyfill-ready",!1,!1,{})}window.dispatchEvent(t)}"undefined"!=typeof document&&e(document)});
+          `}
+        </Script>
       </head>
       <body className="font-assistant">
-        {children}
+        <a href="#main-content" className="skip-link">
+          דילוג לתוכן העיקרי
+        </a>
+        
+        <FeedbackProvider>
+          {children}
+        </FeedbackProvider>
+        
         <AnalyticsProvider />
       </body>
     </html>

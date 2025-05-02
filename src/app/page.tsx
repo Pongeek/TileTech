@@ -28,8 +28,8 @@ const Projects = lazyLoad(() => import('@/components/sections/ProjectsLazy'), {
           <div className="h-10 w-64 bg-gray-200 rounded animate-pulse mx-auto mb-4"></div>
           <div className="h-4 w-3/4 bg-gray-200 rounded animate-pulse mx-auto"></div>
         </div>
-        <div className="h-64 flex justify-center items-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+          <div className="h-64 flex justify-center items-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
       </div>
     </div>
