@@ -8,6 +8,7 @@ const CIRCLE_SIZE = "20px";
 const LINE_HEIGHT = "2px";
 const LINE_TOP_POSITION = "10px"; // Half of circle size
 const PRIMARY_COLOR = "#dc2626"; // Hardcoded primary color for consistency
+const TEXT_OFFSET = "-3px"; // Offset to align text with steps (negative = left)
 
 const FormProgress: React.FC = () => {
   const { currentStep, setCurrentStep } = useFormContext();
@@ -126,7 +127,7 @@ const FormProgress: React.FC = () => {
                 </div>
               </button>
               
-              {/* Text label */}
+              {/* Text label with position adjustment */}
               <span 
                 className={`text-xs font-medium 
                   ${isActive(step.id) 
@@ -135,6 +136,7 @@ const FormProgress: React.FC = () => {
                       ? 'text-primary' 
                       : 'text-gray-500'
                   }`}
+                style={{ position: 'relative', right: TEXT_OFFSET }}
               >
                 {step.label}
               </span>
