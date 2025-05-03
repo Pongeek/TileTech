@@ -4,11 +4,11 @@ import React, { useMemo } from 'react';
 import { useFormContext, FormStep } from '@/hooks/useFormContext';
 
 // Define CSS variables for consistent sizing
-const CIRCLE_SIZE = "20px"; // Size of the step circles
-const LINE_HEIGHT = "2px"; // Height of the horizontal line
-const LINE_TOP_POSITION = "11px"; // Adjusted to center circles on the line (circle height/2 + small adjustment)
+const CIRCLE_SIZE = "20px";
+const LINE_HEIGHT = "2px";
+const LINE_TOP_POSITION = "10px"; // Half of circle size
 const PRIMARY_COLOR = "#dc2626"; // Hardcoded primary color for consistency
-const TEXT_OFFSET = "-5px"; // Increased offset to better align text with steps (negative = left)
+const TEXT_OFFSET = "-3px"; // Offset to align text with steps (negative = left)
 
 const FormProgress: React.FC = () => {
   const { currentStep, setCurrentStep } = useFormContext();
@@ -71,24 +71,39 @@ const FormProgress: React.FC = () => {
           {steps.map((step) => (
             <div key={step.id} className="flex flex-col items-center">
               {/* Circle container */}
-              <div className="relative mb-2" style={{ width: CIRCLE_SIZE, height: CIRCLE_SIZE }}>
-                <button
-                  onClick={() => goToStep(step.id)}
-                  disabled={!isCompleted(step.id) && step.id !== currentStep && step.id !== currentStep + 1}
-                  className={`w-full h-full relative transition-all duration-200
-                    ${isCompleted(step.id) || isActive(step.id) 
-                      ? 'cursor-pointer' 
-                      : step.id === currentStep + 1 
-                        ? 'cursor-pointer opacity-60' 
-                        : 'cursor-not-allowed opacity-40'
-                    }`}
-                  aria-current={isActive(step.id) ? 'step' : undefined}
-                  type="button"
-                >
-                  {/* Circle indicator */}
+              <button
+                onClick={() => goToStep(step.id)}
+                disabled={!isCompleted(step.id) && step.id !== currentStep && step.id !== currentStep + 1}
+                className={`relative mb-2 transition-all duration-200
+                  ${isCompleted(step.id) || isActive(step.id) 
+                    ? 'cursor-pointer' 
+                    : step.id === currentStep + 1 
+                      ? 'cursor-pointer opacity-60' 
+                      : 'cursor-not-allowed opacity-40'
+                  }`}
+                aria-current={isActive(step.id) ? 'step' : undefined}
+              >
+                {/* Active ring (separate element for better cross-environment compatibility) */}
+                {isActive(step.id) && (
+                  <div 
+                    className="absolute rounded-full" 
+                    style={{
+                      top: "-3px",
+                      left: "-3px", 
+                      right: "-3px",
+                      bottom: "-3px",
+                      border: `2px solid ${PRIMARY_COLOR}`,
+                      zIndex: 0
+                    }}
+                  />
+                )}
+                
+                {/* Circle indicator */}
+                <div className="flex items-center justify-center">
                   {isCompleted(step.id) ? (
                     <div
-                      className="rounded-full bg-primary text-white flex items-center justify-center w-full h-full relative z-10"
+                      className="rounded-full bg-primary text-white flex items-center justify-center relative z-10"
+                      style={{ width: CIRCLE_SIZE, height: CIRCLE_SIZE }}
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-2.5 w-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -96,34 +111,23 @@ const FormProgress: React.FC = () => {
                     </div>
                   ) : (
                     <div
-                      className={`rounded-full flex items-center justify-center text-xs font-medium w-full h-full relative z-10
+                      className={`rounded-full flex items-center justify-center text-xs font-medium relative z-10
                         ${isActive(step.id) 
                           ? 'bg-primary text-white' 
                           : 'bg-white border-2 border-gray-300 text-gray-500'
                         }`}
+                      style={{ 
+                        width: CIRCLE_SIZE, 
+                        height: CIRCLE_SIZE
+                      }}
                     >
                       {step.id + 1}
                     </div>
                   )}
-                </button>
-                
-                {/* Active ring (separate, fixed-size element rendered outside the button) */}
-                {isActive(step.id) && (
-                  <div 
-                    className="absolute rounded-full pointer-events-none"
-                    style={{
-                      top: "-2px",
-                      left: "-2px",
-                      right: "-2px",
-                      bottom: "-2px",
-                      border: `1.5px solid ${PRIMARY_COLOR}`,
-                      zIndex: 5
-                    }}
-                  />
-                )}
-              </div>
+                </div>
+              </button>
               
-              {/* Text label with leftward adjustment */}
+              {/* Text label with position adjustment */}
               <span 
                 className={`text-xs font-medium 
                   ${isActive(step.id) 
@@ -144,4 +148,4 @@ const FormProgress: React.FC = () => {
   );
 };
 
-export default FormProgress; 
+export default React.memo(FormProgress); 
