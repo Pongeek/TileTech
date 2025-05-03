@@ -2,12 +2,12 @@
 
 import React, { useMemo } from 'react';
 import { useFormContext, FormStep } from '@/hooks/useFormContext';
-import { motion } from 'framer-motion';
 
 // Define CSS variables for consistent sizing
 const CIRCLE_SIZE = "20px";
 const LINE_HEIGHT = "2px";
 const LINE_TOP_POSITION = "10px"; // Half of circle size
+const PRIMARY_COLOR = "#dc2626"; // Hardcoded primary color for consistency
 
 const FormProgress: React.FC = () => {
   const { currentStep, setCurrentStep } = useFormContext();
@@ -82,11 +82,26 @@ const FormProgress: React.FC = () => {
                   }`}
                 aria-current={isActive(step.id) ? 'step' : undefined}
               >
+                {/* Active ring (separate element for better cross-environment compatibility) */}
+                {isActive(step.id) && (
+                  <div 
+                    className="absolute rounded-full" 
+                    style={{
+                      top: "-3px",
+                      left: "-3px", 
+                      right: "-3px",
+                      bottom: "-3px",
+                      border: `2px solid ${PRIMARY_COLOR}`,
+                      zIndex: 0
+                    }}
+                  />
+                )}
+                
                 {/* Circle indicator */}
                 <div className="flex items-center justify-center">
                   {isCompleted(step.id) ? (
                     <div
-                      className="rounded-full bg-primary text-white flex items-center justify-center"
+                      className="rounded-full bg-primary text-white flex items-center justify-center relative z-10"
                       style={{ width: CIRCLE_SIZE, height: CIRCLE_SIZE }}
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-2.5 w-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -95,17 +110,14 @@ const FormProgress: React.FC = () => {
                     </div>
                   ) : (
                     <div
-                      className={`rounded-full flex items-center justify-center text-xs font-medium
+                      className={`rounded-full flex items-center justify-center text-xs font-medium relative z-10
                         ${isActive(step.id) 
                           ? 'bg-primary text-white' 
                           : 'bg-white border-2 border-gray-300 text-gray-500'
                         }`}
                       style={{ 
                         width: CIRCLE_SIZE, 
-                        height: CIRCLE_SIZE,
-                        ...(isActive(step.id) ? {
-                          boxShadow: '0 0 0 1px #fff, 0 0 0 3px var(--primary-color, #dc2626)',
-                        } : {})
+                        height: CIRCLE_SIZE
                       }}
                     >
                       {step.id + 1}
