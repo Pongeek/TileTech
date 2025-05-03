@@ -41,27 +41,27 @@ const FormProgress: React.FC = () => {
     <div className="w-full">
       {/* Progress bar with increased spacing */}
       <div className="relative mt-10">
-        {/* Background bar with adjusted positioning for mobile */}
-        <div className="absolute top-[9px] md:top-[10px] left-0 right-0 h-0.5 bg-gray-200 z-0" />
+        {/* Background bar - fixed position regardless of device */}
+        <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-200 z-0 -translate-y-1/2" />
         
-        {/* Progress bar with adjusted positioning for mobile */}
+        {/* Progress bar - fixed position regardless of device */}
         <div 
-          className="absolute top-[9px] md:top-[10px] right-0 h-0.5 bg-primary z-0 transition-all duration-300 ease-in-out"
+          className="absolute top-1/2 right-0 h-0.5 bg-primary z-0 -translate-y-1/2 transition-all duration-300 ease-in-out"
           style={{
             width: `${progressPercentage}%`
           }}
         />
         
-        {/* Step indicators with mobile optimization */}
+        {/* Step indicators with consistent sizing */}
         <div className="relative z-10 flex justify-between">
           {steps.map((step) => (
             <div key={step.id} className="flex flex-col items-center">
-              {/* Circle container */}
+              {/* Circle container with fixed positioning */}
               <button
                 onClick={() => goToStep(step.id)}
                 disabled={!isCompleted(step.id) && step.id !== currentStep && step.id !== currentStep + 1}
-                className={`mb-2 transition-all duration-200 
-                  ${isActive(step.id) ? 'focus:outline-none focus:ring-1 focus:ring-primary focus:ring-offset-1 rounded-full' : ''}
+                className={`relative mb-2 transition-all duration-200 
+                  ${isActive(step.id) ? 'focus:outline-none' : ''}
                   ${isCompleted(step.id) || isActive(step.id) 
                     ? 'cursor-pointer' 
                     : step.id === currentStep + 1 
@@ -70,15 +70,20 @@ const FormProgress: React.FC = () => {
                   }`}
                 aria-current={isActive(step.id) ? 'step' : undefined}
               >
-                {/* Circle indicator with smaller size for mobile */}
-                <div className="flex items-center justify-center">
+                {/* Active step focus ring with absolute position */}
+                {isActive(step.id) && (
+                  <div className="absolute inset-0 rounded-full ring-2 ring-primary ring-offset-1" style={{ transform: 'scale(1.2)' }}></div>
+                )}
+                
+                {/* Circle indicator with fixed dimensions */}
+                <div className="flex items-center justify-center relative">
                   {isCompleted(step.id) ? (
                     <motion.div
                       initial={{ scale: 0.8 }}
                       animate={{ scale: 1 }}
-                      className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-primary text-white flex items-center justify-center shadow-md"
+                      className="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center shadow-md"
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-2.5 w-2.5 md:h-3 md:w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </motion.div>
@@ -86,7 +91,7 @@ const FormProgress: React.FC = () => {
                     <motion.div
                       animate={isActive(step.id) ? { scale: [1, 1.05, 1] } : undefined}
                       transition={{ duration: 0.5 }}
-                      className={`w-5 h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center text-xs font-medium shadow-md
+                      className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium shadow-md
                         ${isActive(step.id) 
                           ? 'bg-primary text-white' 
                           : 'bg-white border-2 border-gray-300 text-gray-500'
@@ -98,9 +103,9 @@ const FormProgress: React.FC = () => {
                 </div>
               </button>
               
-              {/* Text label with improved size for mobile */}
+              {/* Text label with improved size */}
               <span 
-                className={`text-[10px] md:text-xs font-medium 
+                className={`text-xs font-medium 
                   ${isActive(step.id) 
                     ? 'text-primary font-bold' 
                     : isCompleted(step.id) 
