@@ -110,7 +110,7 @@ const PersonalInfoForm: React.FC = () => {
           />
           
           {/* Navigation Buttons */}
-          <div className="flex justify-end mt-8">
+          <div className="flex justify-center mt-8">
             <motion.button
               type="submit"
               className="px-6 py-2.5 bg-primary text-white rounded-md font-medium hover:bg-primary-dark transition-colors shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
@@ -120,7 +120,7 @@ const PersonalInfoForm: React.FC = () => {
             >
               המשך לפרטי הפרויקט
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </motion.button>
           </div>

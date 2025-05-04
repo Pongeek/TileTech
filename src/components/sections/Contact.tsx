@@ -122,7 +122,7 @@ const Contact: React.FC = () => {
             
             {/* Form Side */}
             <div className="p-8 md:col-span-3">
-              <h2 className="text-2xl font-frank font-bold text-secondary mb-6 text-center">
+              <h2 className="text-2xl font-frank font-bold text-secondary mb-0 text-center">
                 בקשת הצעת מחיר
               </h2>
               
