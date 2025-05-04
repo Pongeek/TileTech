@@ -78,8 +78,36 @@ const Header: React.FC = () => {
           </ul>
         </nav>
         
-        {/* Mobile navigation overlay */}
-        <div className={`md:hidden fixed inset-0 bg-white z-40 transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+        {/* Dimmed overlay – clicking it closes the menu */}
+        {isMenuOpen && (
+          <div
+            className="md:hidden fixed inset-0 bg-black bg-opacity-40 z-40"
+            onClick={toggleMenu}
+            aria-hidden="true"
+          />
+        )}
+
+        {/* Mobile navigation panel */}
+        <div
+          className={`md:hidden fixed inset-y-0 right-0 w-4/5 max-w-xs bg-white z-50 shadow-lg transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        >
+          {/* Close (X) button */}
+          <button
+            className="absolute top-4 left-4 p-2 text-secondary rounded-full hover:bg-primary-light/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            onClick={toggleMenu}
+            aria-label="סגור תפריט"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
           <div className="container-custom pt-20 pb-6">
             <nav>
               <ul className="flex flex-col space-y-4 text-right text-secondary font-heebo text-xl">

@@ -3,12 +3,10 @@
 import React, { useMemo } from 'react';
 import { useFormContext, FormStep } from '@/hooks/useFormContext';
 
-// Define CSS variables for consistent sizing
-const CIRCLE_SIZE = "20px";
-const LINE_HEIGHT = "2px";
-const LINE_TOP_POSITION = "10px"; // Half of circle size
-const PRIMARY_COLOR = "#dc2626"; // Hardcoded primary color for consistency
-const TEXT_OFFSET = "-3px"; // Offset to align text with steps (negative = left)
+// Constant values used throughout the component
+const CIRCLE_SIZE = "w-5 h-5";
+const ACTIVE_RING_CLASS = "absolute rounded-full border border-primary top-[-3px] left-[-3px] w-[26px] h-[26px] border-[1.5px]";
+const TEXT_ALIGNMENT = "relative translate-x-[5px]";
 
 const FormProgress: React.FC = () => {
   const { currentStep, setCurrentStep } = useFormContext();
@@ -48,95 +46,64 @@ const FormProgress: React.FC = () => {
       {/* Progress bar with increased spacing */}
       <div className="relative mt-10">
         {/* Background bar */}
-        <div 
-          className="absolute left-0 right-0 bg-gray-200 z-0" 
-          style={{ 
-            height: LINE_HEIGHT, 
-            top: LINE_TOP_POSITION
-          }}
-        />
+        <div className="absolute left-0 right-0 bg-gray-200 z-0 h-[2px] top-[11px]" />
         
         {/* Progress bar */}
         <div 
-          className="absolute right-0 bg-primary z-0 transition-all duration-300 ease-in-out"
-          style={{
-            width: `${progressPercentage}%`,
-            height: LINE_HEIGHT,
-            top: LINE_TOP_POSITION
-          }}
+          className="absolute right-0 bg-primary z-0 transition-all duration-300 ease-in-out h-[2px] top-[11px]"
+          style={{ width: `${progressPercentage}%` }}
         />
         
         {/* Step indicators */}
         <div className="relative z-10 flex justify-between">
           {steps.map((step) => (
             <div key={step.id} className="flex flex-col items-center">
-              {/* Circle container */}
-              <button
-                onClick={() => goToStep(step.id)}
-                disabled={!isCompleted(step.id) && step.id !== currentStep && step.id !== currentStep + 1}
-                className={`relative mb-2 transition-all duration-200
-                  ${isCompleted(step.id) || isActive(step.id) 
-                    ? 'cursor-pointer' 
-                    : step.id === currentStep + 1 
-                      ? 'cursor-pointer opacity-60' 
-                      : 'cursor-not-allowed opacity-40'
-                  }`}
-                aria-current={isActive(step.id) ? 'step' : undefined}
-              >
-                {/* Active ring (separate element for better cross-environment compatibility) */}
+              <div className="relative mb-2">
+                {/* Active ring */}
                 {isActive(step.id) && (
-                  <div 
-                    className="absolute rounded-full" 
-                    style={{
-                      top: "-3px",
-                      left: "-3px", 
-                      right: "-3px",
-                      bottom: "-3px",
-                      border: `2px solid ${PRIMARY_COLOR}`,
-                      zIndex: 0
-                    }}
-                  />
+                  <div className={ACTIVE_RING_CLASS} />
                 )}
                 
-                {/* Circle indicator */}
-                <div className="flex items-center justify-center">
+                {/* Button */}
+                <button
+                  onClick={() => goToStep(step.id)}
+                  disabled={!isCompleted(step.id) && step.id !== currentStep && step.id !== currentStep + 1}
+                  className={`
+                    ${CIRCLE_SIZE} rounded-full flex items-center justify-center
+                    ${isCompleted(step.id) || isActive(step.id) 
+                      ? 'cursor-pointer' 
+                      : step.id === currentStep + 1 
+                        ? 'cursor-pointer opacity-60' 
+                        : 'cursor-not-allowed opacity-40'
+                    }
+                    ${isCompleted(step.id) || isActive(step.id)
+                      ? 'bg-primary text-white border-0'
+                      : 'bg-white border-2 border-gray-300 text-gray-500'
+                    }
+                  `}
+                  aria-current={isActive(step.id) ? 'step' : undefined}
+                  type="button"
+                  style={{ minWidth: '20px', minHeight: '20px' }}
+                >
                   {isCompleted(step.id) ? (
-                    <div
-                      className="rounded-full bg-primary text-white flex items-center justify-center relative z-10"
-                      style={{ width: CIRCLE_SIZE, height: CIRCLE_SIZE }}
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-2.5 w-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-2.5 w-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
                   ) : (
-                    <div
-                      className={`rounded-full flex items-center justify-center text-xs font-medium relative z-10
-                        ${isActive(step.id) 
-                          ? 'bg-primary text-white' 
-                          : 'bg-white border-2 border-gray-300 text-gray-500'
-                        }`}
-                      style={{ 
-                        width: CIRCLE_SIZE, 
-                        height: CIRCLE_SIZE
-                      }}
-                    >
-                      {step.id + 1}
-                    </div>
+                    <span className="text-xs font-medium">{step.id + 1}</span>
                   )}
-                </div>
-              </button>
+                </button>
+              </div>
               
-              {/* Text label with position adjustment */}
+              {/* Text label */}
               <span 
-                className={`text-xs font-medium 
+                className={`text-xs font-medium ${TEXT_ALIGNMENT}
                   ${isActive(step.id) 
                     ? 'text-primary font-bold' 
                     : isCompleted(step.id) 
                       ? 'text-primary' 
                       : 'text-gray-500'
                   }`}
-                style={{ position: 'relative', right: TEXT_OFFSET }}
               >
                 {step.label}
               </span>
@@ -148,4 +115,4 @@ const FormProgress: React.FC = () => {
   );
 };
 
-export default React.memo(FormProgress); 
+export default FormProgress; 
