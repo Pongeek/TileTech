@@ -3,20 +3,20 @@ import Link from 'next/link';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-secondary text-white py-8 mt-0 relative -top-2">
+    <footer className="bg-secondary text-white py-2 mt-0">
       <div className="container-custom">
-        <div className="flex flex-col md:flex-row justify-between">
+        <div className="flex flex-col md:flex-row md:justify-between items-center md:items-start">
           <div className="mb-6 md:mb-0">
-            <h2 className="text-xl font-frank font-bold mb-4">TileTech</h2>
-            <p className="font-assistant">
+            <h2 className="text-xl font-frank font-bold mb-4 text-center md:text-right">TileTech</h2>
+            <p className="font-assistant text-center md:text-right">
               שירותי התקנת אריחים מקצועיים <br />
               באיכות גבוהה ושירות אמין
             </p>
           </div>
           
-          <div className="mb-6 md:mb-0">
-            <h3 className="text-lg font-heebo font-bold mb-4">ניווט מהיר</h3>
-            <ul className="space-y-2 font-assistant">
+          <div className="mb-6 md:mb-0 text-center md:text-right w-full md:w-auto">
+            <h3 className="text-lg font-heebo font-bold mb-3">ניווט מהיר</h3>
+            <ul className="space-y-2 font-assistant list-none p-0 ml-6 mx-auto text-center md:text-right">
               <li><Link href="#services" className="hover:text-accent transition-colors">שירותים</Link></li>
               <li><Link href="#gallery" className="hover:text-accent transition-colors">גלריה</Link></li>
               <li><Link href="#testimonials" className="hover:text-accent transition-colors">המלצות</Link></li>
@@ -24,9 +24,9 @@ const Footer: React.FC = () => {
             </ul>
           </div>
           
-          <div>
-            <h3 className="text-lg font-heebo font-bold mb-4">צור קשר</h3>
-            <ul className="space-y-2 font-assistant">
+          <div className="text-center md:text-right w-full md:w-auto">
+            <h3 className="text-lg font-heebo font-bold mb-3">צור קשר</h3>
+            <ul className="space-y-2 font-assistant list-none p-0 ml-6 mx-auto text-center md:text-right">
               <li>טלפון: 050-1234567</li>
               <li>דוא"ל: info@tiletech.co.il</li>
               <li>כתובת: תל אביב, ישראל</li>
@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
         
-        <div className="border-t border-white/20 mt-8 pt-4 text-center font-assistant">
+        <div className="border-t border-white/20 mt-6 pt-3 text-center font-assistant">
           <p>&copy; {new Date().getFullYear()} TileTech. כל הזכויות שמורות.</p>
         </div>
       </div>
