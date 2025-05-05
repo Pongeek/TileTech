@@ -8,6 +8,7 @@ import ProjectCard from '@/components/ui/ProjectCard';
 import Button from '@/components/ui/Button';
 import ScrollAnimated, { StaggerItem } from '@/components/ui/ScrollAnimated';
 import ProjectModal from '@/components/ui/ProjectModal';
+import { AnalyticsEvents } from '@/utils/analytics';
 
 interface Project {
   id: number;
@@ -65,11 +66,13 @@ const ProjectsEnhanced: React.FC = () => {
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project);
     setIsModalOpen(true);
+    AnalyticsEvents.projectView(project.id, project.title.he, project.category);
   };
   
   // Handle load more button click
   const handleLoadMore = () => {
     setVisibleProjects(prev => prev + 3);
+    AnalyticsEvents.ctaClick('gallery_load_more', 'Load more');
   };
   
   return (
@@ -91,7 +94,10 @@ const ProjectsEnhanced: React.FC = () => {
               key={category}
               variant={selectedCategory === category ? 'primary' : 'ghost'}
               size="small"
-              onClick={() => setSelectedCategory(category)}
+              onClick={() => {
+                setSelectedCategory(category);
+                AnalyticsEvents.ctaClick('gallery_filter', category);
+              }}
               className="mb-2"
             >
               {category}

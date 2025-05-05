@@ -7,6 +7,7 @@ import { personalInfoSchema, type PersonalInfoInputs } from '@/utils/validationS
 import { useFormContext, FormStep } from '@/hooks/useFormContext';
 import FormField from '@/components/ui/FormField';
 import { motion, AnimatePresence } from 'framer-motion';
+import { AnalyticsEvents } from '@/utils/analytics';
 
 const PersonalInfoForm: React.FC = () => {
   const { nextStep, personalInfo, updateFormData } = useFormContext();
@@ -31,6 +32,8 @@ const PersonalInfoForm: React.FC = () => {
   const onSubmit = (data: PersonalInfoInputs) => {
     // Update form context data
     updateFormData('personalInfo', data);
+    // Track step completion
+    AnalyticsEvents.formStep('quote', 1);
     
     // Move to next step
     nextStep();
@@ -42,6 +45,11 @@ const PersonalInfoForm: React.FC = () => {
     visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
     exit: { opacity: 0, x: 20, transition: { duration: 0.3 } },
   };
+  
+  // Track form start once when component mounts
+  React.useEffect(() => {
+    AnalyticsEvents.formStart('quote');
+  }, []);
   
   return (
     <AnimatePresence mode="wait">

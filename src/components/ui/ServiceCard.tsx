@@ -115,6 +115,49 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
               <div className="text-lg font-medium">{title}</div>
             </div>
           </div>
+        ) : imageUrl.startsWith('http') ? (
+          // Direct remote URL (Cloudinary) handling
+          <>
+            {isImageLoading && (
+              <div className={`absolute inset-0 ${getFallbackBgColor()} animate-pulse flex items-center justify-center z-0`}>
+                <div className="text-white text-lg font-medium">{title}</div>
+              </div>
+            )}
+            <Image 
+              src={imageUrl}
+              alt={title}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className={`object-cover transition-transform duration-500 group-hover:scale-105 ${
+                isImageLoading ? 'opacity-0' : 'opacity-100'
+              } transition-opacity`}
+              onLoad={() => setIsImageLoading(false)}
+              blurDataURL={`data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgNDAwIDMwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNDNjYiLz48L3N2Zz4=`}
+              placeholder="blur"
+              onError={(e) => {
+                // Handle image load error
+                const target = e.target as HTMLImageElement;
+                target.onerror = null;
+                setIsImageLoading(false);
+                
+                // Add a colored background to the parent element
+                const parent = target.parentElement;
+                if (parent) {
+                  parent.classList.add(getFallbackBgColor());
+                  parent.classList.add('flex', 'items-center', 'justify-center');
+                  
+                  // Replace with icon and text
+                  parent.innerHTML = `
+                    <div class="text-white p-6 text-center">
+                      <div class="text-4xl mb-2">${id === 1 ? '🏠' : id === 2 ? '🛁' : '🧩'}</div>
+                      <div class="text-lg font-medium">${title}</div>
+                    </div>
+                  `;
+                }
+              }}
+              priority
+            />
+          </>
         ) : imageUrl.endsWith('.svg') ? (
           // Direct SVG display
           <div 
@@ -142,7 +185,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
               className={`object-cover transition-transform duration-500 group-hover:scale-105 ${
                 isImageLoading ? 'opacity-0' : 'opacity-100'
               } transition-opacity`}
-              onLoadingComplete={() => setIsImageLoading(false)}
+              onLoad={() => setIsImageLoading(false)}
               blurDataURL={`data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgNDAwIDMwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNDNjYiLz48L3N2Zz4=`}
               placeholder="blur"
               onError={(e) => {

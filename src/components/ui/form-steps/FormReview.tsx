@@ -9,6 +9,7 @@ import {
   referralOptions 
 } from '@/utils/validationSchemas';
 import { motion, AnimatePresence } from 'framer-motion';
+import { AnalyticsEvents } from '@/utils/analytics';
 
 const FormReview: React.FC = () => {
   const { 
@@ -85,6 +86,7 @@ const FormReview: React.FC = () => {
       }
       
       // Handle successful submission
+      AnalyticsEvents.formSubmit('quote');
       setIsSubmitted(true);
       setCurrentStep(FormStep.THANK_YOU);
     } catch (error) {

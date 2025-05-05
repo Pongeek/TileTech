@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation, EffectFade } from 'swiper/modules';
+import Image from 'next/image';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -15,24 +16,27 @@ import 'swiper/css/effect-fade';
 const carouselSlides = [
   {
     bgColor: '#9CAF88',
+    image: 'https://res.cloudinary.com/dyxjbqvwz/image/upload/e_improve,e_sharpen/v1746408868/tiletech/photos/living_room_hero_d4lzsl.jpg',
     title: 'אריחים איכותיים לבית שלך',
     text: 'פתרונות ריצוף מותאמים אישית'
   },
   {
     bgColor: '#C66',
+    image: 'https://res.cloudinary.com/dyxjbqvwz/image/upload/c_crop,ar_16:9,e_improve,e_sharpen/v1746410803/shower_room_3_nrwacn.png',
     title: 'עיצוב מטבחים וחדרי אמבטיה',
     text: 'חידוש ושדרוג חללי הבית'
   },
   {
     bgColor: '#964B00',
+    image :'https://res.cloudinary.com/dyxjbqvwz/image/upload/b_rgb:FFFFFF/e_improve,e_sharpen/v1746410770/image_fx_quxwiw.png',
     title: 'עבודת פסיפס מקצועית',
     text: 'יצירת דוגמאות ייחודיות'
   },
   {
     bgColor: '#E5E5E0',
+    image: 'https://res.cloudinary.com/dyxjbqvwz/image/upload/c_crop,ar_16:9,e_improve,e_sharpen/v1746412519/Kitchen_hero3_luuylv.png',
     title: 'התקנה ושירות מעולים',
     text: 'ליווי מקצועי לאורך כל הדרך',
-    textColor: '#333' // Darker text for light background
   },
 ];
 
@@ -58,22 +62,35 @@ const Hero: React.FC = () => {
       >
         {carouselSlides.map((slide, index) => (
           <SwiperSlide key={index} className="relative">
-            {/* Background color */}
-            <div 
-              className="absolute inset-0 z-0" 
-              style={{ backgroundColor: slide.bgColor }}
-            >
-              {/* Decorative tile pattern overlay */}
-              <div className="absolute inset-0 opacity-10" 
-                   style={{ 
-                     backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'3\'/%3E%3Ccircle cx=\'13\' cy=\'13\' r=\'3\'/%3E%3C/g%3E%3C/svg%3E")',
-                     backgroundSize: '20px 20px'
-                   }}>
+            {/* Background color or image */}
+            {slide.image ? (
+              <div className="absolute inset-0 z-0">
+                <Image 
+                  src={slide.image}
+                  alt={slide.title}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  priority={index === 0} // Load first slide image with priority
+                  quality={90}
+                />
               </div>
-            </div>
+            ) : (
+              <div 
+                className="absolute inset-0 z-0" 
+                style={{ backgroundColor: slide.bgColor }}
+              >
+                {/* Decorative tile pattern overlay */}
+                <div className="absolute inset-0 opacity-10" 
+                     style={{ 
+                       backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'3\'/%3E%3Ccircle cx=\'13\' cy=\'13\' r=\'3\'/%3E%3C/g%3E%3C/svg%3E")',
+                       backgroundSize: '20px 20px'
+                     }}>
+                </div>
+              </div>
+            )}
             
-            {/* Dark overlay */}
-            <div className="absolute inset-0 bg-black/30 z-5"></div>
+            {/* Dark overlay - slightly darker for images to ensure text readability */}
+            <div className={`absolute inset-0 ${slide.image ? 'bg-black/40' : 'bg-black/30'} z-5`}></div>
             
             {/* Slide content */}
             <div className="absolute top-1/3 right-[10%] transform translate-y-[-50%] z-10 text-right">

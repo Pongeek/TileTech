@@ -2,6 +2,12 @@ import React from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { track } from '@vercel/analytics';
 
+// Respect browser Do Not Track (DNT) and allow opt-out in the future
+const canTrack = () => {
+  if (typeof navigator === 'undefined') return false;
+  return navigator.doNotTrack !== '1';
+};
+
 /**
  * Track key user interactions and conversions with custom events
  */
@@ -9,8 +15,9 @@ export const trackEvent = (
   eventName: string, 
   properties?: Record<string, string | number | boolean>
 ) => {
-  // Use Vercel Analytics track function for custom events
-  track(eventName, properties);
+  if (canTrack()) {
+    track(eventName, properties);
+  }
 };
 
 /**

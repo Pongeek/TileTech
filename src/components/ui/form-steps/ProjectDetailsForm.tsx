@@ -12,6 +12,7 @@ import {
 import { useFormContext, FormStep } from '@/hooks/useFormContext';
 import FormField from '@/components/ui/FormField';
 import { motion, AnimatePresence } from 'framer-motion';
+import { AnalyticsEvents } from '@/utils/analytics';
 
 const ProjectDetailsForm: React.FC = () => {
   const { nextStep, prevStep, projectDetails, updateFormData } = useFormContext();
@@ -38,6 +39,8 @@ const ProjectDetailsForm: React.FC = () => {
     // Update form context data
     updateFormData('projectDetails', data);
     
+    // Track form step (step 2)
+    AnalyticsEvents.formStep('quote', 2);
     // Move to next step
     nextStep();
   };

@@ -12,6 +12,7 @@ import {
 import { useFormContext } from '@/hooks/useFormContext';
 import FormField from '@/components/ui/FormField';
 import { motion, AnimatePresence } from 'framer-motion';
+import { AnalyticsEvents } from '@/utils/analytics';
 
 const BudgetInfoForm: React.FC = () => {
   const { nextStep, prevStep, budgetInfo, updateFormData } = useFormContext();
@@ -37,6 +38,9 @@ const BudgetInfoForm: React.FC = () => {
   const onSubmit = (data: BudgetInfoInputs) => {
     // Update form context data
     updateFormData('budgetInfo', data);
+    
+    // Track form step (step 3)
+    AnalyticsEvents.formStep('quote', 3);
     
     // Move to next step
     nextStep();

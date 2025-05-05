@@ -53,20 +53,7 @@ const Services: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'cards' | 'details'>('cards');
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
-  const [shouldLoadImages, setShouldLoadImages] = useState(false);
-
-  // Enhanced lazy loading strategy
-  useEffect(() => {
-    // Only load images when the section is in view or about to be in view
-    if (isInView && !shouldLoadImages) {
-      // Add a small delay to prioritize rendering the section first
-      const timer = setTimeout(() => {
-        setShouldLoadImages(true);
-      }, 100);
-      
-      return () => clearTimeout(timer);
-    }
-  }, [isInView, shouldLoadImages]);
+  const [shouldLoadImages, setShouldLoadImages] = useState(true); // Always load images immediately
 
   // Handle service selection
   const handleServiceSelect = (id: number) => {
@@ -97,15 +84,19 @@ const Services: React.FC = () => {
     
     // Get the path from service
     const imagePath = service.images[type];
+
+    // ➊ NEW: if this is an absolute remote URL (e.g. Cloudinary), use it as-is
+    if (imagePath.startsWith('http')) {
+      return imagePath;
+    }
     
-    // First try using direct SVG if available
+    // First try using direct SVG if available (local static asset)
     if (imagePath.endsWith('.svg')) {
       return imagePath;
     }
     
-    // For JPG images, check if they exist
+    // For local JPG images, try to use an SVG fallback with same name
     if (imagePath.endsWith('.jpg')) {
-      // Try to use SVG version if JPG path is provided
       const svgPath = imagePath.replace('.jpg', '.svg');
       return svgPath;
     }
@@ -117,9 +108,9 @@ const Services: React.FC = () => {
     );
   };
 
-  // Preload images - Only when shouldLoadImages is true
+  // Preload images when component mounts or services change
   useEffect(() => {
-    if (!services || loading || !shouldLoadImages) return;
+    if (!services || loading) return;
     
     // Preload all service images
     services.forEach((service) => {
@@ -136,7 +127,7 @@ const Services: React.FC = () => {
         img.src = src;
       });
     });
-  }, [services, loading, shouldLoadImages]);
+  }, [services, loading]);
 
   if (loading) {
     return (

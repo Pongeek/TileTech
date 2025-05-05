@@ -54,6 +54,27 @@ The website has been optimized for performance:
 - Code splitting for improved initial load time
 - Caching headers for static assets
 
+### Caching & Environment Configuration
+
+This project uses HTTP `Cache-Control` headers configured in `next.config.js`:
+
+| Path pattern | Cache header |
+|--------------|--------------|
+| `/fonts/:path*` | `public, max-age=31536000, immutable` |
+| `/_next/static/:path*` | `public, max-age=31536000, immutable` |
+| `/:path*.js` / `/:path*.css` | `public, max-age=31536000, immutable` |
+| `/images/:path*` & `/_next/image/:path*` | `public, max-age=86400, stale-while-revalidate=31536000` |
+
+Add or adjust rules in `next.config.js → headers()` as needed.
+
+Environment variables are stored per-environment:
+
+1. `.env.example` – template committed to git (non-secret).
+2. `.env.local` – developer overrides.
+3. `.env.production` – **not** committed; values replicated in Vercel UI.
+
+Keep server-only variables **without** `NEXT_PUBLIC_` prefix. Use `NEXT_PUBLIC_` for variables that must reach the browser.
+
 ### Structured Data
 
 The website implements JSON-LD structured data for:

@@ -150,7 +150,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className={`object-cover ${afterLoading ? 'opacity-0' : 'opacity-100'} transition-opacity`}
-              onLoadingComplete={() => setAfterLoading(false)}
+              onLoad={() => setAfterLoading(false)}
               placeholder="blur"
               blurDataURL={blurDataURL}
               onError={() => {
@@ -199,7 +199,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className={`object-cover ${beforeLoading ? 'opacity-0' : 'opacity-100'} transition-opacity`}
-              onLoadingComplete={() => setBeforeLoading(false)}
+              onLoad={() => setBeforeLoading(false)}
               placeholder="blur"
               blurDataURL={blurDataURL}
               onError={() => {

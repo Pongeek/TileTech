@@ -68,6 +68,7 @@ export default function RootLayout({
 }) {
   return (
     <html 
+      suppressHydrationWarning
       lang="he" 
       dir="rtl" 
       className={`${frankRuhlLibre.variable} ${heebo.variable} ${assistant.variable} js-focus-visible`}

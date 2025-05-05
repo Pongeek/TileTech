@@ -89,7 +89,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             } transition-opacity`}
             blurDataURL={`data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgNDAwIDMwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNDNjYiLz48L3N2Zz4=`}
             placeholder="blur"
-            onLoadingComplete={() => setIsImageLoading(false)}
+            onLoad={() => setIsImageLoading(false)}
             priority={id <= 3} // Prioritize loading for first 3 items
             loading={id > 3 ? "lazy" : "eager"} // Use lazy loading for items beyond the first 3
           />

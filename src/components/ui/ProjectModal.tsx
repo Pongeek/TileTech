@@ -169,7 +169,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"
                 priority
-                onLoadingComplete={() => setIsImageLoading(false)}
+                onLoad={() => setIsImageLoading(false)}
               />
             </div>
             
