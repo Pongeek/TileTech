@@ -174,7 +174,7 @@ async function syncPhotosFromCloudinary() {
 }
 
 // Add a photo to the store
-export function addPhotoToStore(photo: Photo) {
+function addPhotoToStore(photo: Photo) {
   photosStore.push(photo);
   console.log(`Photo added to store. Total photos: ${photosStore.length}`);
 }

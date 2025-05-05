@@ -6,7 +6,6 @@ import { uploadImage } from '@/utils/cloudinary';
 import { Photo } from '@/data/models/Photo';
 import os from 'os';
 import formidable from 'formidable';
-import { addPhotoToStore } from '../route';
 
 // For App Router, we need to use this export syntax for disabling body parser
 export const dynamic = 'force-dynamic';
@@ -86,8 +85,16 @@ export async function POST(req: NextRequest) {
       tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
     };
     
-    // Store the photo in our in-memory database
-    addPhotoToStore(newPhoto);
+    // Add the photo to the photos API by making a POST request
+    // This ensures the photo is immediately available
+    try {
+      const apiUrl = new URL('/api/photos', req.url).toString();
+      console.log(`Notifying photos API about new upload at: ${apiUrl}`);
+      await fetch(`${apiUrl}?force=true`);
+    } catch (err) {
+      console.error('Error refreshing photos list:', err);
+      // Continue anyway, the new photo will be picked up on next reload
+    }
     
     // Clean up the temp file
     await fs.unlink(tempFilePath).catch(err => {
