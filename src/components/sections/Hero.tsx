@@ -18,25 +18,29 @@ const carouselSlides = [
     bgColor: '#9CAF88',
     image: 'https://res.cloudinary.com/dyxjbqvwz/image/upload/e_improve,e_sharpen/v1746408868/tiletech/photos/living_room_hero_d4lzsl.jpg',
     title: 'אריחים איכותיים לבית שלך',
-    text: 'פתרונות ריצוף מותאמים אישית'
+    text: 'פתרונות ריצוף מותאמים אישית',
+    textColor: 'white'
   },
   {
     bgColor: '#C66',
     image: 'https://res.cloudinary.com/dyxjbqvwz/image/upload/c_crop,ar_16:9,e_improve,e_sharpen/v1746410803/shower_room_3_nrwacn.png',
     title: 'עיצוב מטבחים וחדרי אמבטיה',
-    text: 'חידוש ושדרוג חללי הבית'
+    text: 'חידוש ושדרוג חללי הבית',
+    textColor: 'white'
   },
   {
     bgColor: '#964B00',
     image :'https://res.cloudinary.com/dyxjbqvwz/image/upload/b_rgb:FFFFFF/e_improve,e_sharpen/v1746410770/image_fx_quxwiw.png',
     title: 'עבודת פסיפס מקצועית',
-    text: 'יצירת דוגמאות ייחודיות'
+    text: 'יצירת דוגמאות ייחודיות',
+    textColor: 'white'
   },
   {
     bgColor: '#E5E5E0',
     image: 'https://res.cloudinary.com/dyxjbqvwz/image/upload/c_crop,ar_16:9,e_improve,e_sharpen/v1746412519/Kitchen_hero3_luuylv.png',
     title: 'התקנה ושירות מעולים',
     text: 'ליווי מקצועי לאורך כל הדרך',
+    textColor: 'white'
   },
 ];
 
