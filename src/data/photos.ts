@@ -58,27 +58,23 @@ export const getPhotos = async (options: PhotoGalleryOptions = {}): Promise<Phot
   // Apply sorting
   if (options.sortBy) {
     photos.sort((a, b) => {
-      let valueA, valueB;
-      
-      if (options.sortBy === 'uploadDate') {
-        valueA = new Date(a.uploadDate).getTime();
-        valueB = new Date(b.uploadDate).getTime();
-      } else if (options.sortBy === 'fileSize') {
-        valueA = a.fileSize;
-        valueB = b.fileSize;
+      if (options.sortBy === 'createdAt') {
+        const dateA = new Date(a.createdAt).getTime();
+        const dateB = new Date(b.createdAt).getTime();
+        return options.sortDirection === 'desc' ? dateB - dateA : dateA - dateB;
       } else {
-        valueA = a.title || '';
-        valueB = b.title || '';
+        // Title sorting (ensuring string comparison)
+        const titleA = String(a.title);
+        const titleB = String(b.title);
+        if (options.sortDirection === 'desc') {
+          return titleB.localeCompare(titleA);
+        }
+        return titleA.localeCompare(titleB);
       }
-      
-      if (options.sortDirection === 'desc') {
-        return valueB > valueA ? 1 : -1;
-      }
-      return valueA > valueB ? 1 : -1;
     });
   } else {
-    // Default sort by uploadDate, newest first
-    photos.sort((a, b) => new Date(b.uploadDate).getTime() - new Date(a.uploadDate).getTime());
+    // Default sort by createdAt, newest first
+    photos.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   }
   
   // Apply pagination
@@ -116,17 +112,16 @@ export const createPhoto = async (metadata: PhotoUploadMetadata): Promise<PhotoC
     
     const newPhoto: Photo = {
       id,
-      fileName: metadata.fileName,
       title: metadata.title || metadata.fileName,
       description: metadata.description || '',
-      uploadDate: new Date().toISOString(),
-      fileSize: metadata.fileSize,
-      dimensions: metadata.dimensions,
-      fileType: metadata.fileType,
       url: '', // This should be set by the storage service
       thumbnailUrl: '', // This should be set by the storage service
+      publicId: '', // This should be set by the storage service (e.g., Cloudinary)
+      width: metadata.dimensions?.width || 0,
+      height: metadata.dimensions?.height || 0,
+      createdAt: new Date().toISOString(),
+      category: metadata.category || 'general',
       tags: metadata.tags || [],
-      category: metadata.category,
       alt: metadata.alt || metadata.fileName,
       projectId: metadata.projectId
     };

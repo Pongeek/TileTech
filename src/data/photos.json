@@ -1,18 +1,14 @@
 [
   {
     "id": "photo-1",
-    "fileName": "image-1.jpg",
     "title": "Sample Photo 1",
     "description": "This is a sample photo description for photo 1",
-    "uploadDate": "2025-04-22T16:29:14.606Z",
-    "fileSize": 4737465,
-    "dimensions": {
-      "width": 1225,
-      "height": 924
-    },
-    "fileType": "image/jpeg",
+    "createdAt": "2025-04-22T16:29:14.606Z",
     "url": "https://source.unsplash.com/random/1225x924?sig=0",
     "thumbnailUrl": "https://source.unsplash.com/random/300x300?sig=0",
+    "publicId": "sample-photo-1",
+    "width": 1225,
+    "height": 924,
     "tags": [
       "outdoor"
     ],
@@ -22,18 +18,14 @@
   },
   {
     "id": "photo-2",
-    "fileName": "image-2.jpg",
     "title": "Sample Photo 2",
     "description": "This is a sample photo description for photo 2",
-    "uploadDate": "2025-04-06T09:56:00.937Z",
-    "fileSize": 4726769,
-    "dimensions": {
-      "width": 913,
-      "height": 884
-    },
-    "fileType": "image/jpeg",
+    "createdAt": "2025-04-06T09:56:00.937Z",
     "url": "https://source.unsplash.com/random/913x884?sig=1",
     "thumbnailUrl": "https://source.unsplash.com/random/300x300?sig=1",
+    "publicId": "sample-photo-2",
+    "width": 913,
+    "height": 884,
     "tags": [
       "modern",
       "kitchen"
@@ -43,18 +35,14 @@
   },
   {
     "id": "photo-3",
-    "fileName": "image-3.jpg",
     "title": "Sample Photo 3",
     "description": "This is a sample photo description for photo 3",
-    "uploadDate": "2025-01-10T21:58:10.357Z",
-    "fileSize": 3083042,
-    "dimensions": {
-      "width": 1237,
-      "height": 988
-    },
-    "fileType": "image/jpeg",
+    "createdAt": "2025-01-10T21:58:10.357Z",
     "url": "https://source.unsplash.com/random/1237x988?sig=2",
     "thumbnailUrl": "https://source.unsplash.com/random/300x300?sig=2",
+    "publicId": "sample-photo-3",
+    "width": 1237,
+    "height": 988,
     "tags": [
       "modern",
       "living room",
@@ -65,18 +53,14 @@
   },
   {
     "id": "photo-4",
-    "fileName": "image-4.jpg",
     "title": "Sample Photo 4",
     "description": "This is a sample photo description for photo 4",
-    "uploadDate": "2025-01-23T13:39:21.418Z",
-    "fileSize": 825433,
-    "dimensions": {
-      "width": 1669,
-      "height": 1344
-    },
-    "fileType": "image/jpeg",
+    "createdAt": "2025-01-23T13:39:21.418Z",
     "url": "https://source.unsplash.com/random/1669x1344?sig=3",
     "thumbnailUrl": "https://source.unsplash.com/random/300x300?sig=3",
+    "publicId": "sample-photo-4",
+    "width": 1669,
+    "height": 1344,
     "tags": [
       "modern",
       "traditional",
@@ -89,18 +73,14 @@
   },
   {
     "id": "photo-5",
-    "fileName": "image-5.jpg",
     "title": "Sample Photo 5",
     "description": "This is a sample photo description for photo 5",
-    "uploadDate": "2025-05-02T22:32:56.753Z",
-    "fileSize": 680922,
-    "dimensions": {
-      "width": 1242,
-      "height": 696
-    },
-    "fileType": "image/jpeg",
+    "createdAt": "2025-05-02T22:32:56.753Z",
     "url": "https://source.unsplash.com/random/1242x696?sig=4",
     "thumbnailUrl": "https://source.unsplash.com/random/300x300?sig=4",
+    "publicId": "sample-photo-5",
+    "width": 1242,
+    "height": 696,
     "tags": [
       "modern",
       "traditional",
@@ -113,18 +93,14 @@
   },
   {
     "id": "photo-6",
-    "fileName": "image-6.jpg",
     "title": "Sample Photo 6",
     "description": "This is a sample photo description for photo 6",
-    "uploadDate": "2025-03-12T08:45:52.199Z",
-    "fileSize": 5174061,
-    "dimensions": {
-      "width": 1337,
-      "height": 993
-    },
-    "fileType": "image/jpeg",
+    "createdAt": "2025-03-12T08:45:52.199Z",
     "url": "https://source.unsplash.com/random/1337x993?sig=5",
     "thumbnailUrl": "https://source.unsplash.com/random/300x300?sig=5",
+    "publicId": "sample-photo-6",
+    "width": 1337,
+    "height": 993,
     "tags": [
       "modern"
     ],
@@ -134,18 +110,14 @@
   },
   {
     "id": "photo-7",
-    "fileName": "image-7.jpg",
     "title": "Sample Photo 7",
     "description": "This is a sample photo description for photo 7",
-    "uploadDate": "2025-03-24T01:42:23.503Z",
-    "fileSize": 2365214,
-    "dimensions": {
-      "width": 1835,
-      "height": 818
-    },
-    "fileType": "image/jpeg",
+    "createdAt": "2025-03-24T01:42:23.503Z",
     "url": "https://source.unsplash.com/random/1835x818?sig=6",
     "thumbnailUrl": "https://source.unsplash.com/random/300x300?sig=6",
+    "publicId": "sample-photo-7",
+    "width": 1835,
+    "height": 818,
     "tags": [
       "modern",
       "traditional"
@@ -155,18 +127,14 @@
   },
   {
     "id": "photo-8",
-    "fileName": "image-8.jpg",
     "title": "Sample Photo 8",
     "description": "This is a sample photo description for photo 8",
-    "uploadDate": "2025-01-12T22:42:43.479Z",
-    "fileSize": 5487305,
-    "dimensions": {
-      "width": 1096,
-      "height": 937
-    },
-    "fileType": "image/jpeg",
+    "createdAt": "2025-01-12T22:42:43.479Z",
     "url": "https://source.unsplash.com/random/1096x937?sig=7",
     "thumbnailUrl": "https://source.unsplash.com/random/300x300?sig=7",
+    "publicId": "sample-photo-8",
+    "width": 1096,
+    "height": 937,
     "tags": [
       "modern",
       "bathroom"
@@ -177,18 +145,14 @@
   },
   {
     "id": "photo-9",
-    "fileName": "image-9.jpg",
     "title": "Sample Photo 9",
     "description": "This is a sample photo description for photo 9",
-    "uploadDate": "2025-01-11T22:48:37.604Z",
-    "fileSize": 2154184,
-    "dimensions": {
-      "width": 1829,
-      "height": 1176
-    },
-    "fileType": "image/jpeg",
+    "createdAt": "2025-01-11T22:48:37.604Z",
     "url": "https://source.unsplash.com/random/1829x1176?sig=8",
     "thumbnailUrl": "https://source.unsplash.com/random/300x300?sig=8",
+    "publicId": "sample-photo-9",
+    "width": 1829,
+    "height": 1176,
     "tags": [
       "traditional"
     ],
@@ -197,67 +161,58 @@
   },
   {
     "id": "photo-10",
-    "fileName": "image-10.jpg",
     "title": "Sample Photo 10",
     "description": "This is a sample photo description for photo 10",
-    "uploadDate": "2025-02-14T00:09:25.902Z",
-    "fileSize": 5203558,
-    "dimensions": {
-      "width": 1788,
-      "height": 1226
-    },
-    "fileType": "image/jpeg",
-    "url": "https://source.unsplash.com/random/1788x1226?sig=9",
+    "createdAt": "2025-02-14T00:09:25.902Z",
+    "url": "https://source.unsplash.com/random/1324x1100?sig=9",
     "thumbnailUrl": "https://source.unsplash.com/random/300x300?sig=9",
+    "publicId": "sample-photo-10",
+    "width": 1324,
+    "height": 1100,
     "tags": [
       "modern",
-      "traditional",
       "bathroom",
-      "living room"
+      "kitchen"
     ],
     "category": "gallery",
-    "alt": "Sample alt text for photo 10"
+    "alt": "Sample alt text for photo 10",
+    "projectId": 3
   },
   {
     "id": "photo-11",
-    "fileName": "image-11.jpg",
     "title": "Sample Photo 11",
     "description": "This is a sample photo description for photo 11",
-    "uploadDate": "2025-02-06T15:54:14.413Z",
-    "fileSize": 3330089,
-    "dimensions": {
-      "width": 1562,
-      "height": 887
-    },
-    "fileType": "image/jpeg",
-    "url": "https://source.unsplash.com/random/1562x887?sig=10",
+    "createdAt": "2025-02-06T15:54:14.413Z",
+    "url": "https://source.unsplash.com/random/1107x863?sig=10",
     "thumbnailUrl": "https://source.unsplash.com/random/300x300?sig=10",
+    "publicId": "sample-photo-11",
+    "width": 1107,
+    "height": 863,
     "tags": [
       "modern",
       "outdoor"
     ],
-    "category": "testimonial",
+    "category": "gallery",
     "alt": "Sample alt text for photo 11"
   },
   {
     "id": "photo-12",
-    "fileName": "image-12.jpg",
     "title": "Sample Photo 12",
     "description": "This is a sample photo description for photo 12",
-    "uploadDate": "2025-02-25T22:01:57.986Z",
-    "fileSize": 2389677,
-    "dimensions": {
-      "width": 930,
-      "height": 1026
-    },
-    "fileType": "image/jpeg",
-    "url": "https://source.unsplash.com/random/930x1026?sig=11",
+    "createdAt": "2025-02-25T22:01:57.986Z",
+    "url": "https://source.unsplash.com/random/1404x802?sig=11",
     "thumbnailUrl": "https://source.unsplash.com/random/300x300?sig=11",
+    "publicId": "sample-photo-12",
+    "width": 1404,
+    "height": 802,
     "tags": [
-      "traditional",
-      "kitchen"
+      "modern",
+      "bathroom",
+      "kitchen",
+      "outdoor"
     ],
-    "category": "testimonial",
-    "alt": "Sample alt text for photo 12"
+    "category": "project",
+    "alt": "Sample alt text for photo 12",
+    "projectId": 3
   }
 ]
