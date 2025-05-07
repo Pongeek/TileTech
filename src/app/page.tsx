@@ -82,15 +82,15 @@ export default function Home() {
           <Services />
         </section>
         
-        <section id="projects" className="section py-16">
+        <section id="projects" className="section py-0">
           <Projects />
         </section>
         
-        <section id="testimonials" className="section py-16">
+        <section id="testimonials" className="section py-0">
           <Testimonials />
         </section>
         
-        <section id="contact" className="section py-16">
+        <section id="contact" className="section py-0">
           <Contact />
         </section>
       </main>

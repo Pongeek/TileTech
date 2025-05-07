@@ -24,7 +24,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className={`bg-white py-1 fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 ${scrolled ? 'shadow-md' : ''}`}>
+    <header className={`bg-white py-3 fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 ${scrolled ? 'shadow-md' : ''}`}>
       <div className="container-custom flex justify-between items-center">
         <div className="flex-1 text-right">
           <Link href="/" className="flex items-center">

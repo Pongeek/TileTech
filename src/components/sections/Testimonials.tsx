@@ -133,14 +133,14 @@ const Testimonials: React.FC = () => {
   return (
     <motion.section 
       id="testimonials" 
-      className="py-16 bg-gray-50" 
+      className="py-4 md:py-12 bg-gray-50" 
       ref={sectionRef}
       variants={sectionVariants}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
     >
       <div className="container mx-auto px-4">
-        <motion.div className="text-center mb-12" variants={headingVariants}>
+        <motion.div className="text-center mb-10" variants={headingVariants}>
           <h2 className="text-4xl font-frank font-bold text-secondary mb-4">מה הלקוחות אומרים</h2>
           <p className="text-lg max-w-2xl mx-auto text-gray-600 font-assistant">
             אנו גאים בשירות שאנו מספקים ובעבודה האיכותית שלנו. הנה מה שכמה מהלקוחות שלנו חושבים.

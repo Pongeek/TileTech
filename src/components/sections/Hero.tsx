@@ -46,7 +46,7 @@ const carouselSlides = [
 
 const Hero: React.FC = () => {
   return (
-    <section className="relative h-[60vh] md:h-[80vh] min-h-[400px] overflow-hidden mt-0 pt-2 md:pt-4">
+    <section className="relative h-[60vh] md:h-[80vh] min-h-[400px] overflow-hidden mt-[-90px] pt-0">
       {/* Carousel */}
       <Swiper
         spaceBetween={0}

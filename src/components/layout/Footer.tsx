@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
           </div>
           
           <div className="text-center md:text-right w-full md:w-auto">
-            <h3 className="text-lg font-heebo font-bold mb-3">צור קשר</h3>
+            <h3 className="text-lg font-heebo font-bold mb-3 md:text-right text-center md:mr-[40px]">צור קשר</h3>
             <ul className="space-y-2 font-assistant list-none p-0 ml-6 mx-auto text-center md:text-right">
               <li>טלפון: 050-1234567</li>
               <li>דוא"ל: info@tiletech.co.il</li>
