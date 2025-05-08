@@ -255,6 +255,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           href={`#service-${id}`} 
           className="text-primary font-medium hover:text-primary/80 transition-colors flex items-center"
           onClick={(e) => {
+            e.preventDefault(); // Prevent default anchor behavior
             e.stopPropagation();
             if (onClick) onClick();
           }}

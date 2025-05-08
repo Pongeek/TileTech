@@ -64,7 +64,18 @@ const Services: React.FC = () => {
     setTimeout(() => {
       const element = document.getElementById('service-details');
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Prevent hash change and use scrollIntoView with offset
+        window.history.pushState({}, '', window.location.pathname);
+        
+        // Calculate position with offset for fixed header
+        const headerOffset = 80; // Adjust based on your header height
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
       }
     }, 100);
   };
