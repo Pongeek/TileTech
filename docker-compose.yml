@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  tiletechweb:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - .env
+    volumes:
+      # Mount source code for live development
+      - ./src:/app/src
+      - ./public:/app/public
+      - ./tasks:/app/tasks
+      - ./scripts:/app/scripts
+      - ./.cursor:/app/.cursor
+      # Mount package.json for dependency changes
+      - ./package.json:/app/package.json
+      - ./package-lock.json:/app/package-lock.json
+      # Mount config files
+      - ./next.config.js:/app/next.config.js
+      - ./tailwind.config.js:/app/tailwind.config.js
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./postcss.config.js:/app/postcss.config.js
+      - ./.eslintrc.json:/app/.eslintrc.json
+      # Exclude node_modules to use container's version
+      - /app/node_modules
+    command: npm run dev
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health-check"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Task Master CLI container for running commands
+  taskmaster:
+    build: .
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - .env
+    volumes:
+      - ./tasks:/app/tasks
+      - ./scripts:/app/scripts
+      - ./.cursor:/app/.cursor
+    command: tail -f /dev/null  # Keep container running
+    profiles:
+      - tools  # Only start with --profile tools 

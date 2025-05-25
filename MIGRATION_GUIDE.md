@@ -2,7 +2,26 @@
 
 This guide will help you move your TileTech Web project to your main PC while preserving the complete Task Master workflow.
 
-## 📋 Pre-Migration Checklist
+## 🎯 Choose Your Migration Method
+
+**Not sure which method to use?** Run this helper script:
+```bash
+node scripts/choose-migration-method.js
+```
+
+### **Method Options:**
+- **🐳 Docker Migration** - Containerized, consistent environment (recommended for most users)
+- **⚙️ Native Migration** - Traditional Node.js setup (if you prefer native tools)
+
+**Docker Benefits:** Identical environment, faster setup, no local dependencies  
+**Native Benefits:** Familiar tools, slightly better performance, no Docker needed
+
+📚 **For Docker migration, see:** `scripts/docker-migration-guide.md`  
+📚 **For native migration, continue reading below**
+
+---
+
+## 📋 Pre-Migration Checklist (Native Method)
 
 - [ ] Ensure all current work is committed to Git
 - [ ] Note your current API keys and environment variables
