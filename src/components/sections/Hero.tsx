@@ -24,7 +24,7 @@ const carouselSlides = [
   {
     bgColor: '#C66',
     image: 'https://res.cloudinary.com/dyxjbqvwz/image/upload/c_crop,ar_16:9,e_improve,e_sharpen/v1746410803/shower_room_3_nrwacn.png',
-    title: 'עיצוב מטבחים וחדרי אמבטיה',
+    title: 'התקנת וחיפוי אריחים במטבחים וחדרי אמבטיה',
     text: 'חידוש ושדרוג חללי הבית',
     textColor: 'white'
   },
