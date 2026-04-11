@@ -4,6 +4,8 @@ import React from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Hero from '@/components/sections/Hero';
+import Stats from '@/components/sections/Stats';
+import WhyUs from '@/components/sections/WhyUs';
 import { lazyLoad } from '@/utils/lazyLoad';
 
 // Use the optimized lazy-loaded section components
@@ -78,9 +80,13 @@ export default function Home() {
           <Hero />
         </section>
         
+        <Stats />
+
         <section id="services" className="section py-16">
           <Services />
         </section>
+
+        <WhyUs />
         
         <section id="projects" className="section py-0">
           <Projects />
