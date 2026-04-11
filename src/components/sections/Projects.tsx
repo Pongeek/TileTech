@@ -7,6 +7,7 @@ import { lazyLoad } from '@/utils/lazyLoad';
 import ProjectModalLazy from '@/components/ui/ProjectModalLazy';
 import { useProjects } from '@/hooks';
 import { AnalyticsEvents } from '@/utils/analytics';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 interface Project {
   id: number;
@@ -161,13 +162,13 @@ const Projects: React.FC = () => {
   
   return (
     <section id="projects" className="py-16 bg-neutral" ref={sectionRef}>
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-frank font-bold text-secondary mb-4">הפרויקטים שלנו</h2>
-          <p className="text-lg max-w-2xl mx-auto text-gray-600 font-assistant">
-            צפו בחלק מהפרויקטים האחרונים שביצענו. אנו מתמחים בריצוף ביתי, מטבחים, חדרי אמבטיה ופרויקטים מסחריים.
-          </p>
-        </div>
+      <div className="container-custom">
+        <SectionHeader
+          eyebrow="תיק עבודות"
+          title="הפרויקטים שלנו"
+          description="צפו בחלק מהפרויקטים האחרונים שביצענו. אנו מתמחים בריצוף ביתי, מטבחים, חדרי אמבטיה ופרויקטים מסחריים."
+          className="mb-12"
+        />
         
         {/* Category Filter */}
         <div className="flex flex-wrap justify-center mb-8 gap-2">

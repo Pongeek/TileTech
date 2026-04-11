@@ -77,11 +77,11 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       tabIndex={onClick ? 0 : undefined}
       onKeyDown={onClick ? (e) => e.key === 'Enter' && onClick() : undefined}
       onClick={onClick}
-      className={`group relative flex flex-col bg-white rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer
-        border ${isSelected ? 'border-primary shadow-elevation-3' : 'border-gray-100 shadow-elevation-1 hover:shadow-elevation-3 hover:border-primary/30'}`}
+      className={`group relative flex flex-col bg-white rounded-lg overflow-hidden cursor-pointer border border-gray-200 shadow-md transition-all duration-300 motion-reduce:transition-none
+        ${isSelected ? 'ring-2 ring-primary shadow-lg' : 'hover:shadow-lg hover:-translate-y-1 motion-reduce:hover:transform-none'}`}
     >
       {/* Top accent bar */}
-      <div className={`absolute top-0 inset-x-0 h-0.5 rounded-t-2xl transition-colors duration-300 ${isSelected ? 'bg-primary' : 'bg-transparent group-hover:bg-primary/40'}`} />
+      <div className={`absolute top-0 inset-x-0 h-0.5 rounded-t-lg transition-colors duration-300 ${isSelected ? 'bg-primary' : 'bg-transparent group-hover:bg-primary/40'}`} />
 
       {/* Image */}
       <div className="relative h-44 overflow-hidden shrink-0">
@@ -103,7 +103,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
         {/* Icon badge */}
-        <div className="absolute bottom-3 right-3 w-9 h-9 rounded-xl bg-white/90 backdrop-blur-sm flex items-center justify-center text-primary shadow-sm">
+        <div className="absolute bottom-3 right-3 w-9 h-9 rounded-lg bg-white/90 backdrop-blur-sm flex items-center justify-center text-primary shadow-sm">
           {renderedIcon}
         </div>
       </div>

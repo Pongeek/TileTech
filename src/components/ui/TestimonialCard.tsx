@@ -50,10 +50,8 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className={`relative rounded-2xl p-6 h-full flex flex-col transition-shadow duration-300 hover:shadow-elevation-3 ${
-        featured
-          ? 'bg-white border-2 border-primary/30 shadow-elevation-2'
-          : 'bg-white border border-gray-100 shadow-elevation-1'
+      className={`relative rounded-lg p-6 h-full flex flex-col border border-gray-200 bg-white shadow-md transition-all duration-300 motion-reduce:transition-none hover:shadow-lg motion-reduce:hover:transform-none ${
+        featured ? 'ring-2 ring-primary/40 shadow-lg' : 'hover:-translate-y-1'
       }`}
     >
       {/* Large decorative quote mark */}

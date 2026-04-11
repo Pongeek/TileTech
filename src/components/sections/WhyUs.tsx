@@ -2,6 +2,7 @@
 
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 interface Feature {
   icon: React.ReactNode;
@@ -68,36 +69,33 @@ const WhyUs: React.FC = () => {
   const isInView = useInView(ref, { once: true, amount: 0.15 });
 
   return (
-    <section className="py-20 bg-neutral-light" dir="rtl" ref={ref}>
+    <section className="py-16 bg-neutral-light" dir="rtl" ref={ref}>
       <div className="container-custom">
         <motion.div
-          className="text-center mb-14"
+          className="mb-14"
           initial={{ opacity: 0, y: -15 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -15 }}
           transition={{ duration: 0.5 }}
         >
-          <span className="inline-block text-primary font-assistant font-semibold text-base mb-2 tracking-wide uppercase">
-            למה לבחור בנו
-          </span>
-          <h2 className="text-3xl md:text-4xl font-frank font-bold text-secondary mb-4">
-            המחויבות שלנו לאיכות
-          </h2>
-          <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-5" />
-          <p className="text-lg font-assistant text-gray-600 max-w-2xl mx-auto">
-            בTileTech אנו מאמינים שכל פרויקט הוא הזדמנות לשנות מרחב ולהשאיר רושם. הנה מה שמייחד אותנו:
-          </p>
+          <SectionHeader
+            eyebrow="למה לבחור בנו"
+            title="המחויבות שלנו לאיכות"
+            description="בTileTech אנו מאמינים שכל פרויקט הוא הזדמנות לשנות מרחב ולהשאיר רושם. הנה מה שמייחד אותנו:"
+            accentBar
+            eyebrowUppercase
+          />
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              className="bg-white rounded-2xl p-7 shadow-elevation-1 hover:shadow-elevation-3 transition-all duration-300 flex flex-col items-center text-center group hover:-translate-y-1"
+              className="bg-white rounded-lg border border-gray-200 p-7 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col items-center text-center group hover:-translate-y-1 motion-reduce:hover:transform-none"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-5 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+              <div className="w-16 h-16 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-5 group-hover:bg-primary group-hover:text-white transition-all duration-300">
                 {feature.icon}
               </div>
               <h3 className="text-lg font-frank font-bold text-secondary mb-3">

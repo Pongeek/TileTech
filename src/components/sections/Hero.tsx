@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation, EffectFade } from 'swiper/modules';
 import Image from 'next/image';
+import Button from '@/components/ui/Button';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -14,19 +14,27 @@ import 'swiper/css/effect-fade';
 const carouselSlides = [
   {
     bgColor: '#9CAF88',
-    image: 'https://res.cloudinary.com/dyxjbqvwz/image/upload/e_improve,e_sharpen/v1746408868/tiletech/photos/living_room_hero_d4lzsl.jpg',
+    image:
+      'https://res.cloudinary.com/dyxjbqvwz/image/upload/e_improve,e_sharpen/v1746408868/tiletech/photos/living_room_hero_d4lzsl.jpg',
+    alt: 'סלון מרוצף באריחים — דוגמה לעבודת ריצוף בבית פרטי',
   },
   {
     bgColor: '#C66',
-    image: 'https://res.cloudinary.com/dyxjbqvwz/image/upload/c_crop,ar_16:9,e_improve,e_sharpen/v1746410803/shower_room_3_nrwacn.png',
+    image:
+      'https://res.cloudinary.com/dyxjbqvwz/image/upload/c_crop,ar_16:9,e_improve,e_sharpen/v1746410803/shower_room_3_nrwacn.png',
+    alt: 'מקלחון מעוצב עם אריחים — שיפוץ חדר רחצה',
   },
   {
     bgColor: '#964B00',
-    image: 'https://res.cloudinary.com/dyxjbqvwz/image/upload/b_rgb:FFFFFF/e_improve,e_sharpen/v1746410770/image_fx_quxwiw.png',
+    image:
+      'https://res.cloudinary.com/dyxjbqvwz/image/upload/b_rgb:FFFFFF/e_improve,e_sharpen/v1746410770/image_fx_quxwiw.png',
+    alt: 'פרטי ריצוף וחיפוי איכותיים — עבודת TileTech',
   },
   {
     bgColor: '#E5E5E0',
-    image: 'https://res.cloudinary.com/dyxjbqvwz/image/upload/c_crop,ar_16:9,e_improve,e_sharpen/v1746412519/Kitchen_hero3_luuylv.png',
+    image:
+      'https://res.cloudinary.com/dyxjbqvwz/image/upload/c_crop,ar_16:9,e_improve,e_sharpen/v1746412519/Kitchen_hero3_luuylv.png',
+    alt: 'מטבח מרוצף ומחופה באריחים — שיפוץ מטבח',
   },
 ];
 
@@ -51,7 +59,7 @@ const Hero: React.FC = () => {
               <div className="absolute inset-0 z-0">
                 <Image
                   src={slide.image}
-                  alt=""
+                  alt={slide.alt}
                   fill
                   style={{ objectFit: 'cover' }}
                   priority={index === 0}
@@ -85,18 +93,22 @@ const Hero: React.FC = () => {
             התקנת אריחים, שיפוץ מטבחים וחדרי אמבטיה, ועבודות פסיפס מותאמות אישית — ליווי מלא מהתכנון ועד הגמר.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link
+            <Button
               href="#contact"
-              className="btn-primary text-lg px-8 py-4 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
+              variant="primary"
+              size="large"
+              className="hover:shadow-xl hover:-translate-y-1 motion-reduce:hover:transform-none shadow-lg"
             >
               קבל הצעת מחיר חינם
-            </Link>
-            <Link
+            </Button>
+            <Button
               href="#projects"
-              className="bg-white/15 backdrop-blur-sm border border-white/40 text-white text-lg px-8 py-4 rounded-lg font-semibold font-heebo hover:bg-white/25 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200"
+              variant="glass"
+              size="large"
+              className="hover:-translate-y-1 motion-reduce:hover:transform-none"
             >
               צפה בעבודות שלנו
-            </Link>
+            </Button>
           </div>
         </div>
       </div>
@@ -108,9 +120,6 @@ const Hero: React.FC = () => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </div>
-
-      {/* Diagonal bottom edge */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-white transform -skew-y-3 translate-y-8 z-10" />
     </section>
   );
 };

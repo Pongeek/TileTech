@@ -63,7 +63,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   
   return (
     <div 
-      className="group relative rounded-lg overflow-hidden shadow-md cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+      className="group relative rounded-lg overflow-hidden border border-gray-200 bg-white shadow-md cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 motion-reduce:hover:transform-none"
       onClick={onClick}
       style={{ aspectRatio: `${aspectRatio}`, height: 'auto' }}
     >

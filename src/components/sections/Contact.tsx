@@ -2,6 +2,7 @@
 
 import React from 'react';
 import QuoteFormLazy from '@/components/ui/QuoteFormLazy';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 const Contact: React.FC = () => {
   // WhatsApp message configuration
@@ -11,9 +12,15 @@ const Contact: React.FC = () => {
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
   return (
-    <section id="quote" className="py-16 bg-neutral">
+    <section id="quote" className="py-16 bg-neutral" dir="rtl">
       <div className="container-custom">
-        <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden">
+        <SectionHeader
+          eyebrow="הצעת מחיר"
+          title="צור קשר"
+          description="מלאו את הטופס או צרו קשר ישירות — נחזור אליכם עם הצעה מותאמת לפרויקט."
+          className="mb-10"
+        />
+        <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden border border-gray-200">
           <div className="grid grid-cols-1 md:grid-cols-5">
             {/* Contact Information Side */}
             <div className="p-8 bg-secondary text-white relative md:col-span-2">
@@ -28,7 +35,7 @@ const Contact: React.FC = () => {
               </div>
 
               <div className="relative z-10">
-                <h2 className="text-3xl font-frank font-bold mb-6">צור קשר</h2>
+                <h2 className="text-3xl font-frank font-bold mb-6">דברו איתנו</h2>
                 <p className="mb-6 font-heebo text-white/90 text-lg leading-relaxed">
                   השאירו פרטים ונחזור אליכם בהקדם עם הצעת מחיר מותאמת אישית.
                   אנו זמינים לכל שאלה או בקשה.

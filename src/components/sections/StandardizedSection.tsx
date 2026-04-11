@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
-import { Heading2, Heading3, BodyText, BodyLarge } from '@/components/ui/Typography';
+import { Heading3, BodyText } from '@/components/ui/Typography';
 import Container from '@/components/layout/Container';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { Stack } from '@/components/ui/Spacer';
 import Button from '@/components/ui/Button';
 import ScrollAnimated, { StaggerItem } from '@/components/ui/ScrollAnimated';
@@ -41,16 +42,8 @@ const StandardizedSection: React.FC<StandardizedSectionProps> = ({
     <section id={id} className={`py-16 ${className}`}>
       <Container>
         {/* Section Header */}
-        <ScrollAnimated type="fadeDown" className="text-center mb-12">
-          <Heading2 className="mb-4">{title}</Heading2>
-          
-          {subtitle && (
-            <Heading3 className="mb-6" color="muted">{subtitle}</Heading3>
-          )}
-          
-          {description && (
-            <BodyLarge className="max-w-3xl mx-auto">{description}</BodyLarge>
-          )}
+        <ScrollAnimated type="fadeDown" className="mb-12">
+          <SectionHeader title={title} subtitle={subtitle} description={description} />
         </ScrollAnimated>
         
         {/* Items Grid */}
@@ -62,7 +55,7 @@ const StandardizedSection: React.FC<StandardizedSectionProps> = ({
           >
             {items.map((item) => (
               <StaggerItem key={item.id}>
-                <div className="bg-white rounded-lg shadow-md p-6 h-full">
+                <div className="bg-white rounded-lg border border-gray-200 shadow-md p-6 h-full">
                   {item.icon && (
                     <div className="text-primary mb-4">
                       {item.icon}

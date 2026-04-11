@@ -12,8 +12,8 @@ html {
 body {
   /* Use the font variables created by next/font */
   font-family: var(--font-assistant), var(--font-heebo), sans-serif;
-  background-color: #ffffff;
-  color: #333333;
+  background-color: theme('colors.white');
+  color: theme('colors.gray.800');
   text-align: right;
   padding-top: 4rem;
   margin: 0;
@@ -234,7 +234,7 @@ body {
 .testimonial-swiper .swiper-pagination-bullet {
   width: 10px !important;
   height: 10px !important;
-  background-color: #C66 !important;
+  background-color: theme('colors.primary') !important;
   opacity: 0.4 !important;
   transition: all 0.3s ease;
 }
@@ -247,7 +247,7 @@ body {
 
 .testimonial-swiper .swiper-button-prev,
 .testimonial-swiper .swiper-button-next {
-  color: #C66 !important;
+  color: theme('colors.primary') !important;
   opacity: 0.7;
   transition: all 0.3s ease;
 }

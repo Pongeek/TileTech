@@ -5,7 +5,14 @@ import { motion, Variants } from 'framer-motion';
 import Link from 'next/link';
 import { usePrefersReducedMotion } from '@/utils/animation';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'icon';
+export type ButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'outline'
+  | 'ghost'
+  | 'icon'
+  /** Frosted light control for use on dark hero imagery */
+  | 'glass';
 export type ButtonSize = 'small' | 'medium' | 'large';
 
 export interface ButtonProps {
@@ -60,6 +67,8 @@ const Button: React.FC<ButtonProps> = ({
     outline: 'border-2 border-primary text-primary hover:bg-primary hover:text-white focus:ring-primary',
     ghost: 'text-primary hover:bg-primary/10 focus:ring-primary',
     icon: 'p-3 text-primary hover:bg-primary/10 focus:ring-primary',
+    glass:
+      'bg-white/15 backdrop-blur-sm border-2 border-white/40 text-white font-heebo font-semibold hover:bg-white/25 hover:shadow-lg focus:ring-white focus:ring-offset-0 focus:ring-offset-transparent',
   };
   
   // Full width class

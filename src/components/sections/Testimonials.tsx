@@ -5,6 +5,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, A11y, Autoplay, EffectFade } from 'swiper/modules';
 import TestimonialCardLazy from '@/components/ui/TestimonialCardLazy';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { useTestimonials } from '@/hooks';
 import type { Swiper as SwiperType } from 'swiper';
 
@@ -92,7 +93,7 @@ const Testimonials: React.FC = () => {
   
   // Create placeholder testimonials for loading state
   const placeholderTestimonials = Array(4).fill(null).map((_, index) => (
-    <div key={`placeholder-${index}`} className="bg-white rounded-lg p-6 h-full shadow-md animate-pulse">
+    <div key={`placeholder-${index}`} className="bg-white rounded-lg border border-gray-200 p-6 h-full shadow-md animate-pulse">
       <div className="flex items-start mb-4">
         <div className="w-12 h-12 bg-gray-200 rounded-full mr-4"></div>
         <div className="flex flex-col">
@@ -133,18 +134,19 @@ const Testimonials: React.FC = () => {
   return (
     <motion.section 
       id="testimonials" 
-      className="py-4 md:py-12 bg-gray-50" 
+      className="py-4 md:py-12 bg-neutral-light" 
       ref={sectionRef}
       variants={sectionVariants}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
     >
-      <div className="container mx-auto px-4">
-        <motion.div className="text-center mb-10" variants={headingVariants}>
-          <h2 className="text-4xl font-frank font-bold text-secondary mb-4">מה הלקוחות אומרים</h2>
-          <p className="text-lg max-w-2xl mx-auto text-gray-600 font-assistant">
-            אנו גאים בשירות שאנו מספקים ובעבודה האיכותית שלנו. הנה מה שכמה מהלקוחות שלנו חושבים.
-          </p>
+      <div className="container-custom">
+        <motion.div className="mb-10" variants={headingVariants}>
+          <SectionHeader
+            eyebrow="המלצות"
+            title="מה הלקוחות אומרים"
+            description="אנו גאים בשירות שאנו מספקים ובעבודה האיכותית שלנו. הנה מה שכמה מהלקוחות שלנו חושבים."
+          />
         </motion.div>
         
         {/* Featured testimonials in carousel */}

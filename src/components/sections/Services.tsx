@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import ServiceCard from '@/components/ui/ServiceCard';
+import SectionHeader from '@/components/ui/SectionHeader';
 import BeforeAfterSlider from '@/components/ui/BeforeAfterSlider';
 import { useServices, getLocalizedContent, Service } from '@/hooks/useServices';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -172,19 +173,17 @@ const Services: React.FC = () => {
       dir="rtl"
     >
       <div className="container-custom">
-        <motion.div 
-          className="text-center mb-12"
+        <motion.div
+          className="mb-12"
           initial={{ opacity: 0.5, y: -10 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0.5, y: -10 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-4xl font-frank font-bold text-secondary mb-4">
-            השירותים שלנו
-          </h2>
-          <p className="text-lg font-heebo text-gray-700 max-w-3xl mx-auto">
-            אנו מציעים מגוון שירותי התקנת אריחים מקצועיים המותאמים לצרכים הספציפיים שלך,
-            מריצוף חדרים ועד לעבודות פסיפס מורכבות ומטבחים מעוצבים
-          </p>
+          <SectionHeader
+            eyebrow="מה אנחנו מציעים"
+            title="השירותים שלנו"
+            description="אנו מציעים מגוון שירותי התקנת אריחים מקצועיים המותאמים לצרכים הספציפיים שלך, מריצוף חדרים ועד לעבודות פסיפס מורכבות ומטבחים מעוצבים"
+          />
         </motion.div>
 
         <AnimatePresence mode="wait">
