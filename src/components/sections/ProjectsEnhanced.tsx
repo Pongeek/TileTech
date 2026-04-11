@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import Masonry from 'react-masonry-css';
 import { useProjects } from '@/hooks';
 import ProjectCard from '@/components/ui/ProjectCard';
@@ -12,36 +12,20 @@ import { AnalyticsEvents } from '@/utils/analytics';
 
 interface Project {
   id: number;
-  title: {
-    he: string;
-    en: string;
-  };
-  description: {
-    he: string;
-    en: string;
-  };
+  title: { he: string; en: string };
+  description: { he: string; en: string };
   category: string;
   tags: string[];
   imageUrl: string;
   thumbnailUrl: string;
   galleryImages?: string[];
-  dimensions: {
-    width: number;
-    height: number;
-  };
+  dimensions: { width: number; height: number };
   completionDate?: string;
   location?: string;
 }
 
-// Breakpoints for the masonry grid
-const breakpointColumns = {
-  default: 3,
-  1100: 3,
-  700: 2,
-  500: 1
-};
+const breakpointColumns = { default: 3, 1100: 3, 700: 2, 500: 1 };
 
-// Filter categories
 const categories = ['הכל', 'מטבחים', 'חדרי אמבטיה', 'רצפות', 'קירות', 'פסיפסים'];
 
 const ProjectsEnhanced: React.FC = () => {
@@ -50,61 +34,76 @@ const ProjectsEnhanced: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [visibleProjects, setVisibleProjects] = useState(6);
-  
-  // Ensure projects is not null by providing a default empty array
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
+
   const projectsArray = projects || [];
-  
-  // Filter projects by category
+
   const filteredProjects = selectedCategory === 'הכל'
     ? projectsArray
-    : projectsArray.filter(project => project.category === selectedCategory);
-  
-  // Get displayed projects
+    : projectsArray.filter(p => p.category === selectedCategory);
+
   const displayedProjects = filteredProjects.slice(0, visibleProjects);
-    
-  // Handle project click to open modal
+
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project);
     setIsModalOpen(true);
     AnalyticsEvents.projectView(project.id, project.title.he, project.category);
   };
-  
-  // Handle load more button click
+
   const handleLoadMore = () => {
     setVisibleProjects(prev => prev + 3);
     AnalyticsEvents.ctaClick('gallery_load_more', 'Load more');
   };
-  
+
   return (
-    <section id="projects" className="section bg-white py-20">
+    <section id="projects" ref={sectionRef} className="section bg-white py-20">
       <div className="container-custom">
-        {/* Section heading */}
-        <ScrollAnimated type="fadeDown" className="text-center mb-12">
-          <h2 className="heading-2 mb-4">הגלריה שלנו</h2>
-          <p className="body-large max-w-3xl mx-auto">
+        {/* Section header — consistent with WhyUs / Testimonials / Services */}
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: -15 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -15 }}
+          transition={{ duration: 0.5 }}
+        >
+          <span className="inline-block text-primary font-assistant font-semibold text-base mb-2 tracking-wide uppercase">
+            העבודות שלנו
+          </span>
+          <h2 className="text-3xl md:text-4xl font-frank font-bold text-secondary mb-4">
+            הגלריה שלנו
+          </h2>
+          <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-5" />
+          <p className="text-lg font-assistant text-gray-600 max-w-2xl mx-auto">
             צפו בתיעוד של העבודות האחרונות שלנו. אנו מתמחים במגוון פרויקטים,
             מבתים פרטיים ועד מרחבים מסחריים.
           </p>
-        </ScrollAnimated>
-        
-        {/* Category filters */}
-        <ScrollAnimated type="fadeUp" className="mb-10 flex flex-wrap justify-center gap-2">
+        </motion.div>
+
+        {/* Category filter pills */}
+        <motion.div
+          className="mb-10 flex flex-wrap justify-center gap-2"
+          initial={{ opacity: 0, y: 10 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={{ duration: 0.4, delay: 0.15 }}
+        >
           {categories.map(category => (
-            <Button
+            <button
               key={category}
-              variant={selectedCategory === category ? 'primary' : 'ghost'}
-              size="small"
               onClick={() => {
                 setSelectedCategory(category);
                 AnalyticsEvents.ctaClick('gallery_filter', category);
               }}
-              className="mb-2"
+              className={`px-4 py-1.5 rounded-full text-sm font-assistant font-medium transition-all duration-200 border focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 ${
+                selectedCategory === category
+                  ? 'bg-primary text-white border-primary shadow-sm'
+                  : 'bg-white text-gray-600 border-gray-200 hover:border-primary/40 hover:text-primary hover:bg-primary/5'
+              }`}
             >
               {category}
-            </Button>
+            </button>
           ))}
-        </ScrollAnimated>
-        
+        </motion.div>
+
         {/* Projects masonry grid */}
         <ScrollAnimated type="stagger" className="mb-10">
           <Masonry
@@ -126,12 +125,12 @@ const ProjectsEnhanced: React.FC = () => {
             ))}
           </Masonry>
         </ScrollAnimated>
-        
-        {/* Load more button */}
+
+        {/* Load more */}
         {filteredProjects.length > visibleProjects && (
           <ScrollAnimated type="fadeUp" className="text-center mt-10">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={handleLoadMore}
               icon={
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -144,17 +143,17 @@ const ProjectsEnhanced: React.FC = () => {
             </Button>
           </ScrollAnimated>
         )}
-        
-        {/* No results message */}
+
+        {/* No results */}
         {filteredProjects.length === 0 && (
           <ScrollAnimated type="fadeIn" className="text-center py-10">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto text-neutral-dark mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
-            <p className="body-large">לא נמצאו פרויקטים בקטגוריה זו</p>
+            <p className="text-lg font-assistant text-gray-500">לא נמצאו פרויקטים בקטגוריה זו</p>
           </ScrollAnimated>
         )}
-        
+
         {/* Project modal */}
         {selectedProject && (
           <ProjectModal
@@ -167,4 +166,4 @@ const ProjectsEnhanced: React.FC = () => {
   );
 };
 
-export default ProjectsEnhanced; 
+export default ProjectsEnhanced;
