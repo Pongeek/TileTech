@@ -84,7 +84,7 @@ export default function RootLayout({
               "image": "https://www.tiletech.co.il/images/logo.png",
               "logo": "https://www.tiletech.co.il/images/logo.png",
               "url": "https://www.tiletech.co.il",
-              "telephone": "050-1234567",
+              "telephone": "054-4727746",
               "email": "info@tiletech.co.il",
               "address": {
                 "@type": "PostalAddress",
