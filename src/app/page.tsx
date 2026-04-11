@@ -83,7 +83,7 @@ export default function Home() {
 
         <Stats />
 
-        <SectionWave bgClassName="bg-white" fillClassName="fill-secondary" />
+        <SectionWave bgClassName="bg-white" fillClassName="fill-cream" />
 
         <section id="services" className="section py-16">
           <Services />

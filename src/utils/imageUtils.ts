@@ -35,7 +35,7 @@ export const createColorBlock = (
  */
 export const themeColors = {
   primary: '#C66',
-  secondary: '#964B00',
+  secondary: '#4A4540',
   accent: '#9CAF88',
   neutral: '#E5E5E0'
 };

@@ -10,7 +10,7 @@
       <!-- Mosaic pattern -->
       <circle cx="100" cy="100" r="80" fill="none" stroke="#9CAF88" stroke-width="10" />
       <circle cx="100" cy="100" r="60" fill="none" stroke="#cc6666" stroke-width="10" />
-      <circle cx="100" cy="100" r="40" fill="none" stroke="#964B00" stroke-width="10" />
+      <circle cx="100" cy="100" r="40" fill="none" stroke="#4A4540" stroke-width="10" />
       <circle cx="100" cy="100" r="20" fill="#9CAF88" />
       
       <!-- Mosaic details -->

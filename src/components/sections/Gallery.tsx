@@ -63,7 +63,7 @@ const Gallery: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredItems.map(item => (
             <div key={item.id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-              <div className="bg-secondary h-64 flex items-center justify-center text-white">
+              <div className="bg-cream-dark border border-cream-muted h-64 flex items-center justify-center text-secondary/60">
                 {/* Image placeholder - will be replaced with actual images */}
                 <span>תמונת פרויקט</span>
               </div>

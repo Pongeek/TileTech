@@ -25,7 +25,7 @@ const carouselSlides = [
     alt: 'מקלחון מעוצב עם אריחים — שיפוץ חדר רחצה',
   },
   {
-    bgColor: '#964B00',
+    bgColor: '#E6DFD4',
     image:
       'https://res.cloudinary.com/dyxjbqvwz/image/upload/b_rgb:FFFFFF/e_improve,e_sharpen/v1746410770/image_fx_quxwiw.png',
     alt: 'פרטי ריצוף וחיפוי איכותיים — עבודת TileTech',

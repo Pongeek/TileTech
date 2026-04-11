@@ -9,17 +9,22 @@ module.exports = {
     extend: {
       colors: {
         primary: '#C66',
-        secondary: '#964B00',
+        /* Dark warm greige for headings & text (replaces orange-brown) */
+        secondary: '#4A4540',
+        'secondary-light': '#5E5854',
+        'secondary-dark': '#3A3632',
+        /* Cream surfaces (footer, stats band, contact panel) */
+        cream: '#F2EDE6',
+        'cream-dark': '#E6DFD4',
+        'cream-muted': '#D8D0C4',
         accent: '#9CAF88',
-        neutral: '#E5E5E0',
+        neutral: '#E8E4DC',
         'primary-light': '#D88',
         'primary-dark': '#A44',
-        'secondary-light': '#A86C2A',
-        'secondary-dark': '#6A3500',
         'accent-light': '#B3C1A3',
         'accent-dark': '#7A8C6A',
-        'neutral-light': '#F0F0EB',
-        'neutral-dark': '#CECEC9',
+        'neutral-light': '#FAF7F2',
+        'neutral-dark': '#D4CFC5',
       },
       fontFamily: {
         'frank': ['var(--font-frank)', 'serif'],
