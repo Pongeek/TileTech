@@ -7,22 +7,6 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-secondary text-white" dir="rtl">
 
-      {/* Pre-footer CTA strip */}
-      <div className="bg-primary">
-        <div className="container-custom py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div>
-            <p className="text-xl font-frank font-bold text-white">מוכנים להתחיל את הפרויקט שלכם?</p>
-            <p className="font-heebo text-white/85 text-sm mt-0.5">צרו איתנו קשר עוד היום לקבלת הצעת מחיר ללא עלות</p>
-          </div>
-          <Link
-            href="#contact"
-            className="shrink-0 bg-white text-primary font-frank font-bold px-7 py-3 rounded-lg hover:bg-secondary hover:text-white transition-colors duration-200 shadow-md"
-          >
-            קבל הצעת מחיר
-          </Link>
-        </div>
-      </div>
-
       {/* Main footer content */}
       <div className="container-custom py-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
