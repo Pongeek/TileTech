@@ -76,7 +76,7 @@ const ProjectsEnhanced: React.FC = () => {
   };
   
   return (
-    <section id="gallery" className="section bg-white py-20">
+    <section id="projects" className="section bg-white py-20">
       <div className="container-custom">
         {/* Section heading */}
         <ScrollAnimated type="fadeDown" className="text-center mb-12">
