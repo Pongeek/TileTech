@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 interface TestimonialCardProps {
   id: number;
   name: string;
-  profileImage: string; // We'll keep this in the interface for compatibility
+  profileImage: string;
   location: string;
   rating: number;
   text: string;
@@ -16,12 +16,14 @@ interface TestimonialCardProps {
   projectType?: string;
 }
 
-/**
- * Component for displaying an individual testimonial
- * Includes customer name, rating, review text, and location
- */
+const projectLabels: { [key: string]: string } = {
+  'residential': 'ריצוף ביתי',
+  'bathroom': 'חדרי אמבטיה',
+  'kitchen': 'מטבחים',
+  'commercial': 'מסחרי',
+};
+
 const TestimonialCard: React.FC<TestimonialCardProps> = ({
-  id,
   name,
   location,
   rating,
@@ -31,87 +33,88 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
   projectType,
 }) => {
   const [expanded, setExpanded] = useState(false);
-  
-  // Format date to Hebrew locale
+
   const formattedDate = new Date(date).toLocaleDateString('he-IL', {
     year: 'numeric',
     month: 'long',
   });
-  
-  // Determine if text needs "read more" option (over 150 chars)
+
   const isLongText = text.length > 150;
   const displayText = expanded || !isLongText ? text : `${text.substring(0, 150)}...`;
-  
-  // Project type labels
-  const projectLabels: { [key: string]: string } = {
-    'residential': 'ריצוף ביתי',
-    'bathroom': 'חדרי אמבטיה',
-    'kitchen': 'מטבחים',
-    'commercial': 'מסחרי',
-  };
-  
+
+  // Avatar: first letter of name
+  const initial = name ? name.charAt(0) : '?';
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`rounded-lg p-6 h-full shadow-md transition-all duration-300 hover:shadow-lg ${
-        featured ? 'bg-primary/5 border border-primary/20' : 'bg-white'
+      transition={{ duration: 0.4 }}
+      className={`relative rounded-2xl p-6 h-full flex flex-col transition-shadow duration-300 hover:shadow-elevation-3 ${
+        featured
+          ? 'bg-white border-2 border-primary/30 shadow-elevation-2'
+          : 'bg-white border border-gray-100 shadow-elevation-1'
       }`}
     >
-      <div className="flex flex-col h-full">
-        {/* Header with name, location and rating */}
-        <div className="mb-4">
-          <div className="flex flex-col">
-            <div className="flex items-center mb-1">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-primary mr-2" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-1 14H5c-.55 0-1-.45-1-1V8l6.94 4.34c.65.41 1.47.41 2.12 0L20 8v9c0 .55-.45 1-1 1zm-7-7L4 6h16l-8 5z" />
-              </svg>
-              <h3 className="font-bold text-lg">{name}</h3>
+      {/* Large decorative quote mark */}
+      <span className="absolute top-4 left-5 text-6xl font-serif text-primary/15 leading-none select-none" aria-hidden="true">
+        ❝
+      </span>
+
+      {/* Review text */}
+      <p className="text-gray-600 font-assistant text-sm leading-relaxed mb-4 relative z-10 pt-4">
+        {displayText}
+      </p>
+
+      {isLongText && (
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="text-primary hover:text-primary-dark text-xs font-medium mb-4 transition-colors focus:outline-none self-start"
+          aria-expanded={expanded}
+        >
+          {expanded ? 'הצג פחות' : 'קרא עוד'}
+        </button>
+      )}
+
+      {/* Spacer */}
+      <div className="mt-auto">
+        {/* Divider */}
+        <div className="w-full h-px bg-gray-100 mb-4" />
+
+        {/* Footer: avatar + name + rating */}
+        <div className="flex items-center gap-3">
+          {/* Avatar circle with initial */}
+          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+            <span className="font-frank font-bold text-primary text-base">{initial}</span>
+          </div>
+
+          <div className="flex flex-col min-w-0">
+            <span className="font-frank font-bold text-secondary text-sm truncate">{name}</span>
+            <div className="flex items-center gap-1.5">
+              {location && (
+                <span className="text-gray-400 text-xs truncate">{location}</span>
+              )}
+              {projectType && (
+                <>
+                  <span className="text-gray-300 text-xs">·</span>
+                  <span className="text-xs text-primary/80 font-assistant">
+                    {projectLabels[projectType] || projectType}
+                  </span>
+                </>
+              )}
             </div>
-            <div className="flex items-center text-sm text-gray-600 mb-2">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 inline ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              {location}
-            </div>
+          </div>
+
+          <div className="ms-auto shrink-0">
             <StarRating rating={rating} size="sm" />
           </div>
         </div>
-        
-        {/* Project type badge */}
-        {projectType && (
-          <div className="mb-3">
-            <span className="inline-block bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">
-              {projectLabels[projectType] || projectType}
-            </span>
-          </div>
-        )}
-        
-        {/* Review text */}
-        <p className="text-gray-700 leading-relaxed">
-          {displayText}
-        </p>
-        
-        {/* Read more/less button for long texts */}
-        {isLongText && (
-          <button
-            onClick={() => setExpanded(!expanded)}
-            className="text-primary hover:text-primary/80 text-sm font-medium mt-1 transition-colors focus:outline-none"
-            aria-expanded={expanded}
-          >
-            {expanded ? 'הצג פחות' : 'קרא עוד'}
-          </button>
-        )}
-        
-        {/* Footer with date */}
-        <div className="text-sm text-gray-500 mt-auto">
-          {formattedDate}
-          
-          {/* Featured badge */}
+
+        {/* Date + featured badge */}
+        <div className="flex items-center justify-between mt-2">
+          <span className="text-xs text-gray-400 font-assistant">{formattedDate}</span>
           {featured && (
-            <span className="mr-3 bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">
+            <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-assistant">
               ממולץ במיוחד
             </span>
           )}
@@ -121,4 +124,4 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
   );
 };
 
-export default TestimonialCard; 
+export default TestimonialCard;
