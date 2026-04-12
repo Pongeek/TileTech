@@ -8,23 +8,24 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#C66',
-        /* Dark warm greige for headings & text (replaces orange-brown) */
-        secondary: '#4A4540',
-        'secondary-light': '#5E5854',
-        'secondary-dark': '#3A3632',
-        /* Cream surfaces (footer, stats band, contact panel) */
-        cream: '#F2EDE6',
-        'cream-dark': '#E6DFD4',
-        'cream-muted': '#D8D0C4',
+        /* Warm terracotta — earthy, premium, craft-oriented */
+        primary: '#B5714A',
+        /* Deep charcoal for headings & text */
+        secondary: '#2E2A26',
+        'secondary-light': '#4A4540',
+        'secondary-dark': '#1C1916',
+        /* Warm cream surfaces */
+        cream: '#F5F0EA',
+        'cream-dark': '#EDE5D8',
+        'cream-muted': '#DDD5C6',
         accent: '#9CAF88',
-        neutral: '#E8E4DC',
-        'primary-light': '#D88',
-        'primary-dark': '#A44',
+        neutral: '#ECEAE4',
+        'primary-light': '#C98B69',
+        'primary-dark': '#8D5535',
         'accent-light': '#B3C1A3',
         'accent-dark': '#7A8C6A',
-        'neutral-light': '#FAF7F2',
-        'neutral-dark': '#D4CFC5',
+        'neutral-light': '#FAF8F5',
+        'neutral-dark': '#D8D3CB',
       },
       fontFamily: {
         'frank': ['var(--font-frank)', 'serif'],

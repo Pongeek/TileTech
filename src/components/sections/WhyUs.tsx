@@ -69,7 +69,7 @@ const WhyUs: React.FC = () => {
   const isInView = useInView(ref, { once: true, amount: 0.15 });
 
   return (
-    <section className="py-16 bg-neutral-light" dir="rtl" ref={ref}>
+    <section className="py-20 bg-secondary" dir="rtl" ref={ref}>
       <div className="container-custom">
         <motion.div
           className="mb-14"
@@ -83,25 +83,26 @@ const WhyUs: React.FC = () => {
             description="בTileTech אנו מאמינים שכל פרויקט הוא הזדמנות לשנות מרחב ולהשאיר רושם. הנה מה שמייחד אותנו:"
             accentBar
             eyebrowUppercase
+            invertColors
           />
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              className="bg-white rounded-lg border border-gray-200 p-7 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col items-center text-center group hover:-translate-y-1 motion-reduce:hover:transform-none"
+              className="bg-white/5 border border-white/10 rounded-xl p-7 hover:bg-white/10 transition-all duration-300 flex flex-col items-center text-center group hover:-translate-y-1 motion-reduce:hover:transform-none"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="w-16 h-16 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-5 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+              <div className="w-16 h-16 rounded-xl bg-primary/20 flex items-center justify-center text-primary mb-5 group-hover:bg-primary group-hover:text-white transition-all duration-300">
                 {feature.icon}
               </div>
-              <h3 className="text-lg font-frank font-bold text-secondary mb-3">
+              <h3 className="text-lg font-frank font-bold text-white mb-3">
                 {feature.title}
               </h3>
-              <p className="font-assistant text-gray-500 text-sm leading-relaxed">
+              <p className="font-assistant text-white/60 text-sm leading-relaxed">
                 {feature.description}
               </p>
             </motion.div>

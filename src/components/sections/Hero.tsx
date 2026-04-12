@@ -40,7 +40,7 @@ const carouselSlides = [
 
 const Hero: React.FC = () => {
   return (
-    <section className="relative h-[60vh] md:h-[85vh] min-h-[480px] overflow-hidden mt-[-90px] pt-0">
+    <section className="relative h-[70vh] md:h-screen min-h-[560px] overflow-hidden mt-[-90px] pt-0">
       {/* Carousel */}
       <Swiper
         spaceBetween={0}
@@ -69,14 +69,14 @@ const Hero: React.FC = () => {
             ) : (
               <div className="absolute inset-0 z-0" style={{ backgroundColor: slide.bgColor }} />
             )}
-            {/* Gradient overlay — dark at bottom for text legibility, lighter at top */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/40 to-black/20 z-5" />
+            {/* Gradient overlay — strong at bottom for text legibility */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/10 z-5" />
           </SwiperSlide>
         ))}
       </Swiper>
 
       {/* Hero content */}
-      <div className="container-custom relative z-20 h-full flex items-center">
+      <div className="container-custom relative z-20 h-full flex items-end pb-20 md:pb-28">
         <div className="max-w-3xl text-white">
           {/* Credibility badge */}
           <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/25 rounded-full px-4 py-1.5 mb-6">

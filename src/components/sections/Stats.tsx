@@ -86,7 +86,7 @@ const Stats: React.FC = () => {
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
-    <section className="relative bg-cream py-16 overflow-hidden border-y border-cream-muted" dir="rtl" ref={ref}>
+    <section className="relative bg-cream py-16 overflow-hidden" dir="rtl" ref={ref}>
       {/* Subtle tile grid watermark */}
       <div
         className="absolute inset-0 opacity-[0.07] pointer-events-none"

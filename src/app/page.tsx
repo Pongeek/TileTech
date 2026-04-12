@@ -6,7 +6,6 @@ import Footer from '@/components/layout/Footer';
 import Hero from '@/components/sections/Hero';
 import Stats from '@/components/sections/Stats';
 import WhyUs from '@/components/sections/WhyUs';
-import SectionWave from '@/components/layout/SectionWave';
 import { lazyLoad } from '@/utils/lazyLoad';
 
 // Use the optimized lazy-loaded section components
@@ -25,7 +24,7 @@ const Services = lazyLoad(() => import('@/components/sections/ServicesLazy'), {
 
 const Projects = lazyLoad(() => import('@/components/sections/ProjectsLazy'), {
   fallback: (
-    <div className="py-16 bg-neutral">
+    <div className="py-16 bg-cream">
       <div className="container-custom">
         <div className="text-center mb-12">
           <div className="h-10 w-64 bg-gray-200 rounded animate-pulse mx-auto mb-4"></div>
@@ -54,7 +53,7 @@ const Testimonials = lazyLoad(() => import('@/components/sections/TestimonialsLa
 
 const Contact = lazyLoad(() => import('@/components/sections/ContactLazy'), {
   fallback: (
-    <div className="py-16 bg-neutral">
+    <div className="py-16 bg-cream">
       <div className="container-custom">
         <div className="text-center mb-12">
           <div className="h-10 w-48 bg-gray-200 rounded animate-pulse mx-auto"></div>
@@ -77,37 +76,34 @@ export default function Home() {
     <>
       <Header />
       <main className="relative">
-        <section id="hero" className="section">
+        {/* Hero — full bleed, no padding */}
+        <section id="hero" className="scroll-mt-16">
           <Hero />
         </section>
 
+        {/* Stats band */}
         <Stats />
 
-        <SectionWave bgClassName="bg-white" fillClassName="fill-cream" />
-
-        <section id="services" className="section py-16">
+        {/* Services — white background */}
+        <section id="services" className="scroll-mt-16 bg-white py-20">
           <Services />
         </section>
 
-        <SectionWave bgClassName="bg-neutral-light" fillClassName="fill-white" />
-
+        {/* Why Us — cream background for contrast */}
         <WhyUs />
 
-        <SectionWave bgClassName="bg-white" fillClassName="fill-neutral-light" />
-
-        <section id="projects" className="section py-0">
+        {/* Projects — slightly darker cream */}
+        <section id="projects" className="scroll-mt-16 bg-neutral-light py-0">
           <Projects />
         </section>
 
-        <SectionWave bgClassName="bg-neutral-light" fillClassName="fill-white" />
-
-        <section id="testimonials" className="section py-0">
+        {/* Testimonials — white */}
+        <section id="testimonials" className="scroll-mt-16 bg-white py-0">
           <Testimonials />
         </section>
 
-        <SectionWave bgClassName="bg-neutral" fillClassName="fill-neutral-light" />
-
-        <section id="contact" className="section py-0">
+        {/* Contact — cream */}
+        <section id="contact" className="scroll-mt-16 bg-cream py-0">
           <Contact />
         </section>
       </main>
@@ -116,4 +112,4 @@ export default function Home() {
       <FloatingContactButton />
     </>
   );
-} 
+}

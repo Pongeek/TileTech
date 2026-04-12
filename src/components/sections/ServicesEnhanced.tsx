@@ -36,7 +36,7 @@ const ServicesEnhanced: React.FC = () => {
   const selectedServiceData = servicesData.find((s) => s.id === selectedService) as ExtendedService | undefined;
 
   return (
-    <section id="services" ref={sectionRef} className="section bg-white py-16">
+    <section id="services" ref={sectionRef} className="scroll-mt-16 bg-white py-0">
       <div className="container-custom">
         {/* Section header — consistent with WhyUs / Testimonials */}
         <motion.div
