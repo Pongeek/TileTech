@@ -19,7 +19,7 @@ const carouselSlides = [
     alt: 'סלון מרוצף באריחים — דוגמה לעבודת ריצוף בבית פרטי',
   },
   {
-    bgColor: '#C66',
+    bgColor: '#B5714A',
     image:
       'https://res.cloudinary.com/dyxjbqvwz/image/upload/c_crop,ar_16:9,e_improve,e_sharpen/v1746410803/shower_room_3_nrwacn.png',
     alt: 'מקלחון מעוצב עם אריחים — שיפוץ חדר רחצה',
@@ -70,45 +70,47 @@ const Hero: React.FC = () => {
               <div className="absolute inset-0 z-0" style={{ backgroundColor: slide.bgColor }} />
             )}
             {/* Gradient overlay — strong at bottom for text legibility */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/10 z-5" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/10" style={{ zIndex: 5 }} />
           </SwiperSlide>
         ))}
       </Swiper>
 
-      {/* Hero content */}
-      <div className="container-custom relative z-20 h-full flex items-end pb-20 md:pb-28">
-        <div className="max-w-3xl text-white">
-          {/* Credibility badge */}
-          <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/25 rounded-full px-4 py-1.5 mb-6">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
-            <span className="font-heebo text-sm font-medium">מעל 500 פרויקטים הושלמו בהצלחה</span>
-          </div>
+      {/* Hero content — absolute so it layers above the Swiper */}
+      <div className="absolute inset-0 z-20 flex items-end">
+        <div className="container-custom w-full pb-24 md:pb-32">
+          <div className="max-w-3xl text-white">
+            {/* Credibility badge */}
+            <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/25 rounded-full px-4 py-1.5 mb-6">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
+              <span className="font-heebo text-sm font-medium">מעל 500 פרויקטים הושלמו בהצלחה</span>
+            </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-frank font-bold mb-5 leading-tight drop-shadow-lg">
-            שירותי ריצוף ושיפוץ{' '}
-            <span className="text-primary">מקצועיים</span>{' '}
-            באיכות גבוהה
-          </h1>
-          <p className="text-lg md:text-xl font-heebo mb-8 text-white/90 max-w-2xl leading-relaxed">
-            התקנת אריחים, שיפוץ מטבחים וחדרי אמבטיה, ועבודות פסיפס מותאמות אישית — ליווי מלא מהתכנון ועד הגמר.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Button
-              href="#contact"
-              variant="primary"
-              size="large"
-              className="hover:shadow-xl hover:-translate-y-1 motion-reduce:hover:transform-none shadow-lg"
-            >
-              קבל הצעת מחיר חינם
-            </Button>
-            <Button
-              href="#projects"
-              variant="glass"
-              size="large"
-              className="hover:-translate-y-1 motion-reduce:hover:transform-none"
-            >
-              צפה בעבודות שלנו
-            </Button>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-frank font-bold mb-5 leading-tight drop-shadow-lg">
+              שירותי ריצוף ושיפוץ{' '}
+              <span className="text-primary-light">מקצועיים</span>{' '}
+              באיכות גבוהה
+            </h1>
+            <p className="text-lg md:text-xl font-heebo mb-8 text-white/90 max-w-2xl leading-relaxed">
+              התקנת אריחים, שיפוץ מטבחים וחדרי אמבטיה, ועבודות פסיפס מותאמות אישית — ליווי מלא מהתכנון ועד הגמר.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Button
+                href="#contact"
+                variant="primary"
+                size="large"
+                className="hover:shadow-xl hover:-translate-y-1 motion-reduce:hover:transform-none shadow-lg"
+              >
+                קבל הצעת מחיר חינם
+              </Button>
+              <Button
+                href="#projects"
+                variant="glass"
+                size="large"
+                className="hover:-translate-y-1 motion-reduce:hover:transform-none"
+              >
+                צפה בעבודות שלנו
+              </Button>
+            </div>
           </div>
         </div>
       </div>
