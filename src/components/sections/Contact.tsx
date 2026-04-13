@@ -122,7 +122,13 @@ const Contact: React.FC = () => {
     <section id="contact" className="py-20 bg-secondary" dir="rtl">
       <div className="container-custom">
         {/* Section header */}
-        <div className="text-center mb-12">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.55, ease: 'easeOut' }}
+        >
           <span className="inline-block text-primary font-assistant font-semibold text-sm mb-2 tracking-widest uppercase">
             צור קשר
           </span>
@@ -130,10 +136,16 @@ const Contact: React.FC = () => {
             נשמח לשמוע מכם
           </h2>
           <div className="w-14 h-1 bg-primary mx-auto rounded-full" />
-        </div>
+        </motion.div>
 
         {/* Card */}
-        <div className="max-w-5xl mx-auto bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+        <motion.div
+          className="max-w-5xl mx-auto bg-white/5 border border-white/10 rounded-2xl overflow-hidden"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
+        >
           <div className="grid grid-cols-1 lg:grid-cols-5">
 
             {/* ── Left: contact info ── */}
@@ -232,7 +244,7 @@ const Contact: React.FC = () => {
               </AnimatePresence>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

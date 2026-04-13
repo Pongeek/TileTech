@@ -1,4 +1,4 @@
-'use client'; // v2
+'use client'; // v3
 
 import React from 'react';
 import dynamic from 'next/dynamic';

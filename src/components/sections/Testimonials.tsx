@@ -1,299 +1,313 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import React, { useState, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, A11y, Autoplay, EffectFade } from 'swiper/modules';
-import TestimonialCardLazy from '@/components/ui/TestimonialCardLazy';
-import SectionHeader from '@/components/ui/SectionHeader';
-import { useTestimonials } from '@/hooks';
+import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules';
+import StarRating from '@/components/ui/StarRating';
 import type { Swiper as SwiperType } from 'swiper';
 
-// Import Swiper styles
 import 'swiper/css';
-import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import 'swiper/css/effect-fade';
 
-// Animation variants
-const sectionVariants = {
-  hidden: { opacity: 0 },
-  visible: { 
-    opacity: 1,
-    transition: { 
-      duration: 0.6,
-      when: "beforeChildren",
-      staggerChildren: 0.2
-    }
-  }
+// ─── Data ────────────────────────────────────────────────────────────────────
+
+interface Testimonial {
+  id: number;
+  name: string;
+  location: string;
+  rating: number;
+  text: string;
+  date: string;
+  featured: boolean;
+  projectType?: string;
+}
+
+const projectLabels: Record<string, string> = {
+  residential: 'ריצוף ביתי',
+  bathroom: 'חדר אמבטיה',
+  kitchen: 'מטבח',
+  commercial: 'מסחרי',
 };
 
-const headingVariants = {
-  hidden: { opacity: 0, y: -20 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" }
-  }
-};
+// Avatar colors cycling through warm palette
+const avatarColors = [
+  'bg-primary text-white',
+  'bg-amber-600 text-white',
+  'bg-stone-600 text-white',
+  'bg-orange-700 text-white',
+  'bg-rose-700 text-white',
+  'bg-yellow-700 text-white',
+];
 
-const Testimonials: React.FC = () => {
-  const { testimonials, featuredTestimonials, loading, error } = useTestimonials();
-  const [isWide, setIsWide] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const prevButtonRef = useRef<HTMLDivElement>(null);
-  const nextButtonRef = useRef<HTMLDivElement>(null);
-  const [swiper, setSwiper] = useState<SwiperType | null>(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
-  
-  // Check window width for responsive layout decisions and reduced motion preferences
-  useEffect(() => {
-    const handleResize = () => {
-      if (typeof window !== 'undefined') {
-        setIsWide(window.innerWidth >= 1024);
-      }
-    };
-    
-    // Check for reduced motion preferences
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReducedMotion(motionQuery.matches);
-    
-    // Listen for changes in motion preference
-    const handleMotionPreferenceChange = (e: MediaQueryListEvent) => {
-      setPrefersReducedMotion(e.matches);
-    };
-    
-    // Set initial state
-    handleResize();
-    
-    // Update on resize
-    window.addEventListener('resize', handleResize);
-    motionQuery.addEventListener('change', handleMotionPreferenceChange);
-    
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      motionQuery.removeEventListener('change', handleMotionPreferenceChange);
-    };
-  }, []);
+// Hardcoded featured testimonials (from data/testimonials.json featured:true)
+const FEATURED: Testimonial[] = [
+  {
+    id: 1,
+    name: 'יוסי כהן',
+    location: 'תל אביב',
+    rating: 5,
+    text: 'עבודה מקצועית ואיכותית. התהליך היה חלק מאוד, והתוצאה הסופית עלתה על כל הציפיות שלנו! הריצוף בסלון שלנו מושלם. אני ממליץ בחום לכל מי שמחפש אנשי מקצוע אמינים.',
+    date: '2023-12-15',
+    featured: true,
+    projectType: 'residential',
+  },
+  {
+    id: 3,
+    name: 'משה אברהמי',
+    location: 'ירושלים',
+    rating: 5,
+    text: 'הזמנתי עבודת פסיפס מורכבת למטבח החדש שלנו והתוצאה פשוט מרהיבה! האריחים מותאמים בצורה מושלמת והעיצוב בדיוק כפי שדמיינתי. ללא ספק אחת ההחלטות הטובות ביותר שעשיתי בתהליך השיפוץ.',
+    date: '2023-10-20',
+    featured: true,
+    projectType: 'kitchen',
+  },
+  {
+    id: 5,
+    name: 'עמית גולן',
+    location: 'ראשון לציון',
+    rating: 5,
+    text: 'שיפצנו את המשרדים שלנו והתוצאה מעולה! הריצוף החדש שדרג את המראה של החלל בצורה דרמטית. העבודה הייתה מהירה וההפרעה לפעילות העסקית הייתה מינימלית. מומלץ בחום!',
+    date: '2023-08-12',
+    featured: true,
+    projectType: 'commercial',
+  },
+  {
+    id: 7,
+    name: 'אלון מזרחי',
+    location: 'הרצליה',
+    rating: 5,
+    text: 'הזמנתי עבודת פסיפס לקיר בבית הקפה שלי והתוצאה מדהימה! הדיוק בעבודה והיצירתיות בביצוע היו מעל ומעבר למה שציפיתי. הלקוחות שלי לא מפסיקים להתפעל מהעיצוב החדש.',
+    date: '2023-06-22',
+    featured: true,
+    projectType: 'commercial',
+  },
+  {
+    id: 9,
+    name: 'איתי לויט',
+    location: 'מודיעין',
+    rating: 5,
+    text: 'התקנתי אריחים מעוצבים בחדר המגורים ובחדר השינה וזה פשוט יצא מושלם! העבודה הייתה מדויקת, נקייה ובמחיר הוגן. אמליץ עליכם לכל חבריי!',
+    date: '2023-04-10',
+    featured: true,
+    projectType: 'residential',
+  },
+];
 
-  // Initialize custom navigation when swiper is available
-  useEffect(() => {
-    if (swiper && prevButtonRef.current && nextButtonRef.current) {
-      // Set up navigation references
-      if (swiper.params.navigation && typeof swiper.params.navigation !== 'boolean') {
-        swiper.params.navigation.prevEl = prevButtonRef.current;
-        swiper.params.navigation.nextEl = nextButtonRef.current;
-      }
-      // Update swiper to use the custom navigation
-      swiper.navigation.init();
-      swiper.navigation.update();
-    }
-  }, [swiper]);
-  
-  // Create placeholder testimonials for loading state
-  const placeholderTestimonials = Array(4).fill(null).map((_, index) => (
-    <div key={`placeholder-${index}`} className="bg-white rounded-lg border border-gray-200 p-6 h-full shadow-md animate-pulse">
-      <div className="flex items-start mb-4">
-        <div className="w-12 h-12 bg-gray-200 rounded-full mr-4"></div>
-        <div className="flex flex-col">
-          <div className="h-5 bg-gray-200 rounded w-24 mb-2"></div>
-          <div className="h-4 bg-gray-200 rounded w-32 mb-2"></div>
-          <div className="flex">
-            {[...Array(5)].map((_, i) => (
-              <div key={i} className="w-4 h-4 mr-1 bg-gray-200 rounded"></div>
-            ))}
+// ─── Sub-components ───────────────────────────────────────────────────────────
+
+const TestimonialCard: React.FC<{ t: Testimonial; colorClass: string }> = ({ t, colorClass }) => {
+  const [expanded, setExpanded] = useState(false);
+  const isLong = t.text.length > 160;
+  const display = expanded || !isLong ? t.text : `${t.text.slice(0, 160)}…`;
+  const initial = t.name.charAt(0);
+
+  return (
+    <div className="h-full flex flex-col bg-white/[0.07] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.11] transition-colors duration-300 backdrop-blur-sm">
+      {/* Large quote */}
+      <span className="text-5xl font-serif leading-none text-primary/40 select-none mb-2" aria-hidden>❝</span>
+
+      {/* Text */}
+      <p className="text-white/75 font-assistant text-sm leading-relaxed flex-1 mb-3">
+        {display}
+      </p>
+      {isLong && (
+        <button
+          onClick={() => setExpanded(e => !e)}
+          className="text-primary/80 hover:text-primary text-xs font-assistant font-medium mb-4 self-start transition-colors"
+        >
+          {expanded ? 'הצג פחות' : 'קרא עוד'}
+        </button>
+      )}
+
+      {/* Divider */}
+      <div className="h-px bg-white/10 mb-4" />
+
+      {/* Footer */}
+      <div className="flex items-center gap-3">
+        {/* Avatar */}
+        <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 font-frank font-bold text-sm ${colorClass}`}>
+          {initial}
+        </div>
+
+        <div className="flex-1 min-w-0">
+          <p className="font-frank font-bold text-white text-sm truncate">{t.name}</p>
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <span className="text-white/40 text-xs">{t.location}</span>
+            {t.projectType && (
+              <>
+                <span className="text-white/30 text-xs">·</span>
+                <span className="text-primary/70 text-xs font-assistant">{projectLabels[t.projectType] ?? t.projectType}</span>
+              </>
+            )}
           </div>
         </div>
-      </div>
-      <div className="space-y-2">
-        <div className="h-4 bg-gray-200 rounded w-full"></div>
-        <div className="h-4 bg-gray-200 rounded w-full"></div>
-        <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+
+        <div className="shrink-0">
+          <StarRating rating={t.rating} size="sm" />
+        </div>
       </div>
     </div>
-  ));
-  
-  // Determine which effect to use based on reduced motion preferences
-  const swiperEffect = prefersReducedMotion ? {} : { 
-    effect: 'fade',
-    fadeEffect: {
-      crossFade: true
-    }
-  };
-  
-  // Configure auto-transition based on reduced motion preferences
-  const autoplayConfig = prefersReducedMotion ? 
-    false : 
-    {
-      delay: 5000,
-      disableOnInteraction: false,
-      pauseOnMouseEnter: true
-    };
-  
-  return (
-    <motion.section 
-      id="testimonials" 
-      className="py-4 md:py-12 bg-neutral-light" 
-      ref={sectionRef}
-      variants={sectionVariants}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-    >
-      <div className="container-custom">
-        <motion.div className="mb-10" variants={headingVariants}>
-          <SectionHeader
-            eyebrow="המלצות"
-            title="מה הלקוחות אומרים"
-            description="אנו גאים בשירות שאנו מספקים ובעבודה האיכותית שלנו. הנה מה שכמה מהלקוחות שלנו חושבים."
-          />
-        </motion.div>
-        
-        {/* Featured testimonials in carousel */}
-        <motion.div 
-          className="mb-10 relative"
-          variants={{
-            hidden: { opacity: 0, y: 20 },
-            visible: { 
-              opacity: 1, 
-              y: 0,
-              transition: { duration: 0.6 }
-            }
-          }}
-        >          
-          {loading ? (
-            <Swiper
-              modules={[Navigation, Pagination, A11y, Autoplay]}
-              spaceBetween={24}
-              slidesPerView={1}
-              navigation
-              pagination={{ clickable: true }}
-              loop={true}
-              autoplay={autoplayConfig as any}
-              breakpoints={{
-                640: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
-              }}
-              className="testimonial-swiper"
-            >
-              {placeholderTestimonials.map((placeholder, index) => (
-                <SwiperSlide key={`placeholder-slide-${index}`}>
-                  {placeholder}
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          ) : error ? (
-            <div className="text-center py-8 text-red-500">
-              שגיאה בטעינת ההמלצות. אנא נסו שנית מאוחר יותר.
-            </div>
-          ) : featuredTestimonials && featuredTestimonials.length > 0 ? (
-            <div className="relative testimonial-container">
-              <Swiper
-                modules={[Navigation, Pagination, A11y, Autoplay]}
-                spaceBetween={24}
-                slidesPerView={1}
-                navigation={{
-                  enabled: true
-                }}
-                pagination={{ clickable: true }}
-                loop={featuredTestimonials.length > 3}
-                autoplay={autoplayConfig as any}
-                breakpoints={{
-                  640: { slidesPerView: 2, spaceBetween: 20 },
-                  1024: { slidesPerView: 3, spaceBetween: 24 }
-                }}
-                dir="rtl"
-                className="testimonial-swiper"
-                onSwiper={setSwiper}
-              >
-                {featuredTestimonials.map((testimonial) => (
-                  <SwiperSlide key={`featured-${testimonial.id}`}>
-                    <div className="h-full">
-                      <TestimonialCardLazy {...testimonial} />
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-              
-              {/* Custom navigation buttons - with accessible labels */}
-              <motion.div 
-                ref={prevButtonRef}
-                className="absolute top-1/2 right-1 transform -translate-y-1/2 z-20 bg-white bg-opacity-80 rounded-full p-2 shadow-md flex items-center justify-center w-10 h-10 cursor-pointer hover:bg-opacity-100 transition-all"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label="הקודם"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-secondary">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                </svg>
-              </motion.div>
-              <motion.div 
-                ref={nextButtonRef}
-                className="absolute top-1/2 left-1 transform -translate-y-1/2 z-20 bg-white bg-opacity-80 rounded-full p-2 shadow-md flex items-center justify-center w-10 h-10 cursor-pointer hover:bg-opacity-100 transition-all"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label="הבא"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-secondary">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                </svg>
-              </motion.div>
-            </div>
-          ) : (
-            <div className="text-center py-8 text-gray-500">
-              אין המלצות להצגה כרגע.
-            </div>
-          )}
-        </motion.div>
-      </div>
-      
-      {/* Add custom styles for Swiper and navigation */}
-      <style jsx>{`
-        :global(.testimonial-swiper .swiper-button-next),
-        :global(.testimonial-swiper .swiper-button-prev) {
-          display: none;
-        }
-        
-        :global(.testimonial-container) {
-          padding: 0 2rem;
-        }
-        
-        :global(.testimonial-swiper .swiper-slide) {
-          height: auto !important;
-          display: flex !important;
-        }
-        
-        :global(.testimonial-swiper .swiper-slide > div) {
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-        }
-        
-        /* Fix for RTL layout and proper card spacing */
-        :global(.testimonial-swiper.swiper-rtl .swiper-wrapper) {
-          width: 100%;
-          display: flex;
-          flex-direction: row;
-        }
-        
-        :global(.testimonial-swiper .swiper-pagination) {
-          position: static;
-          margin-top: 1.5rem;
-        }
-        
-        /* Fade in/out transition for slides */
-        :global(.swiper-fade .swiper-slide) {
-          pointer-events: none;
-          transition-property: opacity;
-          transition-duration: 0.5s;
-        }
-        
-        :global(.swiper-fade .swiper-slide-active) {
-          pointer-events: auto;
-        }
-      `}</style>
-    </motion.section>
   );
 };
 
-export default Testimonials; 
+// ─── Google-style trust badge ─────────────────────────────────────────────────
+
+const TrustBadge: React.FC = () => (
+  <motion.div
+    initial={{ opacity: 0, y: 12 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5, delay: 0.2 }}
+    className="inline-flex items-center gap-3 bg-white/[0.08] border border-white/15 rounded-full px-5 py-2.5 mb-8"
+  >
+    {/* Google G icon */}
+    <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" aria-hidden>
+      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
+      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+    </svg>
+
+    <div className="flex items-center gap-2">
+      <span className="text-white font-frank font-bold text-sm">4.9</span>
+      <div className="flex gap-0.5">
+        {[...Array(5)].map((_, i) => (
+          <svg key={i} className="w-3.5 h-3.5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+          </svg>
+        ))}
+      </div>
+      <span className="text-white/50 text-xs font-assistant">מבוסס על Google Reviews</span>
+    </div>
+  </motion.div>
+);
+
+// ─── Main section ─────────────────────────────────────────────────────────────
+
+const Testimonials: React.FC = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
+  const [_swiper, setSwiper] = useState<SwiperType | null>(null);
+
+  return (
+    <section
+      id="testimonials"
+      ref={sectionRef}
+      className="relative py-20 bg-secondary overflow-hidden"
+      dir="rtl"
+    >
+      {/* Subtle tile-grid texture overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,.6) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(255,255,255,.6) 1px, transparent 1px)`,
+          backgroundSize: '40px 40px',
+        }}
+        aria-hidden
+      />
+
+      {/* Terracotta glow top-right */}
+      <div className="absolute -top-32 -right-32 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none" aria-hidden />
+
+      <div className="container-custom relative z-10">
+        {/* Header */}
+        <div className="text-center mb-2">
+          <TrustBadge />
+
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5 }}
+            className="text-primary font-frank font-bold text-sm uppercase tracking-widest mb-3"
+          >
+            המלצות
+          </motion.p>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.55, delay: 0.1 }}
+            className="text-3xl md:text-4xl font-frank font-bold text-white mb-4"
+          >
+            מה הלקוחות אומרים
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="text-white/55 font-assistant text-base max-w-xl mx-auto"
+          >
+            אנו גאים בשירות שאנו מספקים ובעבודה האיכותית שלנו
+          </motion.p>
+        </div>
+
+        {/* Carousel */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.25 }}
+          className="mt-12 relative px-2"
+        >
+          <Swiper
+            modules={[Navigation, Pagination, A11y, Autoplay]}
+            spaceBetween={20}
+            slidesPerView={1}
+            loop
+            autoplay={{ delay: 5500, disableOnInteraction: false, pauseOnMouseEnter: true }}
+            pagination={{
+              clickable: true,
+              bulletClass: 'testimonial-bullet',
+              bulletActiveClass: 'testimonial-bullet-active',
+            }}
+            breakpoints={{
+              640: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+            }}
+            dir="rtl"
+            className="testimonial-swiper pb-10"
+            onSwiper={setSwiper}
+          >
+            {FEATURED.map((t, i) => (
+              <SwiperSlide key={t.id} className="h-auto">
+                <TestimonialCard t={t} colorClass={avatarColors[i % avatarColors.length]} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </motion.div>
+      </div>
+
+      {/* Swiper pagination dot styles */}
+      <style jsx global>{`
+        .testimonial-bullet {
+          display: inline-block;
+          width: 8px;
+          height: 8px;
+          border-radius: 9999px;
+          background: rgba(255,255,255,0.25);
+          margin: 0 4px;
+          cursor: pointer;
+          transition: all 0.3s;
+        }
+        .testimonial-bullet-active {
+          background: #B5714A;
+          width: 24px;
+        }
+        .testimonial-swiper .swiper-pagination {
+          position: static;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 8px;
+        }
+        .testimonial-swiper .swiper-slide {
+          height: auto !important;
+        }
+      `}</style>
+    </section>
+  );
+};
+
+export default Testimonials;

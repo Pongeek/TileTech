@@ -13,24 +13,25 @@ import BeforeAfterSliderLazy from '@/components/ui/BeforeAfterSliderLazy';
 
 // Animation variants
 const containerVariants = {
-  hidden: { opacity: 0.3 },
+  hidden: { opacity: 1 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
     }
   }
 };
 
 const cardVariants = {
-  hidden: { opacity: 0.5, y: 10 },
+  hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { 
-      type: 'spring', 
-      stiffness: 100,
-      damping: 15
+    transition: {
+      type: 'spring',
+      stiffness: 80,
+      damping: 18,
     }
   }
 };
@@ -175,8 +176,8 @@ const Services: React.FC = () => {
       <div className="container-custom">
         <motion.div
           className="mb-12"
-          initial={{ opacity: 0.5, y: -10 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0.5, y: -10 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
           <SectionHeader
@@ -188,13 +189,13 @@ const Services: React.FC = () => {
 
         <AnimatePresence mode="wait">
           {activeTab === 'cards' ? (
-            <motion.div 
+            <motion.div
               key="cards"
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
               variants={containerVariants}
-              initial="visible"
-              animate="visible"
-              exit="hidden"
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              exit={{ opacity: 0, transition: { duration: 0.2 } }}
             >
               {services.map((service, index) => (
                 <motion.div 
