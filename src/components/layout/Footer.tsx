@@ -141,11 +141,14 @@ const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* Bottom bar */}
-      <div className="border-t border-cream-muted">
-        <div className="container-custom py-5 flex flex-col md:flex-row justify-between items-center gap-3 text-xs font-assistant text-secondary/50">
+      {/* Bottom bar — dark */}
+      <div className="bg-secondary">
+        <div className="container-custom py-4 flex flex-col md:flex-row justify-between items-center gap-2 text-xs font-assistant text-white/40">
           <p>&copy; {currentYear} TileTech. כל הזכויות שמורות.</p>
-          <p>עוצב ופותח באהבה בישראל 🇮🇱</p>
+          <div className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary/60" aria-hidden />
+            <p>עוצב ופותח באהבה בישראל 🇮🇱</p>
+          </div>
         </div>
       </div>
     </footer>

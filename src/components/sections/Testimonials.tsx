@@ -103,25 +103,25 @@ const TestimonialCard: React.FC<{ t: Testimonial; colorClass: string }> = ({ t, 
   const initial = t.name.charAt(0);
 
   return (
-    <div className="h-full flex flex-col bg-white/[0.07] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.11] transition-colors duration-300 backdrop-blur-sm">
+    <div className="h-full flex flex-col bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
       {/* Large quote */}
-      <span className="text-5xl font-serif leading-none text-primary/40 select-none mb-2" aria-hidden>❝</span>
+      <span className="text-5xl font-serif leading-none text-primary/20 select-none mb-2" aria-hidden>❝</span>
 
       {/* Text */}
-      <p className="text-white/75 font-assistant text-sm leading-relaxed flex-1 mb-3">
+      <p className="text-secondary/70 font-assistant text-sm leading-relaxed flex-1 mb-3">
         {display}
       </p>
       {isLong && (
         <button
           onClick={() => setExpanded(e => !e)}
-          className="text-primary/80 hover:text-primary text-xs font-assistant font-medium mb-4 self-start transition-colors"
+          className="text-primary hover:text-primary/80 text-xs font-assistant font-medium mb-4 self-start transition-colors"
         >
           {expanded ? 'הצג פחות' : 'קרא עוד'}
         </button>
       )}
 
       {/* Divider */}
-      <div className="h-px bg-white/10 mb-4" />
+      <div className="h-px bg-gray-100 mb-4" />
 
       {/* Footer */}
       <div className="flex items-center gap-3">
@@ -131,13 +131,13 @@ const TestimonialCard: React.FC<{ t: Testimonial; colorClass: string }> = ({ t, 
         </div>
 
         <div className="flex-1 min-w-0">
-          <p className="font-frank font-bold text-white text-sm truncate">{t.name}</p>
+          <p className="font-frank font-bold text-secondary text-sm truncate">{t.name}</p>
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-white/40 text-xs">{t.location}</span>
+            <span className="text-secondary/40 text-xs">{t.location}</span>
             {t.projectType && (
               <>
-                <span className="text-white/30 text-xs">·</span>
-                <span className="text-primary/70 text-xs font-assistant">{projectLabels[t.projectType] ?? t.projectType}</span>
+                <span className="text-secondary/30 text-xs">·</span>
+                <span className="text-primary/80 text-xs font-assistant">{projectLabels[t.projectType] ?? t.projectType}</span>
               </>
             )}
           </div>
@@ -159,7 +159,7 @@ const TrustBadge: React.FC = () => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.5, delay: 0.2 }}
-    className="inline-flex items-center gap-3 bg-white/[0.08] border border-white/15 rounded-full px-5 py-2.5 mb-8"
+    className="inline-flex items-center gap-3 bg-white border border-gray-200 shadow-sm rounded-full px-5 py-2.5 mb-8"
   >
     {/* Google G icon */}
     <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" aria-hidden>
@@ -170,7 +170,7 @@ const TrustBadge: React.FC = () => (
     </svg>
 
     <div className="flex items-center gap-2">
-      <span className="text-white font-frank font-bold text-sm">4.9</span>
+      <span className="text-secondary font-frank font-bold text-sm">4.9</span>
       <div className="flex gap-0.5">
         {[...Array(5)].map((_, i) => (
           <svg key={i} className="w-3.5 h-3.5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
@@ -178,7 +178,7 @@ const TrustBadge: React.FC = () => (
           </svg>
         ))}
       </div>
-      <span className="text-white/50 text-xs font-assistant">מבוסס על Google Reviews</span>
+      <span className="text-secondary/50 text-xs font-assistant">מבוסס על Google Reviews</span>
     </div>
   </motion.div>
 );
@@ -194,22 +194,11 @@ const Testimonials: React.FC = () => {
     <section
       id="testimonials"
       ref={sectionRef}
-      className="relative py-20 bg-secondary overflow-hidden"
+      className="relative py-20 bg-neutral-light overflow-hidden"
       dir="rtl"
     >
-      {/* Subtle tile-grid texture overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,.6) 1px, transparent 1px),
-                            linear-gradient(90deg, rgba(255,255,255,.6) 1px, transparent 1px)`,
-          backgroundSize: '40px 40px',
-        }}
-        aria-hidden
-      />
-
-      {/* Terracotta glow top-right */}
-      <div className="absolute -top-32 -right-32 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none" aria-hidden />
+      {/* Subtle terracotta glow */}
+      <div className="absolute -top-32 -left-32 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" aria-hidden />
 
       <div className="container-custom relative z-10">
         {/* Header */}
@@ -229,7 +218,7 @@ const Testimonials: React.FC = () => {
             initial={{ opacity: 0, y: 16 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, delay: 0.1 }}
-            className="text-3xl md:text-4xl font-frank font-bold text-white mb-4"
+            className="text-3xl md:text-4xl font-frank font-bold text-secondary mb-4"
           >
             מה הלקוחות אומרים
           </motion.h2>
@@ -238,7 +227,7 @@ const Testimonials: React.FC = () => {
             initial={{ opacity: 0, y: 12 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="text-white/55 font-assistant text-base max-w-xl mx-auto"
+            className="text-secondary/55 font-assistant text-base max-w-xl mx-auto"
           >
             אנו גאים בשירות שאנו מספקים ובעבודה האיכותית שלנו
           </motion.p>
@@ -286,7 +275,7 @@ const Testimonials: React.FC = () => {
           width: 8px;
           height: 8px;
           border-radius: 9999px;
-          background: rgba(255,255,255,0.25);
+          background: rgba(46,42,38,0.18);
           margin: 0 4px;
           cursor: pointer;
           transition: all 0.3s;

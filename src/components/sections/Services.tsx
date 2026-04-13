@@ -212,6 +212,7 @@ const Services: React.FC = () => {
                     specialties={service.specialties}
                     imageUrl={shouldLoadImages ? getImageUrl(service, 'main') : defaultPlaceholder}
                     icon={service.icon}
+                    featured={service.id === 1}
                     onClick={() => handleServiceSelect(service.id)}
                   />
                 </motion.div>
