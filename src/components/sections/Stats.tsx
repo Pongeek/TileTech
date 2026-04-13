@@ -86,12 +86,12 @@ const Stats: React.FC = () => {
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
-    <section className="relative bg-cream py-16 overflow-hidden" dir="rtl" ref={ref}>
+    <section className="relative bg-secondary py-16 overflow-hidden" dir="rtl" ref={ref}>
       {/* Subtle tile grid watermark */}
       <div
-        className="absolute inset-0 opacity-[0.07] pointer-events-none"
+        className="absolute inset-0 opacity-[0.06] pointer-events-none"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='1' y='1' width='27' height='27' rx='1' fill='none' stroke='%234A4540' stroke-width='1'/%3E%3Crect x='32' y='1' width='27' height='27' rx='1' fill='none' stroke='%234A4540' stroke-width='1'/%3E%3Crect x='1' y='32' width='27' height='27' rx='1' fill='none' stroke='%234A4540' stroke-width='1'/%3E%3Crect x='32' y='32' width='27' height='27' rx='1' fill='none' stroke='%234A4540' stroke-width='1'/%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='1' y='1' width='27' height='27' rx='1' fill='none' stroke='%23ffffff' stroke-width='1'/%3E%3Crect x='32' y='1' width='27' height='27' rx='1' fill='none' stroke='%23ffffff' stroke-width='1'/%3E%3Crect x='1' y='32' width='27' height='27' rx='1' fill='none' stroke='%23ffffff' stroke-width='1'/%3E%3Crect x='32' y='32' width='27' height='27' rx='1' fill='none' stroke='%23ffffff' stroke-width='1'/%3E%3C/svg%3E")`,
           backgroundSize: '60px 60px',
         }}
       />
@@ -106,17 +106,17 @@ const Stats: React.FC = () => {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: index * 0.12 }}
             >
-              {/* Icon in a soft circle */}
-              <div className="w-14 h-14 rounded-2xl bg-white/70 border border-cream-muted flex items-center justify-center text-primary mb-4 shadow-sm">
+              {/* Icon in terracotta-tinted circle */}
+              <div className="w-14 h-14 rounded-2xl bg-primary/20 border border-white/10 flex items-center justify-center text-primary mb-4">
                 {stat.icon}
               </div>
 
-              {/* Number in primary color */}
+              {/* Number in terracotta */}
               <div className="text-4xl md:text-5xl font-frank font-bold text-primary mb-1">
                 <CountUp target={stat.value} suffix={stat.suffix} active={isInView} />
               </div>
 
-              <p className="text-secondary/75 font-assistant text-sm md:text-base">
+              <p className="text-white/65 font-assistant text-sm md:text-base">
                 {stat.label}
               </p>
             </motion.div>

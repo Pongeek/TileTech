@@ -144,20 +144,25 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
 
       {/* Footer CTA */}
       <div className="px-5 pb-5 pt-0">
-        <div className="flex items-center justify-between pt-3 border-t border-gray-100">
-          <span className="text-sm font-assistant font-medium text-primary group-hover:underline transition-all">
-            פרטים נוספים
-          </span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="w-4 h-4 text-primary transition-transform duration-200 group-hover:-translate-x-1 rtl:rotate-180"
+        <div className="pt-3 border-t border-gray-100">
+          <div className={`flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg text-sm font-assistant font-semibold transition-all duration-200
+            ${isSelected
+              ? 'bg-primary text-white'
+              : 'bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white'
+            }`}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-          </svg>
+            <span>פרטים נוספים</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2.5}
+              stroke="currentColor"
+              className="w-3.5 h-3.5 transition-transform duration-200 group-hover:-translate-x-0.5 rtl:rotate-180"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </div>
         </div>
       </div>
     </div>

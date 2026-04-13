@@ -1,13 +1,16 @@
 // This file is a lazy-loaded version of the Projects component
-import { lazyLoad } from '@/utils/lazyLoad';
+// ssr: false eliminates the server/client mismatch from react-masonry-css height calculations
+import dynamic from 'next/dynamic';
 
-// Use the lazyLoad utility to dynamically import the Projects component
-const Projects = lazyLoad(() => import('./Projects'), {
-  fallback: (
-    <section className="py-16 bg-white">
+const Projects = dynamic(() => import('./Projects'), {
+  ssr: false,
+  loading: () => (
+    <section className="py-16 bg-neutral">
       <div className="container-custom">
         <div className="text-center mb-12">
+          <div className="h-4 w-28 bg-gray-200 animate-pulse mx-auto rounded mb-3"></div>
           <div className="h-10 w-48 bg-gray-200 animate-pulse mx-auto rounded mb-4"></div>
+          <div className="w-16 h-1 bg-gray-200 animate-pulse mx-auto rounded-full mb-5"></div>
           <div className="h-4 w-3/4 bg-gray-200 animate-pulse mx-auto rounded mb-2"></div>
           <div className="h-4 w-2/3 bg-gray-200 animate-pulse mx-auto rounded"></div>
         </div>
@@ -27,4 +30,4 @@ const Projects = lazyLoad(() => import('./Projects'), {
   )
 });
 
-export default Projects; 
+export default Projects;

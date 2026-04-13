@@ -413,4 +413,17 @@ table[dir="rtl"] td {
 /* Remove margin from list items in footer nav */
 footer ul li {
   margin: 0;
+}
+
+/* Before/After slider drag hint animation */
+@keyframes dragHint {
+  0%   { transform: translateY(-50%) translateX(-50%) scale(1); }
+  20%  { transform: translateY(-50%) translateX(calc(-50% - 14px)) scale(1.08); }
+  50%  { transform: translateY(-50%) translateX(calc(-50% + 14px)) scale(1.08); }
+  80%  { transform: translateY(-50%) translateX(calc(-50% - 8px)) scale(1.04); }
+  100% { transform: translateY(-50%) translateX(-50%) scale(1); }
+}
+
+.slider-drag-hint {
+  animation: dragHint 1.2s ease-in-out 0.4s 1 both;
 } 

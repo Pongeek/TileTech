@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation, EffectFade } from 'swiper/modules';
 import Image from 'next/image';
@@ -39,10 +39,17 @@ const carouselSlides = [
 ];
 
 const Hero: React.FC = () => {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
   return (
-    <section className="relative h-[70vh] md:h-screen min-h-[560px] overflow-hidden mt-[-90px] pt-0">
-      {/* Carousel */}
-      <Swiper
+    <section id="hero" className="scroll-mt-16 relative h-[55vh] md:h-[70vh] min-h-[480px] overflow-hidden mt-[-90px] pt-0">
+      {/* Pre-mount placeholder — simple dark bg, identical on server and client */}
+      {!mounted && (
+        <div className="absolute inset-0 z-0 bg-secondary" />
+      )}
+      {/* Swiper wrapper div — we control absolute positioning here since swiper.css forces position:relative on .swiper itself */}
+      {mounted && <div className="absolute inset-0 z-0"><Swiper
         spaceBetween={0}
         centeredSlides={true}
         effect={'fade'}
@@ -50,7 +57,7 @@ const Hero: React.FC = () => {
         pagination={{ clickable: true }}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation, EffectFade]}
-        className="absolute inset-0 w-full h-full"
+        className="w-full h-full"
         dir="ltr"
       >
         {carouselSlides.map((slide, index) => (
@@ -70,14 +77,15 @@ const Hero: React.FC = () => {
               <div className="absolute inset-0 z-0" style={{ backgroundColor: slide.bgColor }} />
             )}
             {/* Gradient overlay — strong at bottom for text legibility */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/10" style={{ zIndex: 5 }} />
+            {/* suppressHydrationWarning: Swiper's EffectFade adds z-5 class on client init */}
+            <div suppressHydrationWarning className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/10" style={{ zIndex: 5 }} />
           </SwiperSlide>
         ))}
-      </Swiper>
+      </Swiper></div>}
 
-      {/* Hero content — absolute so it layers above the Swiper */}
-      <div className="absolute inset-0 z-20 flex items-end">
-        <div className="container-custom w-full pb-24 md:pb-32">
+      {/* Hero content — pointer-events-none so Swiper navigation arrows remain clickable */}
+      <div className="absolute inset-0 z-20 flex items-end pointer-events-none">
+        <div className="container-custom w-full pb-24 md:pb-32 pointer-events-auto">
           <div className="max-w-3xl text-white">
             {/* Credibility badge */}
             <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/25 rounded-full px-4 py-1.5 mb-6">
@@ -85,12 +93,12 @@ const Hero: React.FC = () => {
               <span className="font-heebo text-sm font-medium">מעל 500 פרויקטים הושלמו בהצלחה</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-frank font-bold mb-5 leading-tight drop-shadow-lg">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-frank font-bold mb-5 leading-tight" style={{ textShadow: '0 2px 12px rgba(0,0,0,0.85)' }}>
               שירותי ריצוף ושיפוץ{' '}
               <span className="text-primary-light">מקצועיים</span>{' '}
               באיכות גבוהה
             </h1>
-            <p className="text-lg md:text-xl font-heebo mb-8 text-white/90 max-w-2xl leading-relaxed">
+            <p className="text-lg md:text-xl font-heebo mb-8 text-white/90 max-w-2xl leading-relaxed" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.7)' }}>
               התקנת אריחים, שיפוץ מטבחים וחדרי אמבטיה, ועבודות פסיפס מותאמות אישית — ליווי מלא מהתכנון ועד הגמר.
             </p>
             <div className="flex flex-wrap gap-4">
@@ -116,7 +124,7 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-1.5 text-white/60">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-1.5 text-white/60 pointer-events-none">
         <span className="font-heebo text-xs tracking-widest">גלול למטה</span>
         <svg className="w-5 h-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />

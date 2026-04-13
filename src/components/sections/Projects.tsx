@@ -171,14 +171,14 @@ const Projects: React.FC = () => {
         />
         
         {/* Category Filter */}
-        <div className="flex flex-wrap justify-center mb-8 gap-2">
+        <div className="flex flex-wrap justify-center mb-10 gap-2">
           {categories.map((category) => (
             <button
               key={category}
-              className={`px-4 py-2 rounded-full font-assistant transition-all
-                ${selectedCategory === category ? 
-                  'bg-primary text-white shadow-md scale-105' : 
-                  'bg-white text-gray-700 hover:bg-gray-100'
+              className={`px-5 py-2 rounded-full font-assistant text-sm font-medium transition-all duration-200
+                ${selectedCategory === category
+                  ? 'bg-primary text-white shadow-md'
+                  : 'bg-white border border-gray-200 text-gray-600 hover:border-primary/50 hover:text-primary shadow-sm'
                 }`}
               onClick={() => handleCategoryChange(category)}
             >
@@ -192,18 +192,18 @@ const Projects: React.FC = () => {
           <div className="max-w-6xl mx-auto">
             <div className="flex w-full -ml-4">
               <div className="pl-4 w-full sm:w-1/2 lg:w-1/3">
-                {[1, 2, 3].map((n) => (
-                  <div key={n} className="mb-4 bg-gray-200 rounded-lg animate-pulse" style={{ height: `${Math.floor(Math.random() * 100) + 200}px` }}></div>
+                {[240, 300, 220].map((h, n) => (
+                  <div key={n} className="mb-4 bg-gray-200 rounded-lg animate-pulse" style={{ height: `${h}px` }}></div>
                 ))}
               </div>
               <div className="hidden sm:block pl-4 w-1/2 lg:w-1/3">
-                {[1, 2].map((n) => (
-                  <div key={n} className="mb-4 bg-gray-200 rounded-lg animate-pulse" style={{ height: `${Math.floor(Math.random() * 100) + 200}px` }}></div>
+                {[280, 200].map((h, n) => (
+                  <div key={n} className="mb-4 bg-gray-200 rounded-lg animate-pulse" style={{ height: `${h}px` }}></div>
                 ))}
               </div>
               <div className="hidden lg:block pl-4 w-1/3">
-                {[1, 2, 3].map((n) => (
-                  <div key={n} className="mb-4 bg-gray-200 rounded-lg animate-pulse" style={{ height: `${Math.floor(Math.random() * 100) + 200}px` }}></div>
+                {[210, 260, 230].map((h, n) => (
+                  <div key={n} className="mb-4 bg-gray-200 rounded-lg animate-pulse" style={{ height: `${h}px` }}></div>
                 ))}
               </div>
             </div>
