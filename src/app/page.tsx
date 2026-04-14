@@ -8,10 +8,10 @@ import Hero from '@/components/sections/Hero';
 import WhyUs from '@/components/sections/WhyUs';
 
 // Import actual components directly with dynamic — avoids double-wrapping the *Lazy files
-const Services = dynamic(() => import('@/components/sections/ServicesEnhanced'), {
+const Services = dynamic(() => import('@/components/sections/Services'), {
   ssr: false,
   loading: () => (
-    <div className="py-16">
+    <div className="py-16 bg-white">
       <div className="container-custom text-center mb-12">
         <div className="h-10 w-64 bg-gray-200 rounded animate-pulse mx-auto mb-6"></div>
         <div className="h-4 w-3/4 bg-gray-100 rounded animate-pulse mx-auto"></div>
@@ -70,9 +70,7 @@ export default function Home() {
       <main className="relative">
         <Hero />
 
-        <section id="services" className="scroll-mt-16 bg-white py-20">
-          <Services />
-        </section>
+        <Services />
 
         <WhyUs />
 
