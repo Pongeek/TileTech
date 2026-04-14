@@ -4,12 +4,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import ServiceCard from '@/components/ui/ServiceCard';
 import SectionHeader from '@/components/ui/SectionHeader';
 import BeforeAfterSlider from '@/components/ui/BeforeAfterSlider';
-import { useServices, getLocalizedContent, Service } from '@/hooks/useServices';
+import { useServices, Service } from '@/hooks/useServices';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { fallbackImages, getImageWithFallback, defaultPlaceholder } from '@/utils/imageUtils';
-import ServiceCardLazy from '@/components/ui/ServiceCardLazy';
-import BeforeAfterSliderLazy from '@/components/ui/BeforeAfterSliderLazy';
 
 // Animation variants
 const containerVariants = {
@@ -55,7 +52,7 @@ const Services: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'cards' | 'details'>('cards');
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
-  const [shouldLoadImages, setShouldLoadImages] = useState(true); // Always load images immediately
+  const [shouldLoadImages] = useState(true); // Always load images immediately
 
   // Handle service selection
   const handleServiceSelect = (id: number) => {
@@ -88,57 +85,22 @@ const Services: React.FC = () => {
     selectService(null);
   };
 
-  // Get image URL with fallback
-  const getImageUrl = (service: Service, type: 'main' | 'before' | 'after') => {
-    // If the service doesn't have the image type
-    if (!service?.images?.[type]) {
-      return fallbackImages[type][service.id as keyof typeof fallbackImages.main] || defaultPlaceholder;
-    }
-    
-    // Get the path from service
-    const imagePath = service.images[type];
-
-    // ➊ NEW: if this is an absolute remote URL (e.g. Cloudinary), use it as-is
-    if (imagePath.startsWith('http')) {
-      return imagePath;
-    }
-    
-    // First try using direct SVG if available (local static asset)
-    if (imagePath.endsWith('.svg')) {
-      return imagePath;
-    }
-    
-    // For local JPG images, try to use an SVG fallback with same name
-    if (imagePath.endsWith('.jpg')) {
-      const svgPath = imagePath.replace('.jpg', '.svg');
-      return svgPath;
-    }
-    
-    // Use fallback as last resort
-    return getImageWithFallback(
-      imagePath, 
-      fallbackImages[type][service.id as keyof typeof fallbackImages.main] || defaultPlaceholder
-    );
+  // Get image URL — handles absolute URLs (Cloudinary) and local paths
+  const getImageUrl = (service: Service, type: 'main' | 'before' | 'after'): string => {
+    const path = service?.images?.[type];
+    if (!path) return '';
+    return path;
   };
 
-  // Preload images when component mounts or services change
+  // Preload main card images when services load
   useEffect(() => {
     if (!services || loading) return;
-    
-    // Preload all service images
     services.forEach((service) => {
-      const images = [
-        getImageUrl(service, 'main'),
-        getImageUrl(service, 'before'),
-        getImageUrl(service, 'after')
-      ];
-      
-      // Create Image objects to preload
-      images.forEach((src) => {
-        if (src.startsWith('data:') || src.endsWith('.svg')) return; // Skip data URLs and SVGs
-        const img = new Image();
+      const src = getImageUrl(service, 'main');
+      if (src && src.startsWith('http')) {
+        const img = new window.Image();
         img.src = src;
-      });
+      }
     });
   }, [services, loading]);
 
@@ -204,13 +166,13 @@ const Services: React.FC = () => {
                   whileHover={{ y: -5, transition: { duration: 0.2 } }}
                   custom={index}
                 >
-                  <ServiceCardLazy
+                  <ServiceCard
                     id={service.id}
                     title={service.title.he}
                     description={service.description.he}
                     features={service.features.he}
                     specialties={service.specialties}
-                    imageUrl={shouldLoadImages ? getImageUrl(service, 'main') : defaultPlaceholder}
+                    imageUrl={shouldLoadImages ? getImageUrl(service, 'main') : ''}
                     icon={service.icon}
                     featured={service.id === 1}
                     onClick={() => handleServiceSelect(service.id)}
