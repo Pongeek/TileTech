@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation, EffectFade } from 'swiper/modules';
 import Image from 'next/image';
-import Button from '@/components/ui/Button';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -116,22 +115,18 @@ const Hero: React.FC = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <Button
+              <a
                 href="#contact"
-                variant="primary"
-                size="large"
-                className="hover:shadow-xl hover:-translate-y-1 motion-reduce:hover:transform-none shadow-lg"
+                className="block text-center font-bold text-lg px-8 py-4 rounded-lg bg-primary text-white shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-200"
               >
                 קבל הצעת מחיר חינם
-              </Button>
-              <Button
+              </a>
+              <a
                 href="#projects"
-                variant="glass"
-                size="large"
-                className="hover:-translate-y-1 motion-reduce:hover:transform-none"
+                className="block text-center font-bold text-lg px-8 py-4 rounded-lg bg-white/15 backdrop-blur-sm border-2 border-white/40 text-white hover:bg-white/25 hover:-translate-y-1 transition-all duration-200"
               >
                 צפה בעבודות שלנו
-              </Button>
+              </a>
             </div>
           </div>
         </div>
