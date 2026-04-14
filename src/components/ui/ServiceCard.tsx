@@ -12,6 +12,7 @@ interface ServiceCardProps {
   imageUrl: string;
   icon: string;
   isSelected?: boolean;
+  featured?: boolean;
   onClick?: () => void;
 }
 
@@ -64,6 +65,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   imageUrl,
   icon,
   isSelected = false,
+  featured = false,
   onClick,
 }) => {
   const [imageError, setImageError] = useState(false);
@@ -77,11 +79,26 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       tabIndex={onClick ? 0 : undefined}
       onKeyDown={onClick ? (e) => e.key === 'Enter' && onClick() : undefined}
       onClick={onClick}
-      className={`group relative flex flex-col bg-white rounded-lg overflow-hidden cursor-pointer border border-gray-200 shadow-md transition-all duration-300 motion-reduce:transition-none
-        ${isSelected ? 'ring-2 ring-primary shadow-lg' : 'hover:shadow-lg hover:-translate-y-1 motion-reduce:hover:transform-none'}`}
+      className={`group relative flex flex-col bg-white rounded-lg overflow-hidden cursor-pointer transition-all duration-300 motion-reduce:transition-none
+        ${featured
+          ? 'border-2 border-primary shadow-lg shadow-primary/10 hover:shadow-xl hover:shadow-primary/15 hover:-translate-y-1'
+          : isSelected
+            ? 'ring-2 ring-primary border border-gray-200 shadow-lg'
+            : 'border border-gray-200 shadow-md hover:shadow-lg hover:-translate-y-1 motion-reduce:hover:transform-none'
+        }`}
     >
+      {/* Featured badge */}
+      {featured && (
+        <div className="absolute top-3 left-3 z-20 flex items-center gap-1.5 bg-primary text-white text-xs font-frank font-bold px-3 py-1 rounded-full shadow-md">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-3 h-3">
+            <path fillRule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clipRule="evenodd" />
+          </svg>
+          הכי פופולרי
+        </div>
+      )}
+
       {/* Top accent bar */}
-      <div className={`absolute top-0 inset-x-0 h-0.5 rounded-t-lg transition-colors duration-300 ${isSelected ? 'bg-primary' : 'bg-transparent group-hover:bg-primary/40'}`} />
+      <div className={`absolute top-0 inset-x-0 h-0.5 rounded-t-lg transition-colors duration-300 ${featured ? 'bg-primary' : isSelected ? 'bg-primary' : 'bg-transparent group-hover:bg-primary/40'}`} />
 
       {/* Image */}
       <div className="relative h-44 overflow-hidden shrink-0">
@@ -144,20 +161,25 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
 
       {/* Footer CTA */}
       <div className="px-5 pb-5 pt-0">
-        <div className="flex items-center justify-between pt-3 border-t border-gray-100">
-          <span className="text-sm font-assistant font-medium text-primary group-hover:underline transition-all">
-            פרטים נוספים
-          </span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="w-4 h-4 text-primary transition-transform duration-200 group-hover:-translate-x-1 rtl:rotate-180"
+        <div className="pt-3 border-t border-gray-100">
+          <div className={`flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg text-sm font-assistant font-semibold transition-all duration-200
+            ${isSelected
+              ? 'bg-primary text-white'
+              : 'bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white'
+            }`}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-          </svg>
+            <span>פרטים נוספים</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2.5}
+              stroke="currentColor"
+              className="w-3.5 h-3.5 transition-transform duration-200 group-hover:-translate-x-0.5 rtl:rotate-180"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 
 interface BeforeAfterSliderProps {
@@ -15,222 +15,107 @@ interface BeforeAfterSliderProps {
 const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
   beforeImage,
   afterImage,
-  beforeAlt = 'תמונת לפני - שטח לפני ההתקנה או השיפוץ',
-  afterAlt = 'תמונת אחרי - התוצאה הסופית לאחר התקנת האריחים המקצועית',
+  beforeAlt = 'לפני ההתקנה',
+  afterAlt = 'אחרי ההתקנה',
   beforeLabel = 'לפני',
   afterLabel = 'אחרי',
 }) => {
   const [sliderPosition, setSliderPosition] = useState(50);
-  const [isDragging, setIsDragging] = useState(false);
-  const [beforeError, setBeforeError] = useState(false);
-  const [afterError, setAfterError] = useState(false);
-  const [beforeLoading, setBeforeLoading] = useState(true);
-  const [afterLoading, setAfterLoading] = useState(true);
+  const isDragging = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleTouchStart = () => {
-    setIsDragging(true);
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  const handleTouchEnd = () => {
-    setIsDragging(false);
-  };
-
-  const calculateSliderPosition = (clientX: number) => {
+  const calculatePosition = useCallback((clientX: number) => {
     if (!containerRef.current) return;
-    
-    const container = containerRef.current;
-    const rect = container.getBoundingClientRect();
+    const rect = containerRef.current.getBoundingClientRect();
     const x = clientX - rect.left;
-    const containerWidth = rect.width;
-    
-    // Calculate position as percentage
-    let percentage = (x / containerWidth) * 100;
-    
-    // Clamp value between 0 and 100
-    percentage = Math.max(0, Math.min(100, percentage));
-    
-    setSliderPosition(percentage);
-  };
-
-  const handleMouseMove = (e: MouseEvent) => {
-    if (!isDragging) return;
-    calculateSliderPosition(e.clientX);
-  };
-
-  const handleTouchMove = (e: TouchEvent) => {
-    if (!isDragging || !e.touches[0]) return;
-    calculateSliderPosition(e.touches[0].clientX);
-  };
+    const pct = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    setSliderPosition(pct);
+  }, []);
 
   useEffect(() => {
-    // Add event listeners
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-    document.addEventListener('touchmove', handleTouchMove, { passive: true });
-    document.addEventListener('touchend', handleTouchEnd);
-
-    // Remove event listeners on cleanup
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-      document.removeEventListener('touchmove', handleTouchMove);
-      document.removeEventListener('touchend', handleTouchEnd);
+    const onMouseMove = (e: MouseEvent) => {
+      if (!isDragging.current) return;
+      calculatePosition(e.clientX);
     };
-  }, [isDragging]);
+    const onMouseUp = () => { isDragging.current = false; };
+    const onTouchMove = (e: TouchEvent) => {
+      if (!isDragging.current || !e.touches[0]) return;
+      e.preventDefault();
+      calculatePosition(e.touches[0].clientX);
+    };
+    const onTouchEnd = () => { isDragging.current = false; };
 
-  // Determine if images are SVGs or data URLs
-  const isBeforeSvg = beforeImage.endsWith('.svg') || beforeImage.startsWith('data:');
-  const isAfterSvg = afterImage.endsWith('.svg') || afterImage.startsWith('data:');
-  
-  // Prepare background styles for SVG rendering
-  const beforeStyle = isBeforeSvg ? {
-    backgroundImage: `url(${beforeImage})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center'
-  } : {};
-  
-  const afterStyle = isAfterSvg ? {
-    backgroundImage: `url(${afterImage})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center'
-  } : {};
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+    document.addEventListener('touchmove', onTouchMove, { passive: false });
+    document.addEventListener('touchend', onTouchEnd);
+    return () => {
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+      document.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [calculatePosition]);
 
-  // Enhanced descriptive alt texts with project context
-  const enhancedBeforeAlt = beforeAlt.includes('TileTech') ? beforeAlt : `${beforeAlt} | פרויקט של TileTech`;
-  const enhancedAfterAlt = afterAlt.includes('TileTech') ? afterAlt : `${afterAlt} | פרויקט של TileTech`;
+  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault();
+    isDragging.current = true;
+  };
 
-  // Generate placeholder color
-  const placeholderColor = "#C66"; // Primary brand color
-
-  // Create blur data URL - using a simple color placeholder instead of SVG with text to avoid encoding issues
-  const blurDataURL = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNzAwIDUwMCI+PHJlY3Qgd2lkdGg9IjcwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiNDNjYiIG9wYWNpdHk9IjAuMiIvPjwvc3ZnPg==`;
+  const isValidUrl = (url: string) => url && (url.startsWith('http') || url.startsWith('/'));
 
   return (
-    <div 
-      className="relative w-full overflow-hidden rounded-lg bg-neutral h-[300px] md:h-[400px] lg:h-[500px]"
+    <div
       ref={containerRef}
-      aria-label="השוואת לפני ואחרי - התקנת אריחים מקצועית"
-      role="figure"
+      className="relative w-full overflow-hidden rounded-xl bg-gray-200 select-none"
+      style={{ height: '400px', cursor: 'ew-resize' }}
+      onMouseDown={handleDragStart}
+      onTouchStart={handleDragStart}
     >
-      {/* After Image (Full width, back) */}
-      <div className="absolute inset-0 w-full h-full">
-        {isAfterSvg || afterError ? (
-          <div 
-            className="w-full h-full" 
-            style={afterStyle}
-            aria-label={enhancedAfterAlt}
-          >
-            {!afterImage && (
-              <div className="flex items-center justify-center h-full">
-                <span className="text-lg font-medium text-white">{afterLabel}</span>
-              </div>
-            )}
-          </div>
+      {/* After image — full width, back layer */}
+      <div className="absolute inset-0">
+        {isValidUrl(afterImage) ? (
+          <Image src={afterImage} alt={afterAlt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" priority />
         ) : (
-          <div className="relative w-full h-full">
-            {afterLoading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-gray-200 animate-pulse z-0">
-                <span className="text-lg font-medium text-gray-600">{afterLabel}</span>
-              </div>
-            )}
-            <Image
-              src={afterImage}
-              alt={enhancedAfterAlt}
-              title={afterLabel}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className={`object-cover ${afterLoading ? 'opacity-0' : 'opacity-100'} transition-opacity`}
-              onLoad={() => setAfterLoading(false)}
-              placeholder="blur"
-              blurDataURL={blurDataURL}
-              onError={() => {
-                setAfterError(true);
-                setAfterLoading(false);
-              }}
-              priority
-            />
-          </div>
+          <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">{afterLabel}</div>
         )}
-        
-        {/* After Label */}
-        <div className="absolute bottom-4 right-4 bg-accent/80 text-white py-1 px-3 rounded">
+        <div className="absolute bottom-3 right-3 bg-black/60 text-white text-sm font-heebo px-3 py-1 rounded-full">
           {afterLabel}
         </div>
       </div>
 
-      {/* Before Image (Partial width, front) */}
-      <div 
-        className="absolute inset-0 h-full overflow-hidden" 
-        style={{ width: `${sliderPosition}%` }}
+      {/* Before image — clipped via clip-path, front layer */}
+      <div
+        className="absolute inset-0"
+        style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
       >
-        {isBeforeSvg || beforeError ? (
-          <div 
-            className="w-full h-full" 
-            style={beforeStyle}
-            aria-label={enhancedBeforeAlt}
-          >
-            {!beforeImage && (
-              <div className="flex items-center justify-center h-full">
-                <span className="text-lg font-medium text-white">{beforeLabel}</span>
-              </div>
-            )}
-          </div>
+        {isValidUrl(beforeImage) ? (
+          <Image src={beforeImage} alt={beforeAlt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" priority />
         ) : (
-          <div className="relative w-full h-full">
-            {beforeLoading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-gray-200 animate-pulse z-0">
-                <span className="text-lg font-medium text-gray-600">{beforeLabel}</span>
-              </div>
-            )}
-            <Image
-              src={beforeImage}
-              alt={enhancedBeforeAlt}
-              title={beforeLabel}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className={`object-cover ${beforeLoading ? 'opacity-0' : 'opacity-100'} transition-opacity`}
-              onLoad={() => setBeforeLoading(false)}
-              placeholder="blur"
-              blurDataURL={blurDataURL}
-              onError={() => {
-                setBeforeError(true);
-                setBeforeLoading(false);
-              }}
-              priority
-            />
-          </div>
+          <div className="w-full h-full bg-gray-400 flex items-center justify-center text-gray-600">{beforeLabel}</div>
         )}
-        
-        {/* Before Label */}
-        <div className="absolute bottom-4 left-4 bg-gray-700/80 text-white py-1 px-3 rounded">
+        <div className="absolute bottom-3 left-3 bg-black/60 text-white text-sm font-heebo px-3 py-1 rounded-full">
           {beforeLabel}
         </div>
       </div>
 
-      {/* Slider Control */}
-      <div 
-        className="absolute top-0 bottom-0 w-1 bg-white shadow-lg"
+      {/* Divider line */}
+      <div
+        className="absolute top-0 bottom-0 w-0.5 bg-white shadow-lg pointer-events-none"
         style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
-        onMouseDown={handleMouseDown}
-        onTouchStart={handleTouchStart}
-        aria-hidden="true"
+      />
+
+      {/* Handle — slider-drag-hint plays once on mount to show it's draggable */}
+      <div
+        className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-white shadow-xl flex items-center justify-center pointer-events-none slider-drag-hint"
+        style={{ left: `${sliderPosition}%` }}
       >
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center cursor-ew-resize">
-          <div className="w-4 h-4 rounded-full bg-primary border-2 border-white shadow-inner"></div>
-        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-primary" viewBox="0 0 20 20" fill="currentColor">
+          <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414zM7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd" />
+        </svg>
       </div>
     </div>
   );
 };
 
-export default BeforeAfterSlider; 
+export default BeforeAfterSlider;

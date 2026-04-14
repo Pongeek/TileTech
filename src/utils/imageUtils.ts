@@ -175,13 +175,18 @@ export const getProjectImage = (
  * @returns Path to thumbnail
  */
 export const getProjectThumbnail = (
-  imagePath: string, 
+  imagePath: string,
   category: string = 'default'
 ): string => {
   if (!imagePath) return projectPlaceholders[category] || projectPlaceholders.default;
-  
-  // Always use category placeholder for safety
-  // This prevents 404 errors when thumbnail files don't exist
+
+  // Use real image when it's an absolute URL (Cloudinary or any CDN)
+  if (imagePath.startsWith('http')) return imagePath;
+
+  // If it's a data URL or SVG, return as is
+  if (imagePath.startsWith('data:') || imagePath.endsWith('.svg')) return imagePath;
+
+  // For local paths that may not exist, use category placeholder
   return projectPlaceholders[category] || projectPlaceholders.default;
 };
 

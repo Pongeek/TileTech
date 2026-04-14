@@ -11,12 +11,12 @@
     },
     "category": "residential",
     "tags": ["apartment", "porcelain", "modern"],
-    "imageUrl": "/images/projects/residential-1.jpg",
-    "thumbnailUrl": "/images/projects/residential-1-thumb.jpg",
+    "imageUrl": "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_4:3,e_improve,e_sharpen/v1746408868/tiletech/photos/living_room_hero_d4lzsl.jpg",
+    "thumbnailUrl": "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_4:3,w_600,e_improve,e_sharpen/v1746408868/tiletech/photos/living_room_hero_d4lzsl.jpg",
     "galleryImages": [
-      "/images/projects/residential-1-detail1.jpg",
-      "/images/projects/residential-1-detail2.jpg",
-      "/images/projects/residential-1-detail3.jpg"
+      "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_16:9,e_improve,e_sharpen/v1746408868/tiletech/photos/living_room_hero_d4lzsl.jpg",
+      "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_4:3,e_improve,e_sharpen/v1746412519/Kitchen_hero3_luuylv.png",
+      "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_4:3,e_improve,e_sharpen/v1746410803/shower_room_3_nrwacn.png"
     ],
     "dimensions": {
       "width": 4,
@@ -37,11 +37,11 @@
     },
     "category": "kitchen",
     "tags": ["kitchen", "decorative", "backsplash"],
-    "imageUrl": "/images/projects/kitchen-1.jpg",
-    "thumbnailUrl": "/images/projects/kitchen-1-thumb.jpg",
+    "imageUrl": "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_3:4,e_improve,e_sharpen/v1746412519/Kitchen_hero3_luuylv.png",
+    "thumbnailUrl": "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_3:4,w_600,e_improve,e_sharpen/v1746412519/Kitchen_hero3_luuylv.png",
     "galleryImages": [
-      "/images/projects/kitchen-1-detail1.jpg",
-      "/images/projects/kitchen-1-detail2.jpg"
+      "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_16:9,e_improve,e_sharpen/v1746412519/Kitchen_hero3_luuylv.png",
+      "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_4:3,e_improve,e_sharpen/v1746410770/image_fx_quxwiw.png"
     ],
     "dimensions": {
       "width": 3,
@@ -62,12 +62,12 @@
     },
     "category": "bathroom",
     "tags": ["luxury", "marble", "mosaic"],
-    "imageUrl": "/images/projects/bathroom-1.jpg",
-    "thumbnailUrl": "/images/projects/bathroom-1-thumb.jpg",
+    "imageUrl": "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_1:1,e_improve,e_sharpen/v1746410803/shower_room_3_nrwacn.png",
+    "thumbnailUrl": "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_1:1,w_600,e_improve,e_sharpen/v1746410803/shower_room_3_nrwacn.png",
     "galleryImages": [
-      "/images/projects/bathroom-1-detail1.jpg",
-      "/images/projects/bathroom-1-detail2.jpg",
-      "/images/projects/bathroom-1-detail3.jpg"
+      "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_16:9,e_improve,e_sharpen/v1746410803/shower_room_3_nrwacn.png",
+      "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_4:3,e_improve,e_sharpen/v1746410770/image_fx_quxwiw.png",
+      "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_3:4,e_improve,e_sharpen/v1746410803/shower_room_3_nrwacn.png"
     ],
     "dimensions": {
       "width": 3,
@@ -88,11 +88,11 @@
     },
     "category": "commercial",
     "tags": ["mosaic", "artistic", "café"],
-    "imageUrl": "/images/projects/commercial-1.jpg",
-    "thumbnailUrl": "/images/projects/commercial-1-thumb.jpg",
+    "imageUrl": "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_5:3,e_improve,e_sharpen/v1746410770/image_fx_quxwiw.png",
+    "thumbnailUrl": "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_5:3,w_600,e_improve,e_sharpen/v1746410770/image_fx_quxwiw.png",
     "galleryImages": [
-      "/images/projects/commercial-1-detail1.jpg",
-      "/images/projects/commercial-1-detail2.jpg"
+      "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_16:9,e_improve,e_sharpen/v1746410770/image_fx_quxwiw.png",
+      "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_4:3,e_improve,e_sharpen/v1746408868/tiletech/photos/living_room_hero_d4lzsl.jpg"
     ],
     "dimensions": {
       "width": 5,
@@ -113,12 +113,12 @@
     },
     "category": "residential",
     "tags": ["house", "porcelain", "large-format"],
-    "imageUrl": "/images/projects/residential-2.jpg",
-    "thumbnailUrl": "/images/projects/residential-2-thumb.jpg",
+    "imageUrl": "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_4:3,e_improve,e_sharpen,e_brightness:-10/v1746408868/tiletech/photos/living_room_hero_d4lzsl.jpg",
+    "thumbnailUrl": "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_4:3,w_600,e_improve,e_sharpen/v1746408868/tiletech/photos/living_room_hero_d4lzsl.jpg",
     "galleryImages": [
-      "/images/projects/residential-2-detail1.jpg",
-      "/images/projects/residential-2-detail2.jpg",
-      "/images/projects/residential-2-detail3.jpg"
+      "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_16:9,e_improve,e_sharpen/v1746408868/tiletech/photos/living_room_hero_d4lzsl.jpg",
+      "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_4:3,e_improve,e_sharpen/v1746412519/Kitchen_hero3_luuylv.png",
+      "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_3:4,e_improve,e_sharpen/v1746410803/shower_room_3_nrwacn.png"
     ],
     "dimensions": {
       "width": 4,
@@ -139,11 +139,11 @@
     },
     "category": "commercial",
     "tags": ["office", "wood-look", "modern"],
-    "imageUrl": "/images/projects/commercial-2.jpg",
-    "thumbnailUrl": "/images/projects/commercial-2-thumb.jpg",
+    "imageUrl": "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_2:1,e_improve,e_sharpen/v1746412519/Kitchen_hero3_luuylv.png",
+    "thumbnailUrl": "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_2:1,w_600,e_improve,e_sharpen/v1746412519/Kitchen_hero3_luuylv.png",
     "galleryImages": [
-      "/images/projects/commercial-2-detail1.jpg",
-      "/images/projects/commercial-2-detail2.jpg"
+      "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_16:9,e_improve,e_sharpen/v1746412519/Kitchen_hero3_luuylv.png",
+      "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_4:3,e_improve,e_sharpen/v1746410770/image_fx_quxwiw.png"
     ],
     "dimensions": {
       "width": 4,
@@ -164,11 +164,11 @@
     },
     "category": "residential",
     "tags": ["wall", "decorative", "concrete"],
-    "imageUrl": "/images/projects/residential-3.jpg",
-    "thumbnailUrl": "/images/projects/residential-3-thumb.jpg",
+    "imageUrl": "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_3:4,e_improve,e_sharpen/v1746410803/shower_room_3_nrwacn.png",
+    "thumbnailUrl": "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_3:4,w_600,e_improve,e_sharpen/v1746410803/shower_room_3_nrwacn.png",
     "galleryImages": [
-      "/images/projects/residential-3-detail1.jpg",
-      "/images/projects/residential-3-detail2.jpg"
+      "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_16:9,e_improve,e_sharpen/v1746410803/shower_room_3_nrwacn.png",
+      "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_4:3,e_improve,e_sharpen/v1746410770/image_fx_quxwiw.png"
     ],
     "dimensions": {
       "width": 3,
@@ -189,11 +189,11 @@
     },
     "category": "bathroom",
     "tags": ["rustic", "vintage", "moroccan"],
-    "imageUrl": "/images/projects/bathroom-2.jpg",
-    "thumbnailUrl": "/images/projects/bathroom-2-thumb.jpg",
+    "imageUrl": "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_1:1,e_improve,e_sharpen,e_brightness:-5/v1746410770/image_fx_quxwiw.png",
+    "thumbnailUrl": "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_1:1,w_600,e_improve,e_sharpen/v1746410770/image_fx_quxwiw.png",
     "galleryImages": [
-      "/images/projects/bathroom-2-detail1.jpg",
-      "/images/projects/bathroom-2-detail2.jpg"
+      "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_16:9,e_improve,e_sharpen/v1746410770/image_fx_quxwiw.png",
+      "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_fill,ar_4:3,e_improve,e_sharpen/v1746410803/shower_room_3_nrwacn.png"
     ],
     "dimensions": {
       "width": 3,
@@ -202,4 +202,4 @@
     "completionDate": "2023-10-22",
     "location": "ראשון לציון"
   }
-] 
+]

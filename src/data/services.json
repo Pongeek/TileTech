@@ -25,13 +25,18 @@
         "Workmanship warranty"
       ]
     },
-    "specialties": ["precise-cuts", "large-format", "pattern-layouts"],
+    "specialties": [
+      "precise-cuts",
+      "large-format",
+      "pattern-layouts"
+    ],
     "images": {
       "main": "https://res.cloudinary.com/dyxjbqvwz/image/upload/v1746393143/tiletech/photos/living_room_after_2_oqzujj.jpg",
       "before": "https://res.cloudinary.com/dyxjbqvwz/image/upload/v1746393211/tiletech/photos/living_room_before_elcu7y.jpg",
       "after": "https://res.cloudinary.com/dyxjbqvwz/image/upload/v1746393143/tiletech/photos/living_room_after_2_oqzujj.jpg"
     },
-    "icon": "home"
+    "icon": "home",
+    "beforeAfterImages": true
   },
   {
     "id": 2,
@@ -59,13 +64,18 @@
         "Integration of unique design elements"
       ]
     },
-    "specialties": ["waterproof", "backsplashes", "shower-installations"],
+    "specialties": [
+      "waterproof",
+      "backsplashes",
+      "shower-installations"
+    ],
     "images": {
       "main": "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_crop,ar_4:3,e_improve/v1746406181/tiletech/photos/20250430_1949_Modern_Kitchen_Design_remix_01jt4hkvy4fpva66kpd6wxdwv4_slifmp.jpg",
       "before": "https://res.cloudinary.com/dyxjbqvwz/image/upload/v1746393042/tiletech/photos/kitchen_before_zuytxr.jpg",
       "after": "https://res.cloudinary.com/dyxjbqvwz/image/upload/c_crop,ar_4:3,e_improve/v1746406181/tiletech/photos/20250430_1949_Modern_Kitchen_Design_remix_01jt4hkvy4fpva66kpd6wxdwv4_slifmp.jpg"
     },
-    "icon": "bath"
+    "icon": "bath",
+    "beforeAfterImages": true
   },
   {
     "id": 3,
@@ -93,7 +103,11 @@
         "Luxurious and extraordinary appearance"
       ]
     },
-    "specialties": ["artistic", "detailed-work", "color-matching"],
+    "specialties": [
+      "artistic",
+      "detailed-work",
+      "color-matching"
+    ],
     "images": {
       "main": "/images/services/mosaic.svg",
       "before": "/images/services/mosaic-before.jpg",
@@ -101,4 +115,4 @@
     },
     "icon": "puzzle"
   }
-] 
+]

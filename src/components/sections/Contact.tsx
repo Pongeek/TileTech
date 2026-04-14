@@ -1,143 +1,250 @@
 'use client';
 
-import React from 'react';
-import QuoteFormLazy from '@/components/ui/QuoteFormLazy';
-import SectionHeader from '@/components/ui/SectionHeader';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
+/* ── small inline icons ── */
+const PhoneIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+  </svg>
+);
+const EmailIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+  </svg>
+);
+const LocationIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+  </svg>
+);
+const WhatsAppIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" className="w-4 h-4 fill-current shrink-0">
+    <path d="M15 3C8.373 3 3 8.373 3 15c0 2.251.632 4.35 1.711 6.15L3.107 27l5.975-1.568A11.946 11.946 0 0015 27c6.627 0 12-5.373 12-12S21.627 3 15 3zm-4.107 6.402c.195 0 .395-.001.568.009.214.005.447.021.67.514.265.586.842 2.056.916 2.205.074.149.121.325.018.52-.098.2-.149.321-.293.498-.149.172-.312.386-.447.516-.149.149-.303.312-.131.609.172.297.769 1.271 1.652 2.057 1.135 1.014 2.093 1.325 2.391 1.474.298.149.47.126.642-.074.177-.195.744-.864.944-1.162.195-.298.394-.247.664-.149 1.461.72 1.759.869 2.057 1.018.298.149.483.223.558.344.077.125.077.72-.17 1.414-.247.693-1.46 1.363-2.004 1.41-.55.051-1.062.247-3.569-.74-3.024-1.192-4.931-4.289-5.08-4.489-.149-.195-1.211-1.61-1.211-3.07 0-1.465.768-2.182 1.037-2.48.274-.298.595-.371.795-.371z" />
+  </svg>
+);
+
+/* ── contact row ── */
+const ContactRow = ({ icon, label, value, href }: { icon: React.ReactNode; label: string; value: string; href?: string }) => (
+  <div className="flex items-center gap-3">
+    <div className="w-9 h-9 rounded-lg bg-primary/20 flex items-center justify-center text-primary shrink-0">
+      {icon}
+    </div>
+    <div>
+      <p className="text-white/50 font-assistant text-xs">{label}</p>
+      {href
+        ? <a href={href} className="text-white font-assistant text-sm hover:text-primary transition-colors">{value}</a>
+        : <p className="text-white font-assistant text-sm">{value}</p>
+      }
+    </div>
+  </div>
+);
+
+/* ── form field ── */
+const Field = ({
+  label, name, type = 'text', value, onChange, placeholder, required,
+}: {
+  label: string; name: string; type?: string; value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string; required?: boolean;
+}) => (
+  <div>
+    <label htmlFor={name} className="block text-white/70 font-assistant text-sm mb-1.5">
+      {label}{required && <span className="text-primary mr-0.5">*</span>}
+    </label>
+    <input
+      id={name} name={name} type={type} value={value} onChange={onChange}
+      placeholder={placeholder} autoComplete={type === 'tel' ? 'tel' : type === 'email' ? 'email' : 'name'}
+      className="w-full bg-white/8 border border-white/15 rounded-xl px-4 py-3 text-white font-assistant text-sm placeholder:text-white/30 focus:outline-none focus:border-primary/60 focus:bg-white/12 transition-all"
+    />
+  </div>
+);
+
+/* ── success state ── */
+const Success = ({ onReset }: { onReset: () => void }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.95 }}
+    animate={{ opacity: 1, scale: 1 }}
+    className="flex flex-col items-center justify-center text-center py-12"
+  >
+    <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center text-primary mb-6">
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+      </svg>
+    </div>
+    <h3 className="text-2xl font-frank font-bold text-white mb-3">תודה שפנית אלינו!</h3>
+    <p className="font-assistant text-white/65 mb-2">קיבלנו את פרטיך ונחזור אליך בהקדם.</p>
+    <p className="font-assistant text-white/40 text-sm mb-8">זמן המענה הממוצע שלנו הוא עד 24 שעות בימי עסקים.</p>
+    <button
+      onClick={onReset}
+      className="px-6 py-2.5 border border-white/20 text-white/70 font-assistant text-sm rounded-xl hover:border-primary/50 hover:text-white transition-all"
+    >
+      שליחת פנייה נוספת
+    </button>
+  </motion.div>
+);
+
+/* ── main component ── */
 const Contact: React.FC = () => {
-  // WhatsApp message configuration
-  const phoneNumber = "972544727746";
-  const message = "שלום, אשמח לקבל מידע נוסף על שירותי האריחים שלכם."; // Pre-populated message
-  const encodedMessage = encodeURIComponent(message);
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+  const phoneNumber = '972544727746';
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent('שלום, אשמח לקבל מידע נוסף על שירותי האריחים שלכם.')}`;
+
+  const [form, setForm] = useState({ firstName: '', lastName: '', phone: '', email: '' });
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.firstName.trim() || !form.phone.trim()) {
+      setError('יש למלא שם פרטי ומספר טלפון');
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    // Simulate submission — replace with real API call as needed
+    await new Promise(r => setTimeout(r, 900));
+    setLoading(false);
+    setSubmitted(true);
+  };
+
+  const handleReset = () => {
+    setSubmitted(false);
+    setForm({ firstName: '', lastName: '', phone: '', email: '' });
+  };
 
   return (
-    <section id="quote" className="py-16 bg-neutral" dir="rtl">
+    <section id="contact" className="py-20 bg-secondary" dir="rtl">
       <div className="container-custom">
-        <SectionHeader
-          eyebrow="הצעת מחיר"
-          title="צור קשר"
-          description="מלאו את הטופס או צרו קשר ישירות — נחזור אליכם עם הצעה מותאמת לפרויקט."
-          className="mb-10"
-        />
-        <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden border border-gray-200">
-          <div className="grid grid-cols-1 md:grid-cols-5">
-            {/* Contact Information Side */}
-            <div className="p-8 bg-cream text-secondary relative md:col-span-2 border-b md:border-b-0 md:border-e border-cream-muted">
-              {/* Decorative pattern overlay */}
-              <div className="absolute inset-0 opacity-[0.12]">
-                <div className="w-full h-full"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%234A4540' fill-opacity='0.35' fill-rule='evenodd'/%3E%3C/svg%3E")`,
-                    backgroundSize: '80px 80px'
-                  }}>
-                </div>
+        {/* Section header */}
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.55, ease: 'easeOut' }}
+        >
+          <span className="inline-block text-primary font-assistant font-semibold text-sm mb-2 tracking-widest uppercase">
+            צור קשר
+          </span>
+          <h2 className="text-3xl md:text-4xl font-frank font-bold text-white mb-4">
+            נשמח לשמוע מכם
+          </h2>
+          <div className="w-14 h-1 bg-primary mx-auto rounded-full" />
+        </motion.div>
+
+        {/* Card */}
+        <motion.div
+          className="max-w-5xl mx-auto bg-white/5 border border-white/10 rounded-2xl overflow-hidden"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-5">
+
+            {/* ── Left: contact info ── */}
+            <div className="lg:col-span-2 p-8 lg:p-10 border-b lg:border-b-0 lg:border-e border-white/10">
+              <h3 className="text-2xl font-frank font-bold text-white mb-3">דברו איתנו</h3>
+              <p className="font-assistant text-white/60 text-sm leading-relaxed mb-8">
+                השאירו פרטים ונחזור אליכם בהקדם עם הצעה מותאמת לפרויקט שלכם.
+              </p>
+
+              {/* Quick-contact buttons */}
+              <div className="flex gap-3 mb-10">
+                <a
+                  href={whatsappUrl} target="_blank" rel="noopener noreferrer"
+                  className="flex-1 flex items-center justify-center gap-2 bg-[#25D366] text-white rounded-xl py-3 font-assistant font-medium text-sm transition-transform hover:scale-[1.02] active:scale-[0.98] shadow-md"
+                >
+                  <WhatsAppIcon />
+                  וואטסאפ
+                </a>
+                <a
+                  href="tel:+972544727746"
+                  className="flex-1 flex items-center justify-center gap-2 bg-primary text-white rounded-xl py-3 font-assistant font-medium text-sm transition-transform hover:scale-[1.02] active:scale-[0.98] shadow-md"
+                >
+                  <PhoneIcon />
+                  התקשרו
+                </a>
               </div>
 
-              <div className="relative z-10">
-                <h2 className="text-3xl font-frank font-bold mb-6 text-secondary">דברו איתנו</h2>
-                <p className="mb-6 font-heebo text-secondary/85 text-lg leading-relaxed">
-                  השאירו פרטים ונחזור אליכם בהקדם עם הצעת מחיר מותאמת אישית.
-                  אנו זמינים לכל שאלה או בקשה.
-                </p>
+              {/* Contact details */}
+              <div className="space-y-4 mb-8">
+                <ContactRow icon={<PhoneIcon />} label="טלפון" value="054-4727746" href="tel:+972544727746" />
+                <ContactRow icon={<EmailIcon />} label='דוא"ל' value="info@tiletech.co.il" href="mailto:info@tiletech.co.il" />
+                <ContactRow icon={<LocationIcon />} label="איזור פעילות" value="מרכז והשפלה" />
+              </div>
 
-                {/* Contact Buttons */}
-                <div className="mb-8 grid grid-cols-2 gap-4">
-                  {/* WhatsApp Button */}
-                  <a
-                    href={whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center bg-[#25D366] text-white rounded-lg py-3 px-4
-                    transition-transform hover:scale-[1.02] active:scale-[0.98] shadow-md"
-                    aria-label="שוחחו איתנו בוואטסאפ"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 30 30"
-                      className="w-5 h-5 ml-2 fill-current"
-                    >
-                      <path d="M 15 3 C 8.373 3 3 8.373 3 15 C 3 17.251208 3.6323415 19.350068 4.7109375 21.150391 L 3.1074219 27 L 9.0820312 25.431641 C 10.829354 26.425062 12.84649 27 15 27 C 21.627 27 27 21.627 27 15 C 27 8.373 21.627 3 15 3 z M 10.892578 9.4023438 C 11.087578 9.4023438 11.287937 9.4011562 11.460938 9.4101562 C 11.674938 9.4151563 11.907859 9.4308281 12.130859 9.9238281 C 12.395859 10.509828 12.972875 11.979906 13.046875 12.128906 C 13.120875 12.277906 13.173313 12.453437 13.070312 12.648438 C 12.972312 12.848437 12.921344 12.969484 12.777344 13.146484 C 12.628344 13.318484 12.465078 13.532109 12.330078 13.662109 C 12.181078 13.811109 12.027219 13.974484 12.199219 14.271484 C 12.371219 14.568484 12.968563 15.542125 13.851562 16.328125 C 14.986562 17.342125 15.944188 17.653734 16.242188 17.802734 C 16.540187 17.951734 16.712766 17.928516 16.884766 17.728516 C 17.061766 17.533516 17.628125 16.864406 17.828125 16.566406 C 18.023125 16.268406 18.222188 16.319969 18.492188 16.417969 C 18.766188 16.515969 20.227391 17.235766 20.525391 17.384766 C 20.823391 17.533766 21.01875 17.607516 21.09375 17.728516 C 21.17075 17.853516 21.170828 18.448578 20.923828 19.142578 C 20.676828 19.835578 19.463922 20.505734 18.919922 20.552734 C 18.370922 20.603734 17.858562 20.7995 15.351562 19.8125 C 12.327563 18.6215 10.420484 15.524219 10.271484 15.324219 C 10.122484 15.129219 9.0605469 13.713906 9.0605469 12.253906 C 9.0605469 10.788906 9.8286563 10.071437 10.097656 9.7734375 C 10.371656 9.4754375 10.692578 9.4023438 10.892578 9.4023438 z"></path>
-                    </svg>
-                    וואטסאפ
-                  </a>
-
-                  {/* Phone Button */}
-                  <a
-                    href="tel:+972544727746"
-                    className="flex items-center justify-center bg-primary text-white rounded-lg py-3 px-4
-                    transition-transform hover:scale-[1.02] active:scale-[0.98] shadow-md"
-                    aria-label="התקשרו אלינו"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 ml-2"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                    התקשרו
-                  </a>
-                </div>
-
-                <div className="space-y-6 font-assistant">
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-white/90 border border-cream-muted flex items-center justify-center text-primary ml-4 shadow-sm">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-secondary">טלפון</h3>
-                      <a href="tel:+972544727746" className="text-secondary/90 text-lg block hover:text-primary transition-colors">
-                        054-4727746
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-white/90 border border-cream-muted flex items-center justify-center text-primary ml-4 shadow-sm">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-secondary">דוא"ל</h3>
-                      <a href="mailto:info@tiletech.co.il" className="text-secondary/90 text-lg block hover:text-primary transition-colors">
-                        info@tiletech.co.il
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-white/90 border border-cream-muted flex items-center justify-center text-primary ml-4 shadow-sm">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-secondary">איזור</h3>
-                      <p className="text-secondary/90 text-lg">מרכז והשפלה</p>
-                    </div>
-                  </div>
+              {/* Hours */}
+              <div className="pt-6 border-t border-white/10">
+                <p className="font-frank font-bold text-white text-sm mb-3">שעות פעילות</p>
+                <div className="space-y-1.5 font-assistant text-xs text-white/50">
+                  <div className="flex justify-between"><span>ראשון – חמישי</span><span>09:00 – 18:00</span></div>
+                  <div className="flex justify-between"><span>שישי</span><span>09:00 – 13:00</span></div>
+                  <div className="flex justify-between"><span>שבת</span><span className="text-white/30">סגור</span></div>
                 </div>
               </div>
             </div>
 
-            {/* Form Side */}
-            <div className="p-8 md:col-span-3">
-              <h2 className="text-2xl font-frank font-bold text-secondary mb-0 text-center">
-                בקשת הצעת מחיר
-              </h2>
+            {/* ── Right: form ── */}
+            <div className="lg:col-span-3 p-8 lg:p-10 flex flex-col justify-center">
+              <AnimatePresence mode="wait">
+                {submitted ? (
+                  <Success key="success" onReset={handleReset} />
+                ) : (
+                  <motion.form
+                    key="form"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    onSubmit={handleSubmit}
+                    noValidate
+                  >
+                    <h3 className="text-2xl font-frank font-bold text-white mb-7">השאירו פרטים</h3>
 
-              {/* Multi-step Quote Form */}
-              <QuoteFormLazy />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                      <Field label="שם פרטי" name="firstName" value={form.firstName} onChange={handleChange} placeholder="ישראל" required />
+                      <Field label="שם משפחה" name="lastName" value={form.lastName} onChange={handleChange} placeholder="ישראלי" />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                      <Field label="טלפון" name="phone" type="tel" value={form.phone} onChange={handleChange} placeholder="05X-XXXXXXX" required />
+                      <Field label='דוא"ל' name="email" type="email" value={form.email} onChange={handleChange} placeholder="email@example.com" />
+                    </div>
+
+                    {error && (
+                      <p className="mb-4 text-red-400 font-assistant text-sm">{error}</p>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="w-full bg-primary text-white font-assistant font-semibold py-4 rounded-xl text-base transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-60 shadow-lg flex items-center justify-center gap-2"
+                    >
+                      {loading ? (
+                        <>
+                          <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          שולח...
+                        </>
+                      ) : (
+                        'שלח פנייה'
+                      )}
+                    </button>
+
+                    <p className="text-white/35 font-assistant text-xs text-center mt-4">
+                      נחזור אליך תוך 24 שעות בימי עסקים
+                    </p>
+                  </motion.form>
+                )}
+              </AnimatePresence>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

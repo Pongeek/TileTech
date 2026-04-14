@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import Masonry from 'react-masonry-css';
 import { lazyLoad } from '@/utils/lazyLoad';
 import ProjectModalLazy from '@/components/ui/ProjectModalLazy';
@@ -76,6 +76,7 @@ const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedProjectIndex, setSelectedProjectIndex] = useState<number>(-1);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
   
   // Set initial filtered projects
   useEffect(() => {
@@ -171,39 +172,45 @@ const Projects: React.FC = () => {
         />
         
         {/* Category Filter */}
-        <div className="flex flex-wrap justify-center mb-8 gap-2">
+        <motion.div
+          className="flex flex-wrap justify-center mb-10 gap-2"
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.07, delayChildren: 0.25 } } }}
+        >
           {categories.map((category) => (
-            <button
+            <motion.button
               key={category}
-              className={`px-4 py-2 rounded-full font-assistant transition-all
-                ${selectedCategory === category ? 
-                  'bg-primary text-white shadow-md scale-105' : 
-                  'bg-white text-gray-700 hover:bg-gray-100'
+              variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.35 } } }}
+              className={`px-5 py-2 rounded-full font-assistant text-sm font-medium transition-all duration-200
+                ${selectedCategory === category
+                  ? 'bg-primary text-white shadow-md'
+                  : 'bg-white border border-gray-200 text-gray-600 hover:border-primary/50 hover:text-primary shadow-sm'
                 }`}
               onClick={() => handleCategoryChange(category)}
             >
               {categoryLabels[category] || category}
-            </button>
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
         
         {/* Projects Grid */}
         {loading ? (
           <div className="max-w-6xl mx-auto">
             <div className="flex w-full -ml-4">
               <div className="pl-4 w-full sm:w-1/2 lg:w-1/3">
-                {[1, 2, 3].map((n) => (
-                  <div key={n} className="mb-4 bg-gray-200 rounded-lg animate-pulse" style={{ height: `${Math.floor(Math.random() * 100) + 200}px` }}></div>
+                {[240, 300, 220].map((h, n) => (
+                  <div key={n} className="mb-4 bg-gray-200 rounded-lg animate-pulse" style={{ height: `${h}px` }}></div>
                 ))}
               </div>
               <div className="hidden sm:block pl-4 w-1/2 lg:w-1/3">
-                {[1, 2].map((n) => (
-                  <div key={n} className="mb-4 bg-gray-200 rounded-lg animate-pulse" style={{ height: `${Math.floor(Math.random() * 100) + 200}px` }}></div>
+                {[280, 200].map((h, n) => (
+                  <div key={n} className="mb-4 bg-gray-200 rounded-lg animate-pulse" style={{ height: `${h}px` }}></div>
                 ))}
               </div>
               <div className="hidden lg:block pl-4 w-1/3">
-                {[1, 2, 3].map((n) => (
-                  <div key={n} className="mb-4 bg-gray-200 rounded-lg animate-pulse" style={{ height: `${Math.floor(Math.random() * 100) + 200}px` }}></div>
+                {[210, 260, 230].map((h, n) => (
+                  <div key={n} className="mb-4 bg-gray-200 rounded-lg animate-pulse" style={{ height: `${h}px` }}></div>
                 ))}
               </div>
             </div>
@@ -235,17 +242,19 @@ const Projects: React.FC = () => {
                   className="my-masonry-grid"
                   columnClassName="my-masonry-grid_column"
                 >
-                  {filteredProjects.map((project) => (
-                    <div 
+                  {filteredProjects.map((project, index) => (
+                    <div
                       key={project.id}
                       className="mb-4"
                     >
                       <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ 
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.15 }}
+                        transition={{
                           duration: 0.5,
-                          delay: project.id * 0.1 % 0.5 // stagger effect based on ID
+                          delay: (index % 3) * 0.1,
+                          ease: 'easeOut',
                         }}
                       >
                         <ProjectCard

@@ -57,7 +57,7 @@ const ProjectsEnhanced: React.FC = () => {
   };
 
   return (
-    <section id="projects" ref={sectionRef} className="section bg-white py-20">
+    <section id="projects" ref={sectionRef} className="scroll-mt-16 bg-neutral-light py-20">
       <div className="container-custom">
         {/* Section header — consistent with WhyUs / Testimonials / Services */}
         <motion.div
