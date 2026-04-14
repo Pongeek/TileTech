@@ -88,7 +88,7 @@ const Hero: React.FC = () => {
         <div className="container-custom w-full pb-24 md:pb-32 pointer-events-auto">
           <div className="max-w-3xl text-white">
             {/* Credibility badges */}
-            <div className="flex flex-wrap items-center gap-3 mb-6">
+            <div className="flex flex-wrap items-center gap-2 mb-5">
               {/* Projects count */}
               <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/25 rounded-full px-4 py-1.5">
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
@@ -121,7 +121,7 @@ const Hero: React.FC = () => {
             <p className="text-lg md:text-xl font-heebo mb-8 text-white/90 max-w-2xl leading-relaxed" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.7)' }}>
               התקנת אריחים, שיפוץ מטבחים וחדרי אמבטיה, ועבודות פסיפס מותאמות אישית — ליווי מלא מהתכנון ועד הגמר.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col sm:flex-row gap-3">
               <Button
                 href="#contact"
                 variant="primary"
