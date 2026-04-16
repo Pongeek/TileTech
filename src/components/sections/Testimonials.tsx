@@ -33,10 +33,10 @@ const projectLabels: Record<string, string> = {
 // Avatar colors cycling through warm palette
 const avatarColors = [
   'bg-primary text-white',
-  'bg-amber-600 text-white',
+  'bg-amber-700 text-white',
   'bg-stone-600 text-white',
-  'bg-orange-700 text-white',
-  'bg-rose-700 text-white',
+  'bg-orange-800 text-white',
+  'bg-amber-800 text-white',
   'bg-yellow-700 text-white',
 ];
 
@@ -103,9 +103,9 @@ const TestimonialCard: React.FC<{ t: Testimonial; colorClass: string }> = ({ t, 
   const initial = t.name.charAt(0);
 
   return (
-    <div className="h-full flex flex-col bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+    <div className="h-full flex flex-col bg-white hover:bg-amber-50/30 border border-gray-100 border-r-[3px] border-r-primary rounded-2xl p-6 shadow-md hover:shadow-lg transition-all duration-300">
       {/* Large quote */}
-      <span className="text-5xl font-serif leading-none text-primary/20 select-none mb-2" aria-hidden>❝</span>
+      <span className="text-6xl font-serif leading-none text-primary/30 select-none mb-2" aria-hidden>❝</span>
 
       {/* Text */}
       <p className="text-secondary/70 font-assistant text-sm leading-relaxed flex-1 mb-3">
@@ -166,6 +166,7 @@ const Testimonials: React.FC = () => {
       className="relative py-20 bg-neutral-light overflow-hidden"
       dir="rtl"
     >
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(181,113,74,0.06),transparent_60%)]" aria-hidden />
       {/* Subtle terracotta glow */}
       <div className="absolute -top-32 -left-32 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" aria-hidden />
 
@@ -198,6 +199,24 @@ const Testimonials: React.FC = () => {
           >
             אנו גאים בשירות שאנו מספקים ובעבודה האיכותית שלנו
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex items-center justify-center gap-3 mt-6 mb-2"
+          >
+            <div className="flex items-center gap-1">
+              {[1,2,3,4,5].map(i => (
+                <svg key={i} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 text-amber-400">
+                  <path fillRule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clipRule="evenodd" />
+                </svg>
+              ))}
+            </div>
+            <span className="font-frank font-bold text-secondary text-lg">5.0</span>
+            <span className="text-secondary/40 font-assistant text-sm">•</span>
+            <span className="font-assistant text-secondary/60 text-sm">מעל 100 לקוחות מרוצים</span>
+          </motion.div>
         </div>
 
         {/* Carousel */}

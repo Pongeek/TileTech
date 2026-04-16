@@ -54,7 +54,11 @@ const fallbackIcon = (
   </svg>
 );
 
-const fallbackColors = ['bg-primary', 'bg-secondary', 'bg-accent', 'bg-neutral'];
+const fallbackGradients = [
+  { from: '#2E2A26', to: '#4A3728' },
+  { from: '#1E2A2E', to: '#2A4048' },
+  { from: '#2A2620', to: '#3E3020' },
+];
 
 const ServiceCard: React.FC<ServiceCardProps> = ({
   id,
@@ -70,7 +74,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
 }) => {
   const [imageError, setImageError] = useState(false);
   const renderedIcon = iconMap[icon] ?? fallbackIcon;
-  const fallbackBg = fallbackColors[(id - 1) % fallbackColors.length];
+  const fallbackGradient = fallbackGradients[(id - 1) % fallbackGradients.length];
   const hasValidImage = imageUrl && !imageUrl.startsWith('data:image') && !imageError;
 
   return (
@@ -81,10 +85,10 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       onClick={onClick}
       className={`group relative flex flex-col bg-white rounded-lg overflow-hidden cursor-pointer transition-all duration-300 motion-reduce:transition-none
         ${featured
-          ? 'border-2 border-primary shadow-lg shadow-primary/10 hover:shadow-xl hover:shadow-primary/15 hover:-translate-y-1'
+          ? 'border-2 border-primary shadow-lg shadow-primary/10 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2'
           : isSelected
             ? 'ring-2 ring-primary border border-gray-200 shadow-lg'
-            : 'border border-gray-200 shadow-md hover:shadow-lg hover:-translate-y-1 motion-reduce:hover:transform-none'
+            : 'border border-gray-200 shadow-md hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 motion-reduce:hover:transform-none'
         }`}
     >
       {/* Featured badge */}
@@ -101,7 +105,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       <div className={`absolute top-0 inset-x-0 h-0.5 rounded-t-lg transition-colors duration-300 ${featured ? 'bg-primary' : isSelected ? 'bg-primary' : 'bg-transparent group-hover:bg-primary/40'}`} />
 
       {/* Image */}
-      <div className="relative h-44 overflow-hidden shrink-0">
+      <div className="relative h-56 overflow-hidden shrink-0">
         {hasValidImage ? (
           <Image
             src={imageUrl}
@@ -112,7 +116,13 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
             onError={() => setImageError(true)}
           />
         ) : (
-          <div className={`absolute inset-0 ${fallbackBg} flex items-center justify-center`}>
+          <div
+            className="absolute inset-0 flex items-center justify-center"
+            style={{
+              background: `linear-gradient(135deg, ${fallbackGradient.from}, ${fallbackGradient.to})`,
+              backgroundImage: `linear-gradient(135deg, ${fallbackGradient.from}, ${fallbackGradient.to}), url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 20 0 L 0 0 0 20' fill='none' stroke='rgba(255,255,255,0.08)' stroke-width='0.5'/%3E%3C/svg%3E")`,
+            }}
+          >
             <div className="text-white/80">{renderedIcon}</div>
           </div>
         )}
