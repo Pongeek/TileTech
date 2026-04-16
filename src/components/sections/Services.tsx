@@ -128,8 +128,9 @@ const Services: React.FC = () => {
   return (
     <section
       id="services"
-      className="scroll-mt-16 py-16 bg-white"
+      className="scroll-mt-16 py-16"
       dir="rtl"
+      style={{ backgroundColor: '#FAFAF8', backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 40 0 L 0 0 0 40' fill='none' stroke='rgba(180,140,100,0.07)' stroke-width='0.5'/%3E%3C/svg%3E\")" }}
     >
       <div className="container-custom">
         <motion.div

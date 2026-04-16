@@ -274,6 +274,28 @@ const Projects: React.FC = () => {
           </motion.div>
         )}
         
+        {/* Bottom CTA */}
+        {!loading && !error && filteredProjects.length > 0 && (
+          <motion.div
+            className="text-center mt-14"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <p className="font-assistant text-secondary/60 text-sm mb-4">מרוצים ממה שראיתם? בואו נבנה משהו יפה ביחד</p>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2.5 bg-primary text-white font-frank font-bold text-base px-8 py-4 rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-1 transition-all duration-200"
+            >
+              <span>דברו איתנו על הפרויקט שלכם</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 rtl:rotate-180">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </a>
+          </motion.div>
+        )}
+
         {/* Empty state */}
         {!loading && !error && filteredProjects.length === 0 && (
           <div className="text-center py-12">

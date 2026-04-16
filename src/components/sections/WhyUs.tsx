@@ -84,6 +84,26 @@ const WhyUs: React.FC = () => {
           </p>
         </motion.div>
 
+        {/* Stats strip */}
+        <motion.div
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+        >
+          {[
+            { number: '500+', label: 'פרויקטים הושלמו' },
+            { number: '15+', label: 'שנות ניסיון' },
+            { number: '98%', label: 'לקוחות מרוצים' },
+            { number: '3', label: 'ערים בישראל' },
+          ].map((stat, i) => (
+            <div key={i} className="text-center py-5 px-4 rounded-2xl bg-white/5 border border-white/10">
+              <p className="font-frank font-bold text-3xl md:text-4xl text-primary mb-1">{stat.number}</p>
+              <p className="font-assistant text-white/55 text-xs tracking-wide">{stat.label}</p>
+            </div>
+          ))}
+        </motion.div>
+
         {/* Cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {features.map((feature, index) => (
