@@ -1,12 +1,11 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import ServiceCard from '@/components/ui/ServiceCard';
 import SectionHeader from '@/components/ui/SectionHeader';
 import BeforeAfterSlider from '@/components/ui/BeforeAfterSlider';
 import { useServices, Service } from '@/hooks/useServices';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useInView } from 'framer-motion';
 
 // Animation variants
 const containerVariants = {
@@ -50,9 +49,6 @@ const detailsVariants = {
 const Services: React.FC = () => {
   const { services, loading, error, selectedService, selectService } = useServices();
   const [activeTab, setActiveTab] = useState<'cards' | 'details'>('cards');
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
-  const [shouldLoadImages] = useState(true); // Always load images immediately
 
   // Handle service selection
   const handleServiceSelect = (id: number) => {
@@ -97,11 +93,12 @@ const Services: React.FC = () => {
     if (!services || loading) return;
     services.forEach((service) => {
       const src = getImageUrl(service, 'main');
-      if (src && src.startsWith('http')) {
+      if (src?.startsWith('http')) {
         const img = new window.Image();
         img.src = src;
       }
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [services, loading]);
 
   if (loading) {
@@ -129,17 +126,17 @@ const Services: React.FC = () => {
   }
 
   return (
-    <section 
-      id="services" 
-      className="py-16 bg-white"
-      ref={sectionRef}
+    <section
+      id="services"
+      className="scroll-mt-16 py-16 bg-white"
       dir="rtl"
     >
       <div className="container-custom">
         <motion.div
           className="mb-12"
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5 }}
         >
           <SectionHeader
@@ -156,7 +153,8 @@ const Services: React.FC = () => {
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
               variants={containerVariants}
               initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.05 }}
               exit={{ opacity: 0, transition: { duration: 0.2 } }}
             >
               {services.map((service, index) => (
@@ -172,7 +170,7 @@ const Services: React.FC = () => {
                     description={service.description.he}
                     features={service.features.he}
                     specialties={service.specialties}
-                    imageUrl={shouldLoadImages ? getImageUrl(service, 'main') : ''}
+                    imageUrl={getImageUrl(service, 'main')}
                     icon={service.icon}
                     featured={service.id === 1}
                     onClick={() => handleServiceSelect(service.id)}
