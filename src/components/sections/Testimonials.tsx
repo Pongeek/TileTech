@@ -163,7 +163,7 @@ const Testimonials: React.FC = () => {
     <section
       id="testimonials"
       ref={sectionRef}
-      className="relative py-20 bg-neutral-light overflow-hidden"
+      className="relative pt-20 pb-28 bg-neutral-light overflow-hidden"
       dir="rtl"
     >
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(181,113,74,0.06),transparent_60%)]" aria-hidden />
@@ -281,6 +281,12 @@ const Testimonials: React.FC = () => {
           height: auto !important;
         }
       `}</style>
+      {/* Diagonal divider to Contact */}
+      <div className="absolute bottom-0 inset-x-0 pointer-events-none leading-[0]" style={{height: '60px'}}>
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="absolute bottom-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,60 L1440,8 L1440,60 Z" fill="#2E2A26"/>
+        </svg>
+      </div>
     </section>
   );
 };

@@ -42,25 +42,44 @@ const ContactRow = ({ icon, label, value, href }: { icon: React.ReactNode; label
   </div>
 );
 
-/* ── form field ── */
-const Field = ({
-  label, name, type = 'text', value, onChange, placeholder, required,
+/* ── floating label form field ── */
+const FloatingField = ({
+  label, name, type = 'text', value, onChange, required,
 }: {
   label: string; name: string; type?: string; value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder?: string; required?: boolean;
-}) => (
-  <div>
-    <label htmlFor={name} className="block text-white/70 font-assistant text-sm mb-1.5">
-      {label}{required && <span className="text-primary mr-0.5">*</span>}
-    </label>
-    <input
-      id={name} name={name} type={type} value={value} onChange={onChange}
-      placeholder={placeholder} autoComplete={type === 'tel' ? 'tel' : type === 'email' ? 'email' : 'name'}
-      className="w-full bg-white/8 border border-white/15 rounded-xl px-4 py-3 text-white font-assistant text-sm placeholder:text-white/30 focus:outline-none focus:border-primary/60 focus:bg-white/12 transition-all"
-    />
-  </div>
-);
+  required?: boolean;
+}) => {
+  const [focused, setFocused] = React.useState(false);
+  const floated = focused || value.length > 0;
+  return (
+    <div className="relative">
+      <input
+        id={name} name={name} type={type} value={value}
+        onChange={onChange}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        placeholder=" "
+        autoComplete={type === 'tel' ? 'tel' : type === 'email' ? 'email' : 'off'}
+        className={`w-full bg-white/8 border rounded-xl px-4 pt-6 pb-2.5 text-white font-assistant text-sm focus:outline-none transition-all duration-200 ${
+          focused
+            ? 'border-primary/70 bg-white/12 shadow-[0_0_0_3px_rgba(181,113,74,0.18)]'
+            : 'border-white/15 hover:border-white/25'
+        }`}
+      />
+      <label
+        htmlFor={name}
+        className={`absolute right-4 font-assistant pointer-events-none transition-all duration-200 ${
+          floated
+            ? 'top-1.5 text-[10px] text-primary/80 font-medium'
+            : 'top-[1.05rem] text-sm text-white/40'
+        }`}
+      >
+        {label}{required && <span className="text-primary/80 mr-0.5">*</span>}
+      </label>
+    </div>
+  );
+};
 
 /* ── success state ── */
 const Success = ({ onReset }: { onReset: () => void }) => (
@@ -208,13 +227,13 @@ const Contact: React.FC = () => {
                     <h3 className="text-2xl font-frank font-bold text-white mb-7">השאירו פרטים</h3>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                      <Field label="שם פרטי" name="firstName" value={form.firstName} onChange={handleChange} placeholder="ישראל" required />
-                      <Field label="שם משפחה" name="lastName" value={form.lastName} onChange={handleChange} placeholder="ישראלי" />
+                      <FloatingField label="שם פרטי" name="firstName" value={form.firstName} onChange={handleChange} required />
+                      <FloatingField label="שם משפחה" name="lastName" value={form.lastName} onChange={handleChange} />
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                      <Field label="טלפון" name="phone" type="tel" value={form.phone} onChange={handleChange} placeholder="05X-XXXXXXX" required />
-                      <Field label='דוא"ל' name="email" type="email" value={form.email} onChange={handleChange} placeholder="email@example.com" />
+                      <FloatingField label="טלפון" name="phone" type="tel" value={form.phone} onChange={handleChange} required />
+                      <FloatingField label='דוא"ל' name="email" type="email" value={form.email} onChange={handleChange} />
                     </div>
 
                     {error && (

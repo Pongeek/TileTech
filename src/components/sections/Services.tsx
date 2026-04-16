@@ -128,7 +128,7 @@ const Services: React.FC = () => {
   return (
     <section
       id="services"
-      className="scroll-mt-16 py-16"
+      className="scroll-mt-16 pt-16 pb-28 relative overflow-hidden"
       dir="rtl"
       style={{ backgroundColor: '#FAFAF8', backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 40 0 L 0 0 0 40' fill='none' stroke='rgba(180,140,100,0.07)' stroke-width='0.5'/%3E%3C/svg%3E\")" }}
     >
@@ -329,6 +329,12 @@ const Services: React.FC = () => {
             </motion.div>
           )}
         </AnimatePresence>
+      </div>
+      {/* Diagonal divider to WhyUs */}
+      <div className="absolute bottom-0 inset-x-0 pointer-events-none leading-[0]" style={{height: '60px'}}>
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="absolute bottom-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,60 L1440,8 L1440,60 Z" fill="#2E2A26"/>
+        </svg>
       </div>
     </section>
   );
