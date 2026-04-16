@@ -76,6 +76,15 @@ const Hero: React.FC = () => {
                 ) : (
                   <div className="absolute inset-0 z-0" style={{ backgroundColor: slide.bgColor }} />
                 )}
+                {/* Tile grid texture */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    zIndex: 4,
+                    backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='0' width='40' height='40' fill='none' stroke='rgba(255,255,255,0.055)' stroke-width='0.5'/%3E%3C/svg%3E\")",
+                    backgroundRepeat: 'repeat',
+                  }}
+                />
                 <div
                   suppressHydrationWarning
                   className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/10"
@@ -157,6 +166,13 @@ const Hero: React.FC = () => {
           color: rgba(255,255,255,0.85);
         }
       `}</style>
+
+      {/* Diagonal divider to Services */}
+      <div className="absolute bottom-0 inset-x-0 pointer-events-none leading-[0]" style={{height: '70px', zIndex: 25}}>
+        <svg viewBox="0 0 1440 70" preserveAspectRatio="none" className="absolute bottom-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,70 L1440,15 L1440,70 Z" fill="#FAFAF8"/>
+        </svg>
+      </div>
     </section>
   );
 };

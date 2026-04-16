@@ -62,7 +62,7 @@ const WhyUs: React.FC = () => {
   const isInView = useInView(ref, { once: true, amount: 0.15 });
 
   return (
-    <section className="py-20 bg-secondary overflow-hidden" dir="rtl" ref={ref}>
+    <section className="relative pt-20 pb-28 bg-secondary overflow-hidden" dir="rtl" ref={ref}>
       <div className="container-custom">
 
         {/* Header */}
@@ -82,26 +82,6 @@ const WhyUs: React.FC = () => {
           <p className="font-assistant text-white/60 max-w-xl mx-auto text-sm leading-relaxed">
             בTileTech אנו מאמינים שכל פרויקט הוא הזדמנות לשנות מרחב ולהשאיר רושם. הנה מה שמייחד אותנו:
           </p>
-        </motion.div>
-
-        {/* Stats strip */}
-        <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5, delay: 0.15 }}
-        >
-          {[
-            { number: '500+', label: 'פרויקטים הושלמו' },
-            { number: '15+', label: 'שנות ניסיון' },
-            { number: '98%', label: 'לקוחות מרוצים' },
-            { number: '3', label: 'ערים בישראל' },
-          ].map((stat, i) => (
-            <div key={i} className="text-center py-5 px-4 rounded-2xl bg-white/5 border border-white/10">
-              <p className="font-frank font-bold text-3xl md:text-4xl text-primary mb-1">{stat.number}</p>
-              <p className="font-assistant text-white/55 text-xs tracking-wide">{stat.label}</p>
-            </div>
-          ))}
         </motion.div>
 
         {/* Cards grid */}
@@ -156,6 +136,13 @@ const WhyUs: React.FC = () => {
             </motion.div>
           ))}
         </div>
+      </div>
+
+      {/* Diagonal divider to Projects */}
+      <div className="absolute bottom-0 inset-x-0 overflow-hidden leading-[0] pointer-events-none" style={{height: '60px'}}>
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="absolute bottom-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,60 L1440,10 L1440,60 Z" fill="#ECEAE4"/>
+        </svg>
       </div>
     </section>
   );
